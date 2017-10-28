@@ -2,6 +2,7 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{setspace}
+\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 
 \usepackage{geometry}
 \geometry{textheight=9.5in, textwidth=7in}
@@ -17,8 +18,8 @@
 \def \CapstoneSponsorPerson{		Chris Smith}
 
 % 2. Uncomment the appropriate line below so that the document type works
-\def \DocType{		%Problem Statement
-				Requirements Document
+\def \DocType{		Problem Statement
+				%Requirements Document
 				%Technology Review
 				%Design Document
 				%Progress Report
@@ -97,54 +98,90 @@
 	\end{description}
 \end{description}
 
-Due to a wide ranging number of formats for different types of forms,the program is to utilize modern machine learning techniques, more specifically neural networks and neural network capabilities. To do so it is required that existing machine learning frameworks be used. Some examples include DL4J, TensorFlow, and OpenCV. The program is to be deployed on many different machines, making it essential that it be compatible with cross platform container software such as Docker. Given that the software is to learn from a large number of data points that will be provided by our client, it is also essential that it be able to run without problems for extended amounts of time. The software must be coded with scalability in mind; it should keep track of previously parsed documents and be able to consistently classify new documents into the aforementioned categories (fully signed, lacking signatures, lacking space for a signature / not applicable). 
+Due to a wide ranging number of formats for different types of forms,the program is to utilize modern machine learning techniques, more specifically neural networks and neural network capabilities. To do so it is required that existing machine learning frameworks be used. Some examples include DL4J, TensorFlow, and OpenCV. The program is to be deployed on many different machines, making it essential that it be compatible with cross platform container software such as Docker. Given that the software is to learn from a large number of data points that will be provided by our client, it is also essential that it be able to run without problems for extended amounts of time. The software must be coded with scalability in mind; It should keep track of previously parsed documents and be able to consistently classify new documents into the aforementioned categories (fully signed, lacking signatures, lacking space for a signature / not applicable). 
 
-Once the program structure and functionality is up to the client's standard in regards to basic functionality (85\% classification success rate), it must become cloud deploy able utilizing Amazon Web Services or services of similar nature. 
+Once the program structure and functionality is up to the client's standard in regards to basic functionality (~85\% classification success rate) , it must become cloud deploy able utilizing Amazon Web Services or services of similar nature. 
 
 \section{Stretch Goals}
 	
-	Once the software can perform ALL of the aforementioned tasks with an industry satisfactory success rate (95\% classification success rate), our client is interested in expanding the software to outline key features pertaining to pictures of vehicles clients send in. These include but are not limited to :
+	Once the software can perform ALL of the aforementioned tasks with an industry satisfactory success rate (>95\% classification success rate), our client is interested in expanding the software to outline key features pertaining to pictures of vehicles clients send in. These include but are not limited to :
 \begin{description}
-	\item[--]The model of the vehicle
-	\item[--]The make of the vehicle 
-	\item[--]License plate information
-	\item[--]Legal information regarding such licenses
-	\item[--]The condition of the vehicle: dents, cracks, and scratches.
+	\item[--]The model of the vehicle.
+	\item[--]The make of the vehicle .
+	\item[--]License plate information.
+	\item[--]Legal information regarding such licenses.
+	\item[--]The condition of the vehicle: dents, cracks and scratches.
 \end{description}
 
-Given that this is a stretch goal, our client put extra emphasis on taking it one feature at a time. These features are outlined in a manner where they each provide a level of significance to the overall project. The software must first be able to detect that the picture is of a vehicle.  Once it can satisfactorily do this (85\% classification success rate), we may move on to the next feature: detecting the license plate, and parsing it into machine readable text. If we are able to achieve a satisfactory rate in this aspect, we are then tasked to move on to detecting the make and model of the vehicle. Lastly, if all other milestones have been successfully completed, we are tasked with detecting key features regarding the vehicle's condition. 
+Given that this is a stretch goal, our client put extra emphasis on taking it one feature at a time. These features are outlined in a manner where they each provide a level of significance to the overall project .The software must first be able to detect that the picture is of a car.  Once it can satisfactorily do this (again, ~85\% classification success rate), we may move on to the next feature: detecting the license plate, and parsing it into machine readable text. If we are able to achieve a satisfactory rate in this aspect, we are then tasked to move on to detecting the make and model of the vehicle. Lastly, if all other milestones have been successfully completed, we are tasked with detecting key features regarding the vehicle's condition. 
 
 \section{Gantt Chart}
-\textbf{Practice}
+
+This section details the groups schedule in complete the given tasks per the school year of 2017. Included is a Gantt chart detailing what the specific task is and the time frame over which they're scheduled to take place.
+
+Fall Term
 \begin{description}
-	\item[--]Study machine learning framework.
-	\item[--]Build small texture detecting program.
+	\item[Week 6:]10/29
+	\item[End:]   Friday, December 8, 2017
 \end{description}
 
-\textbf{PMain goal: Build first prototype}
+
+Winter term
 \begin{description}
-	\item[--]Study on texture detecting A.I algorithm
+	\item[Begin:]Monday, January 8, 2018
+	\item[End:]	 Friday, March 23, 2018
+\end{description}
+
+
+Spring Term
+\begin{description}
+	\item[Begin:]Monday, April 2, 2018
+	\item[Expo:] 	Tentatively May 18, 2018
+	\item[End:]			Friday, June 15, 2018
+\end{description}
+
+
+
+\includegraphics[scale = 1]{GantProjectReqs.PNG}
+
+\pagebreak
+
+Practice
+\begin{description}
+	\color{green}
+	\item[--]Study machine learning framework
+	\color{yellow}
+	\item[--]Build Small texture detecting program
+\end{description}
+
+\color{black}
+Main: Build first prototype
+\begin{description}
+	\color{Orange}
+	\item[--]Study on texture detecting A.I. algorithm
+	\color{blue}
 	\item[--]Build program that detects handwritten signatures from document
-	\item[--]Adapt program to different format of document
+	\color{purple}
+	\item[--]Adapt program to accept ranging document formats
 	\begin{description}
+		\color{black}
 		\item[--]Data feeding
-		\item[--]Check license information
-		\item[--]Check permit information 
+		\item[--]Check License information
+		\item[--]Check permit information
 	\end{description}
+	\color{brown}
 	\item[--]Optimize the program
 	\begin{description}
+		\color{black}
 		\item[--]Debugging
 	\end{description}
 \end{description}
-
-\textbf{Stretch goal:This will be scheduled after finishing main goal}
+Stretch Goals (to be scheduled after completion of original goals)
 \begin{description}
-	\item[--]Study on picture detecting A.I algorithm
-	\item[--]The model of the vehicle
-	\item[--]The make of the vehicle 
-	\item[--]License plate information
-	\item[--]Legal information regarding such licenses
-	\item[--]The condition of the vehicle: dents, cracks, and scratches.
+	\item[--]Detect the model of a vehicle
+	\item[--]Detect the make of a vehicle
+	\item[--]Detect/read license plate information
+	\item[--]Detect/read license and permit information
+	\item[--]Gather information of the condition of the vehicle (e.g.: dents, cracks and scratches)
 \end{description}
-
 \end{document}
