@@ -84,23 +84,23 @@
 \clearpage
 
 % 8. now you write!
-\section{Main Goal}
+\section{The Problem}
 	ROUGH DRAFT PRE-MEETING WITH CLIENT
-	
-	CDK as a dealership oriented company routinely deals with the management of thousands of documents. Given the diverse nature of how these are gathered,  often incorrect, incomplete, or lacking key information. Moreover, many of these documents are not gathered electronically, making it basically impossible to utilize existing computing resources to address these issues. This leaves CDK with only one option, to waste human resources in performing very mundane and automatable tasks. Our job for this project is to create standalone software that can parse pictures in PDF format to gather from these details of the following nature:
-\begin{description}
-	\item[--]Is the document signed.
-	\item[--]Should the document be signed, if so, in how many places. More so, where are there signatures missing, how many are missing and are these necessary to the integrity of the document.
-	\item[--]Information regarding different legal forms contained within the document which will first be presented in an image format but must be parsed into text. These include, but are not limited to:
-	\begin{description}
-		\item[--]License information
-		\item[--]Permit information 
-	\end{description}
-\end{description}
+The Problem:
+CDK is a company focused in automotive dealership that has affiliated offices around the world each providing their own personal design regarding documentation as well as dealing with unique laws of the various countries they reside in. Given the diverse nature of this setup CDK is in a difficult spot with the gathering, documenting, and proofreading of these documents. Adding to this issue is the fact that these documents are physical and need to be scanned in for safe storage which leads to concerns regarding consistency. Some concerns are: differing file extensions, scanning errors, and physical damage of the document. As it stands it is too easy for errors to slip through and is too costly to locally check each document as they have done in the past. 
 
-Due to a wide ranging number of formats for different types of forms,the program is to utilize modern machine learning techniques, more specifically neural networks and neural network capabilities. To do so it is required that existing machine learning frameworks be used. Some examples include DL4J, TensorFlow, and OpenCV. The program is to be deployed on many different machines, making it essential that it be compatible with cross platform container software such as Docker. Given that the software is to learn from a large number of data points that will be provided by our client, it is also essential that it be able to run without problems for extended amounts of time. The software must be coded with scalability in mind; It should keep track of previously parsed documents and be able to consistently classify new documents into the aforementioned categories (fully signed, lacking signatures, lacking space for a signature / not applicable). 
+\section{Solution and Rules}
+Solution and Rules:
+With this challenge CDK has proposed a solution, a single AI platform that can process digitally submitted documents with the intent of confirming whether a document has been signed. This proposition comes with a few hard-line rules that must be followed. These rules are: use of an open source AI, follow a black box design, and formatted in such a way that a new team can take over after project completion. Failure is a recognized possibility and should failure occur a detailed write up as to the what, where, and why of the failure must be given so that CDK can either wait for the technology to meet its ambitions or explore a new approach to the problem.
 
-Once the program structure and functionality is up to the client's standard in regards to basic functionality (~85\% classification success rate) , it must become cloud deploy able utilizing Amazon Web Services or services of similar nature. 
+\section{Primary Requirement}
+
+The primary objective for our team is the creation of a program that can parse through images in PDF format and determine a few key points about a given document. We must be able to determine if a document was correctly signed. From this we must also confirm all signature blocks have been filled out within a form. Consideration for cosigners must also be made, prompt the user if a cosigner field is left blank for instance. CDK is also interested in detecting valid driver licenses, an example would be to check if the license has expired.
+For completion of this task an AI platform will need to be selected that will best fit our needs. As it stands OpenCV is the primary candidate for completing this task but should it prove incapable two backup platforms are being considered which are DL4j and TensorFlow. OpenCV looks to be a solid choice given its numerous publicly available tutorials and guides on image processing. Its ability to readily convert images into binary coloring, line detection, and template matching will all likely be utilized for signature detection.
+
+ The program is to be deployed on many different machines, making it essential that it be compatible with cross platform container software such as Docker. Given that the software is to learn from a large number of data points that will be provided by our client, it is also essential that it be able to run without problems for extended amounts of time. The software must be coded with scalability in mind; It should keep track of previously parsed documents and be able to consistently classify new documents into the aforementioned categories (fully signed, lacking signatures, lacking space for a signature / not applicable). 
+
+\pagebreak
 
 \section{Stretch Goals}
 	
@@ -144,7 +144,6 @@ Spring Term
 
 \includegraphics[scale = 1]{GantProjectReqs.PNG}
 
-\pagebreak
 
 Practice
 \begin{description}
