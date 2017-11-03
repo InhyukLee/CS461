@@ -146,7 +146,7 @@ All images provided by the client are sanitized and free of legal conflicts. Clo
 \section{Specific Requirements}
 
 \subsection{External Interface Requirements}
-The main interface design principle of this software are intuitiveness and simplicity. Since potential user of the software are people who knows little or non about machine intelligence, software must be easy to use without knowing any of the background information.
+The main interface design principle of this software are intuitiveness and simplicity. Since potential users of the software are people who knows little or non about machine intelligence, software must be easy to use without knowing any of the background information.
 
 \subsubsection{User Interfaces}
 The signature detection software interface window is consist with four sections which are top menu bar, pop-up window, detection window, and feedback window. $\langle$Figure 1$\rangle$ shows the interface structure of signature detection software.
@@ -154,13 +154,13 @@ The signature detection software interface window is consist with four sections 
 Following are descriptions of each section:
 
 \begin{description}
-	\item[1.]Top Menu Bar:  On top menu bar, there are five button that has different functions. From the left side, load file, save progress, start detection, stop detection, continue detection buttons are located. Load file button loads up the file that needs to be processed. Save progress button allow user to save the progress of the current work and run it later. When user press either load or save button shows pop-up windows for load and save file on $\langle$Figure 2$\rangle$. Detection buttons allow user to start, stop, and continue the detection.
+	\item[1.]Top Menu Bar:  There are five buttons that serve different functions for this section. Starting from the left side: load file, save progress, start detection, stop detection, and continue detection. 'Load File' button loads up the file that needs to be processed. 'Save Progress' button allow user to save the progress of currently active work and start it later. When a user presses either load or save it will display a pop-up window for each respectively as shown in $\langle$Figure 2$\rangle$. Detection buttons allow user to start, stop, and continue the detection.
 
-	\item[2.]Pop-up Window: Pop-up window will be shown whenever error is detected or load or save file button is pressed. This window will show at the middle of the main window to either alarm error message or sub window that gives proper interaction tool.
+	\item[2.]Pop-up Window: Whenever an error is detected or load/save file button is pressed. This window will show at the middle of the screen to either alert of an error or indicate a sub window that gives proper interaction control.
 
-	\item[3.]Detection Window: This window displays current working document. Software scan through the given document to find signature box. Orange box on $\langle$Figure 1$\rangle$ denotes where the software is currently looking at, so user can get sense of how much work is done. It also highlights the location of missing signature or incorrect with red box $\langle$Figure 1$\rangle$. This box will be shown whenever software locate missing or incorrect signature.
+	\item[3.]Detection Window: This window displays current working document. Software scan through the given document to find signature box. Orange box on $\langle$Figure 1$\rangle$ denotes where the software is currently looking at, so user can get a sense of how much work is done. It also highlights the location of missing or incorrect signatures with a red box $\langle$Figure 1$\rangle$. This box will be shown whenever software locates missing or incorrect signatures.
 
-	\item[4.]Information Window: Information window shows more detail information about each working documents. It displays important information such as the number of missing signature, the number of incorrect signature, presence of co-sign box, the number of pages finished detection, and the number of pages on the queue.
+	\item[4.]Information Window: Will show more detailed information about each active document. It displays important information such as the number of missing signature, the number of incorrect signatures, presence of co-sign box, the number of pages finished detection, and the number of pages on the queue.
 
 \end{description}
 
@@ -181,9 +181,9 @@ For this project, all software acts independently. In the future, the project wi
 
 \hfill\begin{minipage}{\dimexpr\textwidth-1cm}
 \paragraph{Introduction/Purpose of feature}
-The program must be able to detect if a document contains a signature regardless of the format of the form.
+The program must be able to detect if a document contains a signature regardless of the documents formatting.
 \paragraph{Stimulus/Response sequence}
-The program will parse a PDF image of a document , or a document in PDF format, and output a percentage based estimation as to whether it contains a signature.
+The program will parse a PDF image of a document, or a document in PDF format, and output a percentage based estimation as to whether it contains a signature.
 \paragraph{Functional Requirements}
 Signature detection must be functional for all types of document formats regardless of the type so long as they are presented in PDF file format. 
 \end{minipage}
@@ -215,7 +215,7 @@ Multiple signature and multiple missing signature capabilities must be functiona
 
 \vspace{.75cm}
 \textbf{\textit{The following features are part of the groups stretch goals and are to be completed once the aforementioned features work to the satisfaction of the client. 
-}}.
+}}
 \vspace{.75cm}
 
 
@@ -251,7 +251,7 @@ Once the program can perform features 3.2.3 and 3.2.4, it must then parse the co
 \paragraph{Stimulus/Response sequence}
 The program will parse a license, permit, or license plate image in PDF format and extract the information presented into a machine readable format. 
 \paragraph{Functional Requirements}
-The program must be able to read information within any license plate, license, or permit regardless of the origin of these so long as they are presented in a PDF format.  
+The program must be able to read information within any license plate, license, or permit regardless of the origin so long as they are presented in a PDF format.  
 \end{minipage}
 \vspace{.75cm}
 
