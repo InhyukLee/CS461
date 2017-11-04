@@ -146,39 +146,11 @@ All images provided by the client are sanitized and free of legal conflicts. Clo
 \section{Specific Requirements}
 
 \subsection{External Interface Requirements}
-The main interface design principle of this software are intuitiveness and simplicity. Since potential users of the software are people who knows little or non about machine intelligence, software must be easy to use without knowing any of the background information.
+The focus of this project is building signature detecting artificial intelligence run on the CDK server. It must be designed as black box model, so user interface must be simple . Since software runs on the CDK server, communication interface must be secure and durable. 
 
-\subsubsection{User Interfaces}
-The signature detection software interface window is consist with four sections which are top menu bar, pop-up window, detection window, and feedback window. $\langle$Figure 1$\rangle$ shows the interface structure of signature detection software.
+The structure of user interface is very simple. There are two functions in user interface. Software simply takes set of documents from the user, and it displays result of the signature detection to the user. Result of the signature will be any pages of the document where error is detected.
 
-Following are descriptions of each section:
-
-\begin{description}
-	\item[1.]Top Menu Bar:  There are five buttons that serve different functions for this section. Starting from the left side: load file, save progress, start detection, stop detection, and continue detection. 'Load File' button loads up the file that needs to be processed. 'Save Progress' button allow user to save the progress of currently active work and start it later. When a user presses either load or save it will display a pop-up window for each respectively as shown in $\langle$Figure 2$\rangle$. Detection buttons allow user to start, stop, and continue the detection.
-
-	\item[2.]Pop-up Window: Whenever an error is detected or load/save file button is pressed. This window will show at the middle of the screen to either alert of an error or indicate a sub window that gives proper interaction control.
-
-	\item[3.]Detection Window: This window displays current working document. Software scan through the given document to find signature box. Orange box on $\langle$Figure 1$\rangle$ denotes where the software is currently looking at, so user can get a sense of how much work is done. It also highlights the location of missing or incorrect signatures with a red box $\langle$Figure 1$\rangle$. This box will be shown whenever software locates missing or incorrect signatures.
-
-	\item[4.]Information Window: Will show more detailed information about each active document. It displays important information such as the number of missing signature, the number of incorrect signatures, presence of co-sign box, the number of pages finished detection, and the number of pages on the queue.
-
-\end{description}
-
-\begin{figure}[h]
-\includegraphics[width= 7.5cm]{Figure_1}
-\includegraphics[width= 7.5cm]{Figure_2}
-\centering
-\end{figure}
-
-\subsubsection{Hardware interfaces}
-This project does not include building any specific hardware. Therefore, there is no hardware interface for this software.
-
-\subsubsection{Software interfaces}
-The software will be built utilizing a Linux installation of the OpenCV image processing framework. In order to ensure the program is portable, the project will utilize the Docker container software. Cloud deployment will be handled by the Amazon Web Services platform.
-
-\subsubsection{Communications interfaces}
-For this project, all software acts independently. In the future, the project will be developed to communicate with other instances of itself in order to improve its performance.  However, in this project, building the individual first instance is the main focus.
-
+Communication between our software and the CDK server database is important; however, focus on this project is making accurate and reliable artificial intelligence. We are considering the use of docker and amazon web services to construct a reliable communication structure but this is a stretch goal of the project.
 
 \subsection{System Features}
 \subsubsection{Signature detecting capability}\vspace{.5cm}
