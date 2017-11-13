@@ -93,7 +93,7 @@ Overview of SRS
 \subsection{Purpose}
 The purpose of this requirements document is to bring clarity to the project by indicating what the hard-line requirements are for the project to be considered a success. This will be done with the consideration that the desired end product may not be achievable and as a result will be treated as a form of research project or proof of concept.
 
-Intended target audience for this document is our client and by extension CDK given this is their idea and the success of the project directly assists them. In addition, our instructors and teaching assistant are extensively involved in this project and they will be using this as a grading guideline. The assumption is that the reader is familiar with general concepts within computer science including artificial intelligence, common programming languages, and coding environments.
+Intended target audience for this document is our client and by extension CDK[1] given this is their idea and the success of the project directly assists them. In addition, our instructors and teaching assistant are extensively involved in this project and they will be using this as a grading guideline. The assumption is that the reader is familiar with general concepts within computer science including artificial intelligence, common programming languages, and coding environments.
 
 
 \subsection{Scope}
@@ -104,15 +104,37 @@ This project will be capable of analyzing a submitted form to locate its signatu
 Benefits from this product include reduced costs for CDK in error checking forms, rapid validation of a document, and a singular platform that can scan the various form styles that CDK possesses. Another goal of this design is the ability for it to expand upon itself and adapt to new forms that may be introduced by permitting operator confirmation or override on its assessment. 
 
 \subsection{Definitions, Acronyms, and Abbreviations}
-Open source AI is a free to access platform in which the code can be used and implemented as seen fit by the operator. OpenCV is a popular image processing example of this as well as TensorFlow and DL4j. Programming languages that may be used include C++, Python, and Java. The use of an IDE is likely, which means Integrated Development Environment which provides a more convenient setup for coding. Examples of IDE’s include Microsoft Visual Studio and Eclipse. Black box design means that the user does not need to understand the internal functions of the program, just what it wants as input and what the user will receive as the output. 
+Open source AI is a free to access platform in which the code can be used and implemented as seen fit by the operator. OpenCV[2] is a popular image processing example of this as well as TensorFlow[3] and DL4j[4]. Programming languages that may be used include C++[5], Python[6], and Java[7]. The use of an IDE is likely, which means Integrated Development Environment which provides a more convenient setup for coding. Examples of IDE’s include Microsoft Visual Studio[8] and Eclipse[9]. Black box design means that the user does not need to understand the internal functions of the program, just what it wants as input and what the user will receive as the output. 
 
 \subsection{References}
-[1] IEEE Software Engineering Standards Committee, “IEEE Std 830-1998, IEEE Recommended Practice for Software Requirements Specifications”, June 25, 1998.
+[1] "CDK Global" Internet: https://www.cdkglobal.com/, 2017 [Nov. 10, 2017].
+
+[2] "OpenCV" Internet: https://opencv.org/, Aug. 3, 2017 [Nov. 11, 2017].
+
+[3] "TensorFlow" Internet: https://www.tensorflow.org/, [Nov. 12, 2017].
+
+[4] "Deeplearning4j" Internet: https://deeplearning4j.org/, 2017 [Nov. 11, 2017].
+
+[5] "C++" Internet: http://www.cplusplus.com/, 2017 [Nov. 12, 2017].
+
+[6] "Python" Internet: https://www.python.org/, Oct. 17, 2017 [Nov. 12, 2017].
+
+[7] "Java" Internet: https://java.com/en/, Apr. 22, 2016 [Nov. 12, 2017].
+
+[8] "Microsoft Visual Studio" Internet: https://www.visualstudio.com/, Oct. 2016 [Nov. 10, 2017].
+
+[9] "Eclipse" Internet: https://www.eclipse.org/ide/, 2017 [Nov. 9, 2017].
+
+[10] IEEE Software Engineering Standards Committee, “IEEE Std 830-1998, IEEE Recommended Practice for Software Requirements Specifications”, June 25, 1998.
+
+[11] "GCC" Internet: https://gcc.gnu.org/, Nov. 3, 2017 [Nov. 9, 2017].
+
+[12] "CMake" Internet: https://cmake.org/, Nov. 10, 2017 [Nov. 9, 2017].
 
 \subsection{Overview}
 The remainder of the requirements document will contain a greater look into what precisely the project entails. This is going to involve looking at where the project stands for CDK and how it will be utilized as well as the products functions and characteristics for a user. Mention will also be made towards potential constraints placed upon the program.
 
-The following section will be a general overview and description of the project, primary focus being placed on functions, characteristics, constraints, and assumptions/dependencies. After that there will be a section on specific requirements that will bring mention to potential interfacing concerns as well as performance metrics and standards compliance. The document is designed to follow the IEEE Software Engineering Standards [1].
+The following section will be a general overview and description of the project, primary focus being placed on functions, characteristics, constraints, and assumptions/dependencies. After that there will be a section on specific requirements that will bring mention to potential interfacing concerns as well as performance metrics and standards compliance. The document is designed to follow the IEEE Software Engineering Standards [10].
 
 
 \section{Overall Description}
@@ -139,7 +161,7 @@ There are few constraints on CDK A.I. data stream project. First, software must 
 
 \subsection{Assumptions and Dependencies}
 
-All images provided by the client are sanitized and free of legal conflicts. Cloud based deployment services will be provided by the client. From a developing and testing standpoint, this project will be developped in C++ utilizing the OpenCV picture formatting library. This library assumes that the system is running GCC 4.4.x or later as well as CMake 2.8.7 or higher. 
+All images provided by the client are sanitized and free of legal conflicts. Cloud based deployment services will be provided by the client. From a developing and testing standpoint, this project will be developped in C++ utilizing the OpenCV picture formatting library. This library assumes that the system is running GCC 4.4.x[11] or later as well as CMake 2.8.7[12] or higher. 
 
 
 
