@@ -1,0 +1,109 @@
+
+ \begin{theglossary} 
+
+    \makeatletter\scan@allowedfalse
+
+  \item v1.0\efill 
+ \subitem General:\ Initial release\pfill 2
+  \item v1.1\efill 
+ \subitem General:\ \texttt  {bar label text} configures the text of a bar label.\pfill 2
+      \subsubitem \texttt  {group label text} configures the text of a group label.\pfill 
+		2
+      \subsubitem \texttt  {link tolerance} decides whether a five- or a three-part link is drawn.\pfill 
+		2
+      \subsubitem \texttt  {milestone label text} configures the text of a milestone label.\pfill 
+		2
+      \subsubitem The \texttt  {time slot modifier} key has been added. If set to zero, all $x$-coordinates are interpreted as given, without regarding them as time slots.\pfill 
+		2
+      \subsubitem The \texttt  {vgrid lines list} key determines the number of vertical grid lines drawn.\pfill 
+		2
+      \subsubitem The introduction clarifies what I mean by ``a current \textsc  {pgf} installation''.\pfill 
+		2
+  \item v2.0\efill 
+ \subitem General:\ Added style lists for the horizontal and vertical grid.\pfill 2
+      \subsubitem Completely rewrote the calculation of coordinates.\pfill 
+		2
+      \subsubitem Removed the \texttt  {hgrid shift} and \texttt  {last line height} keys.\pfill 
+		2
+      \subsubitem Removed the \texttt  {vgrid lines list} key, as its behaviour can be simulated by an appropriate \meta  {style list} for \texttt  {vgrid}.\pfill 
+		2
+      \subsubitem Removed the \texttt  {vgrid style} key.\pfill 2
+      \subsubitem The \texttt  {x unit}, \texttt  {y unit title} and \texttt  {y unit chart} keys specify the width of time slots and the height of title or chart lines, respectively. Thus, one can draw titles whose height differs from the rest of the chart. Furthermore, the $x$- and $y$-dimensions of the chart are independent of the dimensions of the surrounding \texttt  {tikzpicture}.\pfill 
+		2
+      \subsubitem The optional argument of \cs  {ganttnewline} now also accepts a style.\pfill 
+		2
+      \subsubitem The syntax of \cs  {ganttlink} was completely changed. The command now takes one optional and \textit  {two} mandatory arguments. The latter specify the name of the chart elements to be linked. Consequently, the keys \texttt  {b-b}, \texttt  {b-m}, \texttt  {m-b} and \texttt  {m-m} were removed. The keys \texttt  {s-s}, \texttt  {s-f}, \texttt  {f-s} and \texttt  {f-f} are now values for the \texttt  {link type} key.\pfill 
+		2
+  \item v2.1\efill 
+ \subitem General:\ Added three keys (\texttt  {bar/group/milestone label inline anchor}) for placing inline labels.\pfill 
+		2
+      \subsubitem The \texttt  {ganttchart} environment may be used outside a \texttt  {tikzpicture}.\pfill 
+		2
+      \subsubitem The \texttt  {inline} key moves labels close to their respective chart elements.\pfill 
+		2
+  \item v3.0\efill 
+ \subitem General:\ \cs  {@gtt@get} has been renamed to \cs  {ganttvalueof} to provide a convenient access for link type authors.\pfill 
+		2
+      \subsubitem \cs  {@gtt@keydef} and \cs  {@gtt@stylekeydef} have been rewritten to support \texttt  {pgfkey}'s abilities to store key values.\pfill 
+		2
+      \subsubitem \cs  {setganttlinklabel} specifies the label for all links of a certain type. The \texttt  {link label} key locally overrides any label set by this command.\pfill 
+		2
+      \subsubitem All style keys (\texttt  {canvas}, \texttt  {bar} etc.) only support the common Ti\textit  {k}Z\ style key syntax.\pfill 
+		2
+      \subsubitem Completely rewrote the code for links (again). Definition of new link types is now possible (via \cs  {newganttlinktype} and \cs  {newganttlinktypealias}).\pfill 
+		2
+      \subsubitem New auxiliary macros for \cs  {newganttlinkstyle}: \cs  {xLeft}, \cs  {xRight}, \cs  {yUpper}, \cs  {yLower}, \cs  {ganttsetstartanchor}, \cs  {ganttsetendanchor} and \cs  {ganttlinklabel}.\pfill 
+		2
+      \subsubitem The \texttt  {bar/group/milestone label shape anchor} keys allow for a fine-tuned placement of chart element labels.\pfill 
+		2
+      \subsubitem The \texttt  {chart element} shape supports four additional anchors (\texttt  {on left}, \texttt  {on top}, \texttt  {on right} and \texttt  {on bottom}).\pfill 
+		2
+  \item v4.0\efill 
+ \subitem General:\ \cs  {gantttitlecalendar} prints a title calendar.\pfill 2
+      \subsubitem \cs  {newganttchartelement} defines completely new chart elements.\pfill 
+		2
+      \subsubitem \cs  {newgantttimeslotformat} allows the user to define custom time slot formats.\pfill 
+		2
+      \subsubitem Chart elements are now nodes, so the corresponding styles must specify a node shape.\pfill 
+		2
+      \subsubitem The \texttt  {ganttchart} environment now requires two mandatory arguments.\pfill 
+		2
+      \subsubitem The canvas is now a node with shape \texttt  {rectangle} by default.\pfill 
+		2
+      \subsubitem The key \texttt  {incomplete} was removed.\pfill 2
+      \subsubitem The key \texttt  {link label anchor} was renamed to \texttt  {link label node}.\pfill 
+		2
+      \subsubitem The key \texttt  {newline shortcut} determines whether the shortcut for line breaks is defined in the chart. In this case, \cs  {ganttalignnewline} allows line breaks in the node text.\pfill 
+		2
+      \subsubitem The key \texttt  {progress label anchor} was replaced by \texttt  {bar}/\texttt  {group}/\texttt  {milestone progress label node}.\pfill 
+		2
+      \subsubitem The key \texttt  {progress label font} was replaced by the keys \texttt  {bar}/\texttt  {group}/\texttt  {milestone progress label font}.\pfill 
+		2
+      \subsubitem The key \texttt  {time slot format/base century} provides the century for autocompletion of two-digit years.\pfill 
+		2
+      \subsubitem The key \texttt  {time slot format/start date} specifies the internal date representation of digit 1 in the \texttt  {simple} time slot format.\pfill 
+		2
+      \subsubitem The key \texttt  {time slot format} changes the format of time slot specifiers.\pfill 
+		2
+      \subsubitem The key \texttt  {time slot modifier} was renamed to \texttt  {chart element start border}.\pfill 
+		2
+      \subsubitem The key \texttt  {title label anchor} was renamed to \texttt  {title label node}.\pfill 
+		2
+      \subsubitem The key \texttt  {today} accepts a time slot specifier.\pfill 
+		2
+      \subsubitem The keys \texttt  {bar}/\texttt  {group}/\texttt  {milestone label anchor} were renamed to \texttt  {bar}/\texttt  {group}/\texttt  {milestone label node}.\pfill 
+		2
+      \subsubitem The keys \texttt  {bar}/\texttt  {group}/\texttt  {milestone label inline anchor} were renamed to \texttt  {bar}/\texttt  {group}/\texttt  {milestone inline label node}.\pfill 
+		2
+      \subsubitem The keys \texttt  {bar}/\texttt  {group}/\texttt  {milestone label shape anchor} were renamed to \texttt  {bar}/\texttt  {group}/\texttt  {milestone inline label anchor}.\pfill 
+		2
+      \subsubitem The keys \texttt  {bar}/\texttt  {group}/\texttt  {milestone progress label anchor} were added.\pfill 
+		2
+      \subsubitem The keys \texttt  {calendar week text} and \texttt  {compress calendar} were added.\pfill 
+		2
+      \subsubitem The keys \texttt  {group right}/\texttt  {left peak} and \texttt  {group peaks} were replaced by \texttt  {group right}/\texttt  {left peak tip position}, \texttt  {group peaks tip position}, \texttt  {group right}/\texttt  {left peak width}, \texttt  {group peaks width}, \texttt  {group right}/\texttt  {left peak height} and \texttt  {group peaks height}.\pfill 
+		2
+      \subsubitem The keys \texttt  {today offset}, \texttt  {today label font} and \texttt  {today label node} were added.\pfill 
+		2
+
+ \end{theglossary}

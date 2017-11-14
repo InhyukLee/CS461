@@ -5,6 +5,7 @@
 \usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
 %\usepackage{lipsum}
 \usepackage[parfill]{parskip}
+\usepackage{pgfgantt}
 \parindent=0pt
 
 \usepackage{geometry}
@@ -294,32 +295,29 @@ The program will require a platform in which to run uninterrupted for extended p
 
 This section details the groups schedule in order to complete the tasks per the school year of 2017. Included is a Gantt chart detailing what the specific task is and the time frame over which they're scheduled to take place.
 
-Fall Term
-\begin{description}
-	\item[Week 6:]10/29
-	\item[End:]   Friday, December 8, 2017
-\end{description}
-
-
-Winter term
-\begin{description}
-	\item[Begin:]Monday, January 8, 2018
-	\item[End:]	 Friday, March 23, 2018
-\end{description}
-
-
-Spring Term
-\begin{description}
-	\item[Begin:]Monday, April 2, 2018
-	\item[Expo:] 	Tentatively May 18, 2018
-	\item[End:]			Friday, June 15, 2018
-\end{description}
-
-
-\begin{figure}[h]
-\includegraphics[height= 5cm]{Gantt}
-\centering
-\end{figure}
+\begin{ganttchart}[
+	vgrid,
+	hgrid,
+	]{1}{24}
+	\gantttitlelist{11,12,1,2,3,4,5,6}{3}\\
+	\gantttitlelist{1,...,24}{1}\\
+	\ganttbar[name=t1, bar/.append style={fill=green}]%
+		{Study machine learning framework}{1}{4} \\
+	\ganttbar[name=t2, bar/.append style={fill=yellow}]%
+		{Build small texture detecting program}{2}{4} \\
+	\ganttbar[name=t3, bar/.append style={fill=orange}]%
+		{Study on texture detecting A.I algorithm}{5}{24} \\
+	\ganttbar[name=t4, bar/.append style={fill=blue}]%
+		{Build handwritten signatures detecting software}{6}{12} \\
+	\ganttbar[name=t5, bar/.append style={fill=purple}]%
+		{Adapt program to different format of document}{13}{20} \\
+	\ganttbar[name=t6, bar/.append style={fill=brown}]%
+		{Optimize the program}{15}{24} \\
+	\ganttlink{t1}{t3}
+	\ganttlink{t2}{t4}
+	\ganttlink{t4}{t5}
+	\ganttlink{t4}{t6}
+\end{ganttchart}
 
 Practice
 \begin{description}

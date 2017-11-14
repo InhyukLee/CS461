@@ -1,0 +1,31 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}
+\contentsline {paragraph}{Acknowledgements}{2}{section*.2}
+\contentsline {section}{\numberline {2}User Guide}{3}{section.2}
+\contentsline {subsection}{\numberline {2.1}Overview}{3}{subsection.2.1}
+\contentsline {subsection}{\numberline {2.2}Specifying Keys}{3}{subsection.2.2}
+\contentsline {subsection}{\numberline {2.3}The Canvas}{4}{subsection.2.3}
+\contentsline {subsection}{\numberline {2.4}Line Breaks between Chart Elements}{10}{subsection.2.4}
+\contentsline {subsection}{\numberline {2.5}Titles}{12}{subsection.2.5}
+\contentsline {subsection}{\numberline {2.6}Predefined Chart Elements}{20}{subsection.2.6}
+\contentsline {subsubsection}{\numberline {2.6.1}Options: Chart Element Appearance}{23}{subsubsection.2.6.1}
+\contentsline {subsubsection}{\numberline {2.6.2}Options: Label Formatting}{24}{subsubsection.2.6.2}
+\contentsline {subsubsection}{\numberline {2.6.3}Options: Chart Element Positioning}{26}{subsubsection.2.6.3}
+\contentsline {subsubsection}{\numberline {2.6.4}Options: Progress}{29}{subsubsection.2.6.4}
+\contentsline {subsubsection}{\numberline {2.6.5}New Node Shapes}{33}{subsubsection.2.6.5}
+\contentsline {subsection}{\numberline {2.7}Defining Custom Chart Elements}{34}{subsection.2.7}
+\contentsline {subsection}{\numberline {2.8}Links}{36}{subsection.2.8}
+\contentsline {subsection}{\numberline {2.9}Style Examples}{45}{subsection.2.9}
+\contentsline {section}{\numberline {3}Implementation}{49}{section.3}
+\contentsline {subsection}{\numberline {3.1}Packages}{49}{subsection.3.1}
+\contentsline {subsection}{\numberline {3.2}Macros for Key and Error Management}{49}{subsection.3.2}
+\contentsline {subsection}{\numberline {3.3}The Horizontal and Vertical Grid}{50}{subsection.3.3}
+\contentsline {subsection}{\numberline {3.4}Time Slot Formats}{52}{subsection.3.4}
+\contentsline {subsection}{\numberline {3.5}The Main Environment}{55}{subsection.3.5}
+\contentsline {subsection}{\numberline {3.6}Starting a New Line}{59}{subsection.3.6}
+\contentsline {subsection}{\numberline {3.7}Titles}{60}{subsection.3.7}
+\contentsline {subsection}{\numberline {3.8}Chart Elements}{66}{subsection.3.8}
+\contentsline {subsection}{\numberline {3.9}Node Shapes}{74}{subsection.3.9}
+\contentsline {subsection}{\numberline {3.10}Links}{80}{subsection.3.10}
+\contentsline {section}{\numberline {4}Index}{86}{section.4}
+\contentsline {section}{\numberline {5}Change History}{91}{section.5}
