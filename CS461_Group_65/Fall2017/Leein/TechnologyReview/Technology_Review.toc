@@ -1,0 +1,8 @@
+\contentsline {section}{\numberline {1}Overview:}{2}
+\contentsline {section}{\numberline {2}Criteria:}{2}
+\contentsline {section}{\numberline {3}Potential Choices:}{2}
+\contentsline {subsection}{\numberline {3.1}TensorFlow}{2}
+\contentsline {subsection}{\numberline {3.2}Deep Learning for Java(DL4J)}{2}
+\contentsline {subsection}{\numberline {3.3}OpenCV}{3}
+\contentsline {section}{\numberline {4}Discussion, compare and contrast:}{3}
+\contentsline {section}{\numberline {5}Conclusion:}{3}
