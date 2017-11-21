@@ -1,0 +1,26 @@
+\contentsline {section}{\numberline {1}The algorithm}{2}
+\contentsline {subsection}{\numberline {1.1}Overview}{2}
+\contentsline {subsection}{\numberline {1.2}Criteria}{2}
+\contentsline {subsection}{\numberline {1.3}FeedForward Neural Networks}{2}
+\contentsline {subsection}{\numberline {1.4}Convolutional Neural Networks}{2}
+\contentsline {subsection}{\numberline {1.5}Genetic algorithms}{3}
+\contentsline {subsection}{\numberline {1.6}Discussion}{3}
+\contentsline {subsection}{\numberline {1.7}Conclusion}{3}
+\contentsline {subsection}{\numberline {1.8}References}{4}
+\contentsline {section}{\numberline {2}Container Software}{4}
+\contentsline {subsection}{\numberline {2.1}Overview}{4}
+\contentsline {subsection}{\numberline {2.2}Criteria}{4}
+\contentsline {subsection}{\numberline {2.3}LXC}{4}
+\contentsline {subsection}{\numberline {2.4}LXD}{5}
+\contentsline {subsection}{\numberline {2.5}Docker}{5}
+\contentsline {subsection}{\numberline {2.6}Discussion}{5}
+\contentsline {subsection}{\numberline {2.7}Conclusion}{5}
+\contentsline {subsection}{\numberline {2.8}References}{6}
+\contentsline {section}{\numberline {3}Development Platform}{6}
+\contentsline {subsection}{\numberline {3.1}Overview}{6}
+\contentsline {subsection}{\numberline {3.2}Criteria}{6}
+\contentsline {subsection}{\numberline {3.3}Home-PC}{6}
+\contentsline {subsection}{\numberline {3.4}OSU flip server}{6}
+\contentsline {subsection}{\numberline {3.5}Other resources / paid services}{7}
+\contentsline {subsection}{\numberline {3.6}Discussion}{7}
+\contentsline {subsection}{\numberline {3.7}Conclusion}{7}
