@@ -2,22 +2,64 @@
 \usepackage{graphicx}
 \usepackage{url}
 \usepackage{setspace}
-
+\usepackage{csquotes}
 \usepackage{geometry}
 \geometry{textheight=9.5in, textwidth=7in}
+\input{pygments.tex}
+
+\begin{filecontents*}{source.bib}
+@misc{TF,
+  title = "TensorFlow website",
+  url = "https://www.tensorflow.org/",
+  note = "Accessed: 2017-11-21"
+}
+@misc{DL,
+  title = "Deeplearning4j website",
+  url = "https://deeplearning4j.org/",
+  note = "Accessed: 2017-11-21"
+}
+@misc{OCV,
+  title = "OpenCV library website",
+  url = "https://opencv.org/",
+  note = "Accessed: 2017-11-21"
+}
+@misc{OC,
+  title = "OCR - Optical Character Recognition",
+  url = "http://www.recogniform.net/eng/ocr-optical-character-recognition.html",
+  note = "Accessed: 2017-11-21"
+}
+@misc{IC,
+  title = "The Difference Between OCR and ICR and Why It Matters for Organizations Using DMS",
+  url = "https://www.efilecabinet.com/the-difference-between-ocr-and-icr-and-why-it-matters-for-organizations-using-dms/",
+  note = "Accessed: 2017-11-21"
+}
+@misc{IW,
+  title = "Intelligent Word Recognition",
+  url = "http://captricity.com/intelligent-word-recognition/",
+  note = "Accessed: 2017-11-21"
+}
+@misc{UIM,
+  title = "Linux vs. Windows device driver model: architecture, APIs and build environment comparison",
+  url = "https://en.wikibooks.org/wiki/A-level_Computing/CIE/Computer_systems,_communications_and_software/System_software/User_interfaces",
+  note = "Accessed: 2017-11-21"
+}
+\end{filecontents*}
 
 % 1. Fill in these details
-\def \CapstoneTeamName{		The Cleverly Named Team}
+\def \CapstoneTeamName{		SigFind}
 \def \CapstoneTeamNumber{		65}
 \def \GroupMemberOne{			Inhyuk Lee}
 \def \CapstoneProjectName{			CDK Data Stream AI}
 \def \CapstoneSponsorCompany{	CDK Global}
+\def \InstructorsList{	CS461 Instructors}
 \def \CapstoneSponsorPerson{		Chris Smith}
+\def \CapstoneInstructorA{		Kevin McGrath}
+\def \CapstoneInstructorB{		Kirsten Winters}
 
 % 2. Uncomment the appropriate line below so that the document type works
-\def \DocType{		Problem Statement
+\def \DocType{		%Problem Statement
 				%Requirements Document
-				%Technology Review
+				Technology Review
 				%Design Document
 				%Progress Report
 				}
@@ -34,7 +76,6 @@
 \begin{titlepage}
     \pagenumbering{gobble}
     \begin{singlespace}
-    	\includegraphics[height=4cm]{coe_v_spot1}
         \hfill 
         % 4. If you have a logo, use this includegraphics command to put it on the coversheet.
         %\includegraphics[height=4cm]{CompanyLogo}   
@@ -49,7 +90,15 @@
             {\large Prepared for}\par
             \Huge \CapstoneSponsorCompany\par
             \vspace{5pt}
-            {\Large\NameSigPair{\CapstoneSponsorPerson}\par}
+            {\Large
+				\NameSigPair{\CapstoneSponsorPerson}\par
+			}
+			\Huge \CapstoneSponsorCompany\par
+			\vspace{5pt}
+            {\Large
+				\NameSigPair{\CapstoneInstructorA}\par
+				\NameSigPair{\CapstoneInstructorB}\par
+			}
             {\large Prepared by }\par
             Group\CapstoneTeamNumber\par
             % 5. comment out the line below this one if you do not wish to name your team
@@ -62,7 +111,7 @@
         }
         \begin{abstract}
         % 6. Fill in your abstract    
-        	On this document, potential three problems on capstone project will be discussed, and nine technologies are compared and contrast as a potential solution. On each problem, one technology is selected as a solution.
+        	On this document, potential three different pieces of CDK Data Stream AI project will be discussed, and nine technologies are compared and contrast as a potential solution. The three pieces that will discussed are deep learning library, text recognition method, and user interface. On each piece, one technology is selected as a solution.
         \end{abstract}     
     \end{singlespace}
 \end{titlepage}
@@ -75,35 +124,39 @@
 \clearpage
 
 % 8. now you write!
-\section{Overview:}
-On this section, most commonly used deep learning library will be compare. The three library that will be compared are TensorFlow, Deep Learning4 Java(DL4J), and OpenCV. The best library that fit into our project need will be selected.
+\section{Deep Learning library}
+\subsection{Overview:}
+On this section, most commonly used deep learning library will be compared. The three libraries that will be compared are TensorFlow, Deep Learning4 Java(DL4J), and OpenCV. The best library that fit into our project need will be selected.
 
-\section{Criteria:}
-Our main goal of the project is to build the signature recognition program by using image detecting API. To accomplish this task, it is essential to find suitable machine learning library for signature recognition.  Machine learning library must be runnable in different operating system, support many programming language, provide handwriting recognition algorithms or functions, and fast enough. 
+\subsection{Criteria:}
+Our main goal of the project is to build the signature recognition program by using image detecting API. To accomplish this task, it is essential to find a suitable machine learning library for signature recognition. The machine learning library must be runnable in different operating system, support many programming languages, provide handwriting recognition algorithms or functions, have many community, and fast enough. 
 
-\section{Potential Choices:}
-\subsection{TensorFlow}
- Advantages: TensorFlow is a machine learning library released in November 9. It has short history. However, large community use TensorFlow, and there are open source repositories more than 6000 on online. TensorFlow has special feature on numerical computation makes TensorFlow as powerful tool. Unlike other machine learning library, TensorFlow uses data flow graphs that contains vectors or matrixes called tensor, and this data flow graphs allow developers to compute the calculation on one or more CPUs or GPUs.
-The other strength of TensorFlow is and flexibility. It supports both laptop/desktop operating system and mobile operating system such as 64-bit Linux, MacOS, Windows, Android, and IOS. Also, TensorFlow application program interface (API) supports in Python, Java, C, and Go.
-It supports Modified National Institute of Standards and Technology (MNIST) database. MNIST is the database that has images of handwritten digits that is commonly used for training image processing system. It contains about 60,000 set of training examples, and 10,000 set of test examples. TensorFlow provides tutorial for machine learning beginner.
+\subsection{Potential Choices:}
+\subsubsection{TensorFlow}
+TensorFlow has a short history. However, large communities use TensorFlow, and there are more than 6000 open source repositories online \cite{TF}. TensorFlow has special feature on numerical computation which makes it a powerful tool. Unlike other machine learning library, TensorFlow uses data flow graphs that contains vectors or matrixes called tensor, and this data flow graphs allow developers to compute the calculation on one or more CPUs or GPUs \cite{TF}.
 
-Disadvantages: There are also disadvantages using TensorFlow. The main problem with TensorFlow is the speed. It has dramatically slower speed compare of other frameworks. Also, TensorFlow is heavier than other machine learning libraries. Since TensorFlow force to use set of vector or matrix for flow graph data, copying large matrices cause slowness of the program. The last problem of the TensorFlow is the optimization of Java API. It is experimental step supporting Java API, so Java API for TensorFlow is not stable.
+The other strength of TensorFlow is flexibility. It supports both desktop operating systems and mobile operating systems such as 64-bit Linux, MacOS, Windows, Android, and IOS \cite{TF}. Also, TensorFlow Application Program Interface (API) supports in Python, Java, C, and Go \cite{TF}.
 
-\subsection{Deep Learning for Java(DL4J)}
- Advantages: Deep Learning for Java (DL4J) is the machine learning library supports on Java virtual machine (JVM). It supports languages such as Java, Scala, Clojure, and Kotlin, but Java is the main language. The strength of the DL4J is the speed. There are several characteristics that makes DL4J run faster. First characteristic is the DL4J has linear algebra computations. It is much simpler than other complicated computation algorithm. The second characteristic is that DL4J can run in parallel, and this parallel setting is automatic. Since user does not have to create parallel setting, system runs much faster. The last characteristic is that DL4J relies on JavaCPP which parse C/C++ header files to Java interface files. This allows DL4J run faster since most of the high cost program are written in C or C++.
-Although DL4J API language support lack of diversity, it won’t cause much problem since Java is one of the largest programming language. Almost 10 million developers use this language, and many large companies highly rely on Java or a JVM based system. In addition, Java supports in many platforms without converting the language. Once developers write the code, they simply have to pass their code in JVM to run on different operating system.
-The last advantage of DL4J is that it can import neural net models from TensorFlow, and it also supports MNIST database like TensorFlow.
+There are also disadvantages using TensorFlow. The main problem with TensorFlow is the speed. It has dramatically slower speed compare of other frameworks. Also, TensorFlow is heavier than other machine learning libraries. Since TensorFlow force to use set of vector or matrix for flow graph data, copying large matrices cause slowness of the program \cite{DL}. The last problem of the TensorFlow is the optimization of Java API. It is an experimental step supporting Java API, so Java API for TensorFlow is not stable.
 
-Disadvantages: There are two main disadvantages using this machine learning library. First one is that DL4J does not support many languages. Although Java can support different environment by using JVM, different programming languages has strength on different circumstances. Supporting more programming language will to give diversity to developers. The second problem is that there are few community compare to other machine learning library because DL4J has short history.
+\subsubsection{Deep Learning for Java(DL4J)}
+Deep Learning for Java (DL4J) is the machine learning library supports on Java virtual machine (JVM). It supports languages such as Java, Scala, Clojure, and Kotlin, but Java is the main language \cite{DL}. The strength of the DL4J is the speed. There are several characteristics that makes DL4J run faster. First characteristic is the DL4J has linear algebra computations \cite{DL}. It is much simpler than other complicated computation algorithms. The second characteristic is that DL4J can run in parallel, and this parallel setting is automatic. Since the user does not have to create parallel setting, the system runs much faster \cite{DL}. The last characteristic is that DL4J relies on JavaCPP which parse C/C++ header files to Java interface files \cite{DL}. This allows DL4J run faster since most of the high cost program are written in C or C++.
 
-\subsection{OpenCV}
- Advantages: Unlike previous two machine learning libraries, OpenCV has long history. It is originally released on June 2000. Since OpenCV has a long history, it has large community. According to OpenCV website, there are 47 thousand people of user community, and more than 14 million number of downloads happened. Additionally, our teaching assistance have experience on OpenCV. This is highly advantageous since our group can get advice directly from our TA.
-Due to the long history of the OpenCV, it provides more than 2500 optimized algorithms. These algorithms can be used to implement many images related deep learning programs. It also supports MNIST, and have tutorial on it.
-OpenCV is more flexible then TensorFlow. It runs on both desktop (Windows, Linux, Android, MacOS, FreeBSD, OpenBSD) and mobile (Android, Maemo, iOS), and supports C++, C, Python and Java languages.
-Fastness is another benefit of using OpenCV. Since OpenCV library is written in C/C++, it is fast. Also, OpenCV currently supports CUDA and OpenCL about 500 algorithms to accelerate the original algorithms. CUDA and OpenCL are the modern GPU accelerators. These GPU accelerators increase GPU performance, so computation time for algorithms shrinks.
+Although the DL4J API language supports lack of diversity, it won\rq t cause much problem since Java is one of the largest programming language. Almost 10 million developers use this language, and many large companies highly rely on Java or a JVM based system \cite{DL}. In addition, Java is supported in many platforms without converting the language. Once developers write the code, they simply have to pass their code in JVM to run on different operating system.
+
+There are two main disadvantages using this machine learning library. Firstly, DL4J does not support many languages. Although Java can support different environments by using JVM, different programming languages have strength on different circumstances. Supporting more programming language will to give diversity to developers. The second problem a small community compared to other machine learning libraries because DL4J has a short history.
+
+\subsubsection{OpenCV}
+Unlike the previous two machine learning libraries, OpenCV has a long history, so it has a large community. According to OpenCV website, there are 47 thousand people in the user community, and more than 14 million downloads \cite{OCV}. Additionally, our teaching assistance have experience on OpenCV. This is highly advantageous since our group can get advice directly from our TA.
+
+OpenCV is more flexible then TensorFlow. It runs on both desktop (Windows, Linux, Android, MacOS, FreeBSD, OpenBSD) and mobile (Android, Maemo, iOS), and supports C++, C, Python and Java languages \cite{OCV}.
+
+Speed is another benefit of using OpenCV. Since OpenCV library is written in C/C++, it is fast. Also, OpenCV currently supports about 500 CUDA and OpenCL algorithms to accelerate the original algorithms \cite{OCV}. CUDA and OpenCL are the modern GPU accelerators \cite{OCV}. These GPU accelerators increase GPU performance, so computation time for algorithms shrinks.
+
+One of the disadvantages of the OpenCV is that the library is not suitable for Java language yet. Unlike other two libraries, OpenCV supported Java language recently. Therefore, it has lack of implementation examples with Java, and problems with using Java language.
 
 
-\section{Discussion, compare and contrast:}
+\subsection{Discussion, compare and contrast:}
 As it mentioned on criteria section, machine learning library needs to support enough algorithms, language, and operating system. Also, it need to have fast computation speed, and large community. Following table shows the compare and contrast based on these requirements.
 
 \begin{table}[h]
@@ -112,7 +165,7 @@ As it mentioned on criteria section, machine learning library needs to support e
 \hline
  & TensorFlow & DL4J & OpenCV\\ 
 \hline
-handwriting recognition algorithms & Have decent algorithms & Have decent algorithms & Have decent algorithms \\ 
+handwriting recognition algorithms & Decent algorithms & Decent algorithms & Decent algorithms \\ 
 \hline
 Language support & Many & very few & Many\\ 
 \hline
@@ -127,6 +180,79 @@ Speed & Slow & Fast & Fast\\
 \label{table:1}
 \end{table}
 
-\section{Conclusion:}
-From the discussion, compare and contrast section, it is clear that OpenCV is the best choice for CDK Data Stream AI project. It has enough handwriting recognition algorithm, supports various language and operating system, has large community, and fast speed.
+\subsection{Conclusion:}
+From the discussion, compare and contrast section, it is clear that OpenCV is the best choice for CDK Data Stream AI project. It has enough handwriting recognition algorithm, supports various language and operating systems, has a large community, and fast speed.
+
+\section{Text recognition method for detecting signature box}
+\subsection{Overview:}
+On this section, three text recognition method that is used to detect signature box will be compared. Finding signature box is important part of detecting signature. Since format of the documents vary from each company, signature box must be found before recognizing signature. To locate signature box, word relate to signature box such as \enquote{signature} must be found from the document to locate the signature box, and text recognition method help software to find certain words from text images. These three methods are optical character recognition, intelligent character recognition, and intelligent word recognition.
+
+\subsection{Criteria:}
+The method must be able to detect words relate to signature box such as \enquote{signature}, \enquote{company signature}, \enquote{cosigner line}. Accuracy is the most important thing to considered.
+
+\subsection{Potential Choices:}
+\subsubsection{Optical Character Recognition (OCR)}
+OCR is a one of the earliest method to convert text images or handwritten texts to editable electronical text document. To do this, OCR takes three steps. According to the Recogniform Technology, it first analyzes the layout of the text image to identify the columns, paragraphs, text lines and words from the text. Then, OCR splits the image to individual characters. On last step, it identifies characters and converts characters to electronic character \cite{OC}. OCR takes two methods to recognize the characters which are pattern recognition and feature detection. Pattern recognition determines the character by matching the pattern of the character. It compares the splitted character with the list of the character that stored in the program. If splitted character is similar with stored character, it converts splitted character into electronic character . However, printed text doesn\rq t have identical different font, and it gets much more complicated for handwritten text. To solve this problem, OCR uses feature detection method. This method determines character by evaluating the characteristics of each character. OCR program has list of features for each character such as angles, number of lines, and such. By using this list of features, OCR can recognize the character even if it has different font \cite{OC}.
+
+\subsubsection{Intelligent Character Recognition (ICR)}
+ICR is an advanced version of OCT. It has self-learning features that allow ICR to learn through its experience \cite{IC}. Since ICR learns different fonts and styles from the text images or handwritten texts, unlike OCR, it can determine handwritten texts \cite{IC}.  Also, accuracy of the ICR increase as it converts text. ICR has many advantages, but ICR programs are heavier than OCR programs.
+
+\subsubsection{Intelligent Word Recognition (IWR)}
+Unlike both OCR and ICR, IWR detects words from the text images instead of characters. It is very similar to ICR, but IWR has dictionary that makes possible to detect the words from text \cite{IW}. For example, while ICR extract \enquote{hello} as individual letters like h, e, l, l, and o, IWR matches pattern from dictionary to recognize and extract exact word. 
+
+\subsection{Discussion, compare and contrast:}
+As it mentioned on criteria section, accuracy is the most important feature to be considered. In addition, self-learnability and size of the algorithm need to be considered for software aspect. Three methods are compared based on accuracy, weight, and self-learnability.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ | c | c | c | c |}
+\hline
+ & ORC & ICR & IWR\\ 
+\hline
+Accuracy & weak & medium & strong \\ 
+\hline
+Weight of the algorithm & light & medium & heavy\\ 
+\hline
+Self learnability & no & yes & yes\\ 
+\hline
+\end{tabular}
+\caption{Compare and Contrast}
+\label{table:1}
+\end{table}
+
+\subsection{Conclusion:}
+For our software, ICR is the best choice among three methods since it has medium accuracy and weight, and it also has self-learnability. Although, IWR has the highest accuracy, it has unnecessary features which makes the software heavy. Finding signature does not need to understand the word. It just need to find the location of the signature box. 
+
+\section{User interface}
+\subsection{Overview:}
+On this section, three types of user interface, command line interface, menu driven interface, and form based interface, will be compared and selected. It is important to select proper type of user interface for software. To select proper user interface, user of the software must be estimated and evaluated. User of the signature detecting software are the employee of the car dealers. They have little or no knowledge of artificial intelligent or computer science. Therefore, simple and easy to learn user interface must be build it from the proper type of user interface.
+
+\subsection{Criteria:}
+Signature detection software must provide black box form of user interface since user doesn\rq t have to know about detail process. Also, it must be simple to use, and only necessary option must be provided.
+
+\subsection{Potential Choices:}
+\subsubsection{Command Line}
+A command line interfaces simplest interface that allow user to interact with the software or hardware by typing command on command line \cite{UIM}. It is oldest interface among three interfaces, and designed for old computers. Since old computers are used by the professionals, interface of it was not user friendly. To use this interface, user must memorize a lot of different commands, so it takes time to get familiarized.
+
+\subsubsection{Menu Driven}
+A menu driven interface allow user to interact with software by providing simple selectable menus \cite{UIM}. It is commonly used on cash machines, ticket machines and information kiosks \cite{UIM}. Each menu has instruction that describes what action it will took by selecting the menu. To interact with the software, user just need to select the menu, and software will show sub menus or perform corresponding action. This interface is very intuitive and user friendly. It does not require prior knowledge to interact with the software.
+
+\subsubsection{Form Based}
+A form Based interface collects data from the user and send it to the system. It collects data by using drop-down menus, check boxes, text boxes, radio boxes, text areas, and buttons \cite{UIM}. It is commonly used for software that collects data or requires data to perform the function \cite{UIM}. This interface can be seen on survey website and mathematical software.  
+
+\subsection{Discussion, compare and contrast:}
+A command line interface is very simple to design and easy for user to learn how this interface works. However, it takes time for user to get familiarized with the interface because user have to memorize different command that is used for different situation. This interface is recommended for software that is designed for software developer. 
+
+For software that has simple functions, menu driven interface is recommended. It is intuitive and simple to learn how to use. User doesn\rq t require any knowledge to use software. If software needs to provide many functions, this is not good interface to use.
+
+A form based interface is recommended for software that needs to take a lot of data from user to perform the function. If software does not need to take many data at a time, this interface is not suitable for that software.
+
+
+\subsection{Conclusion:}
+Since signature detecting software interface need to be black box module and simple to use, menu driven interface and form based interface matches for the software. However, signature detection software does not need many input at a time, so menu driven interface is the best interface for our project.
+
+\newpage
+\nocite{*}
+\bibliographystyle{IEEEtran}
+\bibliography{source}
 \end{document}

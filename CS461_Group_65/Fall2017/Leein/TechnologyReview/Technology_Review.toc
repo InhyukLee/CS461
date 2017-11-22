@@ -1,8 +1,28 @@
-\contentsline {section}{\numberline {1}Overview:}{2}
-\contentsline {section}{\numberline {2}Criteria:}{2}
-\contentsline {section}{\numberline {3}Potential Choices:}{2}
-\contentsline {subsection}{\numberline {3.1}TensorFlow}{2}
-\contentsline {subsection}{\numberline {3.2}Deep Learning for Java(DL4J)}{2}
-\contentsline {subsection}{\numberline {3.3}OpenCV}{3}
-\contentsline {section}{\numberline {4}Discussion, compare and contrast:}{3}
-\contentsline {section}{\numberline {5}Conclusion:}{3}
+\contentsline {section}{\numberline {1}Deep Learning library}{2}
+\contentsline {subsection}{\numberline {1.1}Overview:}{2}
+\contentsline {subsection}{\numberline {1.2}Criteria:}{2}
+\contentsline {subsection}{\numberline {1.3}Potential Choices:}{2}
+\contentsline {subsubsection}{\numberline {1.3.1}TensorFlow}{2}
+\contentsline {subsubsection}{\numberline {1.3.2}Deep Learning for Java(DL4J)}{2}
+\contentsline {subsubsection}{\numberline {1.3.3}OpenCV}{3}
+\contentsline {subsection}{\numberline {1.4}Discussion, compare and contrast:}{3}
+\contentsline {subsection}{\numberline {1.5}Conclusion:}{3}
+\contentsline {section}{\numberline {2}Text recognition method for detecting signature box}{3}
+\contentsline {subsection}{\numberline {2.1}Overview:}{3}
+\contentsline {subsection}{\numberline {2.2}Criteria:}{4}
+\contentsline {subsection}{\numberline {2.3}Potential Choices:}{4}
+\contentsline {subsubsection}{\numberline {2.3.1}Optical Character Recognition (OCR)}{4}
+\contentsline {subsubsection}{\numberline {2.3.2}Intelligent Character Recognition (ICR)}{4}
+\contentsline {subsubsection}{\numberline {2.3.3}Intelligent Word Recognition (IWR)}{4}
+\contentsline {subsection}{\numberline {2.4}Discussion, compare and contrast:}{4}
+\contentsline {subsection}{\numberline {2.5}Conclusion:}{5}
+\contentsline {section}{\numberline {3}User interface}{5}
+\contentsline {subsection}{\numberline {3.1}Overview:}{5}
+\contentsline {subsection}{\numberline {3.2}Criteria:}{5}
+\contentsline {subsection}{\numberline {3.3}Potential Choices:}{5}
+\contentsline {subsubsection}{\numberline {3.3.1}Command Line}{5}
+\contentsline {subsubsection}{\numberline {3.3.2}Menu Driven}{5}
+\contentsline {subsubsection}{\numberline {3.3.3}Form Based}{6}
+\contentsline {subsection}{\numberline {3.4}Discussion, compare and contrast:}{6}
+\contentsline {subsection}{\numberline {3.5}Conclusion:}{6}
+\contentsline {section}{References}{7}

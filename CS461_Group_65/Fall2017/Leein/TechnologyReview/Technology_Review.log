@@ -1,6 +1,6 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=latex 2017.9.1)  14 NOV 2017 09:49
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=latex 2017.9.1)  21 NOV 2017 23:36
 entering extended mode
- \write18 enabled.
+ restricted \write18 enabled.
  %&-line parsing enabled.
 **Technology_Review.tex
 (./Technology_Review.tex
@@ -148,6 +148,35 @@ Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 (/usr/share/texlive/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
+(/usr/share/texlive/texmf-dist/tex/latex/csquotes/csquotes.sty
+Package: csquotes 2011/10/22 v5.1d context-sensitive quotations
+
+(/usr/share/texlive/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2011/01/03 v2.1 e-TeX tools for LaTeX
+
+(/usr/share/texlive/texmf-dist/tex/latex/etex-pkg/etex.sty
+Package: etex 1998/03/26 v2.0 eTeX basic definition package (PEB)
+\et@xins=\count94
+)
+\etb@tempcnta=\count95
+)
+\csq@reset=\count96
+\csq@gtype=\count97
+\csq@glevel=\count98
+\csq@qlevel=\count99
+\csq@maxlvl=\count100
+\csq@tshold=\count101
+\csq@ltx@everypar=\toks16
+
+(/usr/share/texlive/texmf-dist/tex/latex/csquotes/csquotes.def
+File: csquotes.def 2011/10/22 v5.1d csquotes generic definitions
+)
+Package csquotes Info: Trying to load configuration file 'csquotes.cfg'...
+Package csquotes Info: ... configuration file loaded successfully.
+
+(/usr/share/texlive/texmf-dist/tex/latex/csquotes/csquotes.cfg
+File: csquotes.cfg 
+))
 (/usr/share/texlive/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
 
@@ -162,9 +191,9 @@ Package ifvtex Info: VTeX not detected.
 (/usr/share/texlive/texmf-dist/tex/generic/ifxetex/ifxetex.sty
 Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
-\Gm@cnth=\count94
-\Gm@cntv=\count95
-\c@Gm@tempcnt=\count96
+\Gm@cnth=\count102
+\Gm@cntv=\count103
+\c@Gm@tempcnt=\count104
 \Gm@bindingoffset=\dimen128
 \Gm@wd@mp=\dimen129
 \Gm@odd@mp=\dimen130
@@ -173,23 +202,65 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutheight=\dimen133
 \Gm@layouthoffset=\dimen134
 \Gm@layoutvoffset=\dimen135
-\Gm@dimlist=\toks16
+\Gm@dimlist=\toks17
 )
-(./Technology_Review.aux)
+(./pygments.tex (/usr/share/texlive/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2008/02/07
+
+Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
+<2008/02/07> (tvz)
+\FV@CodeLineNo=\count105
+\FV@InFile=\read1
+\FV@TabBox=\box28
+\c@FancyVerbLine=\count106
+\FV@StepNumber=\count107
+\FV@OutFile=\write3
+) (/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/color.cfg
+File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
+)
+Package color Info: Driver file: dvips.def on input line 130.
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+(/usr/share/texlive/texmf-dist/tex/latex/base/inputenc.sty
+Package: inputenc 2008/03/30 v1.1d Input encoding file
+\inpenc@prehook=\toks18
+\inpenc@posthook=\toks19
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/latin1.def
+File: latin1.def 2008/03/30 v1.1d Input encoding file
+)))
+
+LaTeX Warning: File `source.bib' already exists on the system.
+               Not generating it from this source.
+
+
+Package csquotes Warning: Load 'inputenc' before 'csquotes' on input line 75.
+
+Package csquotes Info: Checking for multilingual support...
+Package csquotes Info: ... none found.
+(./Technology_Review.aux
+
+LaTeX Warning: Label `table:1' multiply defined.
+
+)
 \openout1 = `Technology_Review.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 33.
-LaTeX Font Info:    ... okay on input line 33.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 75.
+LaTeX Font Info:    ... okay on input line 75.
 
 -- Lines per column: 39 (approximate, difference = 14.73578pt).
 *geometry* driver: auto-detecting
@@ -226,53 +297,67 @@ LaTeX Font Info:    ... okay on input line 33.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-File: coe_v_spot1.eps Graphic file (type eps)
-<coe_v_spot1.eps>
 LaTeX Font Info:    Font shape `OT1/ppl/bx/sc' in size <20.075> not available
-(Font)              Font shape `OT1/ppl/b/sc' tried instead on input line 47.
+(Font)              Font shape `OT1/ppl/b/sc' tried instead on input line 88.
 LaTeX Font Info:    Font shape `OT1/ppl/bx/sc' in size <24.09> not available
-(Font)              Font shape `OT1/ppl/b/sc' tried instead on input line 47.
-LaTeX Font Info:    Try loading font information for OT1+phv on input line 63.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1phv.fd
+(Font)              Font shape `OT1/ppl/b/sc' tried instead on input line 88.
+LaTeX Font Info:    Try loading font information for OT1+phv on input line 112.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1phv.fd
 File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
 )
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <8.03> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 63.
-
-[1]
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 112.
+ [1]
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <11.04124> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 71.
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 120.
 LaTeX Font Info:    Font shape `OT1/phv/bx/sc' in size <11.04124> not available
 
-(Font)              Font shape `OT1/phv/b/sc' tried instead on input line 71.
- (./Technology_Review.toc
-LaTeX Font Info:    Calculating math sizes for size <9.53561> on input line 4.
+(Font)              Font shape `OT1/phv/b/sc' tried instead on input line 120.
+
+(./Technology_Review.toc
+LaTeX Font Info:    Calculating math sizes for size <9.53561> on input line 2.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9.53561> on input line 4.
+(Font)              <9.53561> on input line 2.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6.6749> on input line 4.
+(Font)              <6.6749> on input line 2.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <4.7678> on input line 4.
+(Font)              <4.7678> on input line 2.
 )
-\tf@toc=\write3
-\openout3 = `Technology_Review.toc'.
+\tf@toc=\write4
+\openout4 = `Technology_Review.toc'.
 
  [1]
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <9.53561> not available
-(Font)              Font shape `OT1/phv/b/n' tried instead on input line 85.
-Missing character: There is no â in font pplr7t!
-Missing character: There is no € in font pplr7t!
-Missing character: There is no ™ in font pplr7t!
+(Font)              Font shape `OT1/phv/b/n' tried instead on input line 128.
+LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <9.53561> not available
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 135.
  [2
 
-] [3] (./Technology_Review.aux) ) 
-Here is how much of TeX's memory you used:
- 2045 strings out of 495064
- 33686 string characters out of 3182225
- 92321 words of memory out of 3000000
- 5257 multiletter control sequences out of 15000+200000
- 29166 words of font info for 72 fonts, out of 3000000 for 9000
- 14 hyphenation exceptions out of 8191
- 26i,7n,19p,843b,223s stack positions out of 5000i,500n,10000p,200000b,50000s
+] [3]
 
-Output written on Technology_Review.dvi (4 pages, 12168 bytes).
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[4] [5] [6] (./Technology_Review.bbl
+LaTeX Font Info:    Calculating math sizes for size <8.03> on input line 27.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8.03> on input line 27.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <5.62097> on input line 27.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <4.015> on input line 27.
+) [7] (./Technology_Review.aux)
+
+LaTeX Warning: There were multiply-defined labels.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 3656 strings out of 495064
+ 57112 string characters out of 3182225
+ 128910 words of memory out of 3000000
+ 6821 multiletter control sequences out of 15000+200000
+ 31658 words of font info for 79 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 30i,8n,21p,1358b,352s stack positions out of 5000i,500n,10000p,200000b,50000s
+
+Output written on Technology_Review.dvi (8 pages, 35456 bytes).
