@@ -118,6 +118,10 @@ The primary audience for this document will be our instructors and client who ha
 
 [10] ”MuPDF” Internet: https://mupdf.com/, 2017 [Nov. 21, 2017].
 
+[11] "OCR – Optical Character Recognition” Internet: http://www.recogniform.net/eng/ocr-optical-character-recognition.html, 2016 [Dec. 1, 2017].
+
+[12] ”System software: User interfaces” Internet: https://en.wikibooks.org/wiki/A-levelComputing/CIE/Computersystems,communicationsandsoftware/Systemsoftware/Userinterfaces, 2017 [Dec. 1, 2017].
+
 \section{Design Viewpoints}
 \subsection{Introduction}
 The viewpoints model of depicting our various pieces for this project gives the opportunity to plan for that piece in regards to what role it must serve. The various viewpoints depicted below show what the intended function for that technology is for the group and how it will be used to serve the project as a whole. Each viewpoint carries its own distinct subset of rules as well to help clarify the particular function it needs to carry out. 
@@ -149,7 +153,7 @@ The internal functions of C++ are very flexible by nature despite the syntactic 
 
 In the event Python is incorporated into the project, presumably due to complications with C++, the attributes will be mostly the same as well. The process will be identical, but the functions used will have to be different. If this direction is taken with the project there will be a notable slowdown in performance regarding all aspects of our project due to the nature of Python.
 
-\subsection{Image Filtering}
+\subsection{Image Filtering(Algorithm)}
 \subsubsection{Design Concerns}
 The leading concern for this project is whether the task assigned to us can be completed. As such, the focus for image filtering is placed on how effective it is at assisting the program in finding the signature windows. It is not a primary concern at present to have the most optimal algorithm used for the ‘smoothing’ of our images, just one that will be most likely to succeed. Should we be incorrect in our assumptions for what would work best, there are another two functions that could be used as substitute. Should the project be proven possible, consideration will be made for using more efficient functions without losing accuracy on program readouts. Median will be the second choice due to the fact that it carries slightly stronger properties at shape retention through the blurring process. If both preceding options fail then Gaussian is unlikely to improve the situation but will be attempted regardless [5].
 
@@ -158,6 +162,57 @@ For this portion of the project we are interested in improving readability for t
 
 \subsubsection{Processing Attribute}
 Bilateral filtering can effectively remove noise whilst retaining the object within the image. It is a costly function call however; bilateral filtering functions via calling two unique gaussian filters and designating one to sweep through the ‘space’ of the image and search for sharp changes in pixel intensity which indicates the edge of an object. The other filter will move through the image and blur whatever does not show a steep change in pixel intensity. For this process to work in a reasonable manner, it will be implemented with the same language as the AI and be handed the image conversion of our PDFs. The output should enable the AI program to more readily ‘see’ the distinct objects on the image and, most importantly, determine the locations of signature windows. In the event that bilateral does not accomplish the task, the use of a median filter is our next best option. Median functions under a relatively new method for OpenCV in which it processes all channels of the image input independently. This process as a result can frequently blur any ‘salt-and-pepper’ like noise on an image without breaking up object form [7].
+
+\subsection{Computer Vision Library(Composition}
+\subsubsection{Design Concerns}
+Choosing computer vision library is critical for designing signature detecting software. Using a robust library will improve the functionality of the software and reduce the development time. To select good quality of library, three common computer vision libraries are compared. These libraries, TensorFlow, Deep Learning 4 Java(DL4J), and OpenCV are evaluated based on: flexibility of environment and language, variety of functions, weight of the functions, and the size of the community. When considering these factors, OpenCV library was chosen for this project as the strongest candidate.
+
+\subsubsection{Design Elements}
+Design entities: \\
+OpenCV is an Open Source Computer Vision Library that provides various functions related to digital imagery and video. Since the main goal of this project is recognizing signatures on a document, this library will be vital in correctly analyzing any submitted form. OpenCV supports many languages such as C++, C, Python and Java but it is optimized primarily for C and C++.  Also, it is executable on both desktop (Windows, Linux, Android, MacOS, FreeBSD, OpenBSD) and mobile (Android, Maemo, iOS) [10].\\
+
+Design relationships: \\
+Computer vision library have high relationship with design and efficiency of the algorithm. Each computer vision library supports different functions to solve the same problem.  Based on what library that software is using, design of the algorithm will change. In addition, since each library supports different functions, the performance of each functions varies. Therefore, choosing a good library will increase the performance of the entire software.
+The interaction between environment and library is also important.  Since different libraries supports different languages and operating systems, our choice will significantly impact our options when developing the project. OpenCV has high flexibility on environment. It supports four languages and runnable on nine operating systems.\\
+
+\subsubsection{Design Attributes}
+Unlike other computer vision libraries, OpenCV been functioning for years with continued support. Because of this, OpenCV carries with it a large and diverse community of supporters. According to the OpenCV website, there are 47 thousand people in the user community, and more than 14 million downloads [10]. Since there is such a large community, learning OpenCV and fixing issues will likely be easier than with less documented or supported formats.
+OpenCV is very fast at runtime when compared to other AI platforms. This is because OpenCV library is written in C and C++. It also supports 500 improved algorithms to accelerate the original algorithms [10].  OpenCV do this by using CUDA which is modern GPU accelerators that increase GPU performance, so an algorithm can be computed in a short period of time.\\
+
+\subsection{Text Recognition Method(Algorithm)}
+\subsubsection{Design Concerns}
+Choosing computer vision library is critical for designing signature detecting software. Using a robust library will improve the functionality of the software and reduce the development time. To select good quality of library, three common computer vision libraries are compared. These libraries, TensorFlow, Deep Learning 4 Java(DL4J), and OpenCV are evaluated based on: flexibility of environment and language, variety of functions, weight of the functions, and the size of the community. When considering these factors, OpenCV library was chosen for this project as the strongest candidate.
+
+\subsubsection{Design Elements}
+Design entities: \\
+Intelligent Character Recognition(ICR) is a text recognition algorithm. It converts text images to electronical text documents by taking three steps. It first analyzes the image, recognizes the paragraphs, text lines, and words from the image. Then, it splits the images into individual characters. On the last step, it compares image characters with characters in the dictionary, and converts the characters [11].  \\
+
+Design relationships:\\
+ICR directly impacts the performance and speed of the software. Since ICR is the algorithm that is used for detecting the signature box, the higher accuracy of the character recognition will lead to the higher accuracy for detecting the signature box. It also impacts the speed of the software. If the algorithm is heavy, speed of the software will go down. ICR algorithm does have comparatively high accuracy and high-speed when looking at its competitors.\\
+
+\subsubsection{Design Attributes}
+For detecting characters, ICR has three features to increase the accuracy of the function. First it compares the image character with character in dictionary. Second, it evaluates the characteristics of the character such as number of lines and angles between lines to determine which character is it. Last feature is the self-learning feature. ICR learns through its experience to increase accuracy. Also, since it can learn different font and style, it can determine handwritten texts from the image.
+
+
+\subsection{User Interface Type(Logical Viewpoint)}
+\subsubsection{Design Concerns}
+Selecting proper user interface is important to draw full functionality of the signature detection software by user. To choose the best user interface for the software, characteristics of the user and characteristics of the software were considered. Determining who is the user and characteristics of them is the one of the most important factor. Based on their knowledge and experience, efficiency of the user interface will change dramatically. Also, software characteristics such as input constraints and hardware constraints also influence user interface. Based on the two characteristics, menu driven interface has been chosen among command line and form based interface. 
+
+\subsubsection{Design Elements}
+Design entities: \\
+Menu Driven interface interacts with user by providing simple selectable menus to user. It will show a small number of selectable menus to the user, and when user select the menu, it will perform the task that was written on the menu or gives the other selectable menus [12]. Menu driven interface is similar as tree structure. First menus act as a root of the tree, and on each menu, they may or may not have branch menus.\\
+
+Design relationships:\\
+As it mentioned on design concerns section, selecting proper user interface will increase the chance of user to perform pull functionality of the software, and considering characteristics of user and software will make higher chance for user to do this. Potential user of the signature detection software is employee of the car dealers. They have little or no knowledge on artificial intelligence or image recognition process. Therefore, user interface must be simple to use without background knowledge of image recognition. Signature detection software need to take the image document and give result of the signature detection, so user interface does not need to provide unnecessary ability to user. This will only draw confusion to user, and it might lead to malicious code.\\
+
+Design constraints:\\
+Since menu driven interface limits the user’s action, it also constraints the functionality of the software. However, signature recognition software has simple functionality, so limiting software control will not affect the efficiency of this software.\\
+
+\subsubsection{Design Attributes}
+The structure of the menu driven interface is simple and intuitive. User simply have to click on the menu that is provided, so it doesn’t require any background knowledge. In addition, this interface constraints the ability of the user by giving limited option to user. This will reduce the confusion of the user and avoid malicious code.
+
+
+
 
 \subsection{Image Converting (Dependency)}
 \subsubsection{Design Concerns}
@@ -169,7 +224,7 @@ The leading candidate for image conversion is ImageMagick, which operates as a s
 \subsubsection{Dependency attributes}
 In the final stages of this project, the dependencies on file conversion may go away when handing the AI program off to our client. However, it is vital until we reach that point. Without this software, we are unable to correctly build a library from which our project can read to make its assessments. As previously mentioned as well, OpenCV does not read PDFs in any capacity, and so to correctly analyze a document it must first be provided in a legible format for the program.
 
-\subsection{Runtime environment and Neural Net algorithm}
+\subsection{Runtime environment and Neural Net (Algorithm)}
 \subsubsection{Design Concerns}
 	The project being designed must be hosted in a runtime environment that is continuous as well as reliable. Given that we are taking an unsupervised learning approach to complete our task, it is imperative that it be able to run concurrently with instances of itself. The program must be designed in such a way that the ideal environment can host it and run it for extended periods of time. When taking this design paradigm into account, the algorithm running on this environment presents itself as the biggest design constraint. It must be optimized to be as noninvasive to the runtime environment as possible, while also efficiently making progress towards the desired outcome. 
 
