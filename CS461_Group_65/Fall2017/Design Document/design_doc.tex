@@ -98,29 +98,29 @@ The primary audience for this document will be our instructors and client who ha
 
 \subsection{Glossary}
 
-[1] ”OpenCV Tutorial C++” Internet: https://opencv-srf.blogspot.com, [Nov. 21, 2017].
+[1] "OpenCV Tutorial C++" Internet: https://opencv-srf.blogspot.com, [Nov. 21, 2017].
 
-[2] ”LearnOpenCV” Internet: https://www.learnopencv.com, Oct. 30, 2015 [Nov. 14, 2017].
+[2] "LearnOpenCV" Internet: https://www.learnopencv.com, Oct. 30, 2015 [Nov. 14, 2017].
 
 [3] "CDK Global" Internet: https://www.cdkglobal.com/, 2017 [Nov. 10, 2017].
 
 [4] "Python" Internet: https://www.python.org/, Oct. 17, 2017 [Nov. 12, 2017].
 
-[5] ”Smoothing Images” Internet: https://docs.opencv.org, [Nov. 21, 2017].
+[5] "Smoothing Images" Internet: https://docs.opencv.org, [Nov. 21, 2017].
 
-[6] ”OpenCV Tutorial C++” Internet: https://opencv-srf.blogspot.com, [Nov. 21, 2017].
+[6] "OpenCV Tutorial C++" Internet: https://opencv-srf.blogspot.com, [Nov. 21, 2017].
 
-[7] ”Filters B” Internet: http://www.bogotobogo.com, 2016 [Nov. 20, 2017].
+[7] "Filters B" Internet: http://www.bogotobogo.com, 2016 [Nov. 20, 2017].
 
-[8] ”Image Magick” Internet: https://www.imagemagick.org, 2017 [Nov. 21, 2017].
+[8] "Image Magick" Internet: https://www.imagemagick.org, 2017 [Nov. 21, 2017].
 
-[9] ”Ghostscript” Internet: https://www.ghostscript.com, 2016 [Nov. 20, 2017].
+[9] "Ghostscript" Internet: https://www.ghostscript.com, 2016 [Nov. 20, 2017].
 
-[10] ”MuPDF” Internet: https://mupdf.com/, 2017 [Nov. 21, 2017].
+[10] "MuPDF" Internet: https://mupdf.com/, 2017 [Nov. 21, 2017].
 
 [11] "OCR – Optical Character Recognition” Internet: http://www.recogniform.net/eng/ocr-optical-character-recognition.html, 2016 [Dec. 1, 2017].
 
-[12] ”System software: User interfaces” Internet: https://en.wikibooks.org/wiki/A-levelComputing/CIE/Computersystems,communicationsandsoftware/Systemsoftware/Userinterfaces, 2017 [Dec. 1, 2017].
+[12] "System software: User interfaces" Internet: https://en.wikibooks.org/wiki/A-levelComputing/CIE/Computersystems,communicationsandsoftware/Systemsoftware/Userinterfaces, 2017 [Dec. 1, 2017].
 
 \section{Design Viewpoints}
 \subsection{Introduction}
@@ -133,7 +133,7 @@ Each piece of technology is outlined in its purpose as well as its potential sho
 \subsubsection{Design Elements}
 In this section of a provided viewpoint the technology in question will be described in greater detail. Indications of what strengths or weaknesses an item may have are described here as well as the alternative technologies abilities. Beyond this portion, depending on the viewpoint being used there are additional potential subsections that may follow.
 
-\subsection{Languages of OpenCV}
+\subsection{Languages of OpenCV(Composition)}
 \subsubsection{Design Concerns}
 The largest concern in this design is the fact that OpenCV is primarily restricted to only a few languages. C++, Python, and Java are the three candidates worth considering, and there are significant differences between them. When choosing the language for our project, we have to consider two major factors: AI is a computationally heavy process, and we need to primarily prove that the task can be done (not necessarily in the most efficient manner). After consideration of these factors, we decided to go with C++ as our primary focus given its documentation and optimization [1], but a backup plan has been made for Python migration.
 
@@ -163,7 +163,7 @@ For this portion of the project we are interested in improving readability for t
 \subsubsection{Processing Attribute}
 Bilateral filtering can effectively remove noise whilst retaining the object within the image. It is a costly function call however; bilateral filtering functions via calling two unique gaussian filters and designating one to sweep through the ‘space’ of the image and search for sharp changes in pixel intensity which indicates the edge of an object. The other filter will move through the image and blur whatever does not show a steep change in pixel intensity. For this process to work in a reasonable manner, it will be implemented with the same language as the AI and be handed the image conversion of our PDFs. The output should enable the AI program to more readily ‘see’ the distinct objects on the image and, most importantly, determine the locations of signature windows. In the event that bilateral does not accomplish the task, the use of a median filter is our next best option. Median functions under a relatively new method for OpenCV in which it processes all channels of the image input independently. This process as a result can frequently blur any ‘salt-and-pepper’ like noise on an image without breaking up object form [7].
 
-\subsection{Computer Vision Library(Composition}
+\subsection{Computer Vision Library(Composition)}
 \subsubsection{Design Concerns}
 Choosing computer vision library is critical for designing signature detecting software. Using a robust library will improve the functionality of the software and reduce the development time. To select good quality of library, three common computer vision libraries are compared. These libraries, TensorFlow, Deep Learning 4 Java(DL4J), and OpenCV are evaluated based on: flexibility of environment and language, variety of functions, weight of the functions, and the size of the community. When considering these factors, OpenCV library was chosen for this project as the strongest candidate.
 

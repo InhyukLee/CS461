@@ -17,7 +17,7 @@ ps: $(PSF)
 
 $(TRG): %.dvi: %.tex $(EXAMPLES)
 	#one way of including source code is to use pygments
-	pygmentize -f latex -o __${EXAMPLES}.tex ${EXAMPLES}
+	#pygmentize -f latex -o __${EXAMPLES}.tex ${EXAMPLES}
 	#requires that you \include{pygments.tex} in your preamble
 
 	$(LATEX) $<
