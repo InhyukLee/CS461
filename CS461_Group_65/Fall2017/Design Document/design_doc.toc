@@ -1,0 +1,27 @@
+\contentsline {section}{\numberline {1}Overview}{2}
+\contentsline {subsection}{\numberline {1.1}Scope}{2}
+\contentsline {subsection}{\numberline {1.2}Purpose and Background}{2}
+\contentsline {subsection}{\numberline {1.3}Intended Audience}{2}
+\contentsline {subsection}{\numberline {1.4}Glossary}{2}
+\contentsline {section}{\numberline {2}Design Viewpoints}{3}
+\contentsline {subsection}{\numberline {2.1}Introduction}{3}
+\contentsline {subsection}{\numberline {2.2}Context Viewpoints}{3}
+\contentsline {subsubsection}{\numberline {2.2.1}Design Concerns}{3}
+\contentsline {subsubsection}{\numberline {2.2.2}Design Elements}{3}
+\contentsline {subsection}{\numberline {2.3}Languages of OpenCV}{3}
+\contentsline {subsubsection}{\numberline {2.3.1}Design Concerns}{3}
+\contentsline {subsubsection}{\numberline {2.3.2}Design Elements}{4}
+\contentsline {subsubsection}{\numberline {2.3.3}Data Attributes}{4}
+\contentsline {subsection}{\numberline {2.4}Image Filtering}{5}
+\contentsline {subsubsection}{\numberline {2.4.1}Design Concerns}{5}
+\contentsline {subsubsection}{\numberline {2.4.2}Design Elements}{5}
+\contentsline {subsubsection}{\numberline {2.4.3}Processing Attribute}{5}
+\contentsline {subsection}{\numberline {2.5}Image Converting (Dependency)}{6}
+\contentsline {subsubsection}{\numberline {2.5.1}Design Concerns}{6}
+\contentsline {subsubsection}{\numberline {2.5.2}Design Elements}{6}
+\contentsline {subsubsection}{\numberline {2.5.3}Dependency attributes}{6}
+\contentsline {subsection}{\numberline {2.6}Runtime environment and Neural Net algorithm}{6}
+\contentsline {subsubsection}{\numberline {2.6.1}Design Concerns}{6}
+\contentsline {subsubsection}{\numberline {2.6.2}Design Elements}{6}
+\contentsline {subsubsection}{\numberline {2.6.3}Data Attributes}{7}
+\contentsline {section}{\numberline {3}Conclusion}{7}
