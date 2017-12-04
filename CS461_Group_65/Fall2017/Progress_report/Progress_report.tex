@@ -198,10 +198,10 @@ Design document formatting was very awkward for us, despite looking at an exampl
 We merged what resources we found for the document and proceeded with that, the final design does carry a logical structure that followed the IEEE document provided.
 
 \section{Retrospective table}
-%p{0.3\linewidth}
-\begin{table}[h]
+
+\begin{table}[h!]
 \centering
-\begin{tabular}{ | c | c | c |}
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}p{0.3\linewidth}p{0.3\linewidth}p{0.3\linewidth}@{}}
 \hline
 positives column & deltas column & actions column\\ 
 \hline
@@ -213,7 +213,7 @@ Client is approachable and is excited about AI as well & More preparation for cl
 \hline
 Progress on coding is already underway & More active use of OneNote and GitHub to share individual progress & Reminders of content updates will be sent out to group\\ 
 \hline
-\end{tabular}
+\end{tabular*}
 \caption{Retrospective table}
 \label{table:1}
 \end{table}
