@@ -9,8 +9,8 @@ http://ufldl.stanford.edu/tutorial/supervised/ConvolutionalNeuralNetwork/
 Conv Nets: the math of intelligence ( this one is especialyl helpful but rather long)
 https://www.youtube.com/watch?v=FTr3n7uBIuE
 
-Convolutional neural networks in 10 mins
-https://www.youtube.com/watch?v=LodC7Zm3X8Q
+A friendly introduction to neural networks
+https://www.youtube.com/watch?v=2-Ol7ZB0MmU
 
 Beginners guide to understanding convolutional neural networks
 https://adeshpande3.github.io/adeshpande3.github.io/A-Beginner%27s-Guide-To-Understanding-Convolutional-Neural-Networks/
