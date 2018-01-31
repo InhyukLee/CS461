@@ -5,8 +5,11 @@ since it calls all the different parts of a CNN in the correct order.
 To run this code:
 --->Download ConvNet.cpp
 --->Download CMakeFiles.txt
+--->download all four ubyte files
 ///** MAKE SURE TO PLACE THESE IN THE SAME DIRECTORY AS YOUR RUNNING VERSION OF OPENCV **///
 --->Run the following commands:
+    ---> mkdir trainingSet
+        ---> place all ubyte files hhere
     ---> cmake .
     ---> make
 Once this is done you can run the ConvNet by invoking:
