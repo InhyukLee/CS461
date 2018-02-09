@@ -62,6 +62,7 @@ int main(int argc, char** argv) {
    //read image
    Pix *img = pixRead(img_path);
    ocr->SetImage(img);
+   ocr->SetSourceResolution(70);
    
    //convert image to text
    char *text;

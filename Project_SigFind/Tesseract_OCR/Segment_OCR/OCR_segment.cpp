@@ -34,7 +34,6 @@ void itoa(int n, char s[]){
 }  
 
 int main(int argc, char** argv) {
-   
    if(argc <2){
       cout << "Need png file" << endl;
       return -1;
@@ -43,29 +42,31 @@ int main(int argc, char** argv) {
    char* img_path = argv[1];
    char save_path[30];
    char num_char[3];
-
+   Pix *segbox;
    Pix *image = pixRead(img_path);
-   Pix *cut_by_line;
    tesseract::TessBaseAPI *api = new tesseract::TessBaseAPI();
    api->Init(NULL, "eng");
+   api->SetPageSegMode(tesseract::PSM_AUTO);
    api->SetImage(image);
    api->SetSourceResolution(70);
-   Boxa* boxes = api->GetComponentImages(tesseract::RIL_TEXTLINE, true, NULL, NULL);
+   Boxa* boxes = api->GetComponentImages(tesseract::RIL_BLOCK, true, NULL, NULL);
    printf("Found %d textline image components.\n", boxes->n);
+   api->SetPageSegMode(tesseract::PSM_SINGLE_BLOCK);
    for (int i = 0; i < boxes->n; i++) {
       BOX* box = boxaGetBox(boxes, i, L_CLONE);
-      cut_by_line = pixClipRectangle(image, box, NULL);
-      strcpy (save_path, "./image/cut_by_line_");
+
+      segbox = pixClipRectangle(image, box, NULL);
+      strcpy (save_path, "./image/segmentation_");
       itoa(i,num_char);
       strncat (save_path, num_char,3);
-      
-      pixWrite(save_path, cut_by_line, IFF_PNG);
+      pixWrite(save_path, segbox, IFF_PNG);
+
       api->SetRectangle(box->x, box->y, box->w, box->h);
       char* ocrResult = api->GetUTF8Text();
       int conf = api->MeanTextConf();
-      fprintf(stdout, "Box[%d]: x=%d, y=%d, w=%d, h=%d, confidence: %d, text: %s",
-                    i, box->x, box->y, box->w, box->h, conf, ocrResult);
+      fprintf(stdout, "Box[%d]: x=%d, y=%d, w=%d, h=%d, confidence: %d, text: %s", i, box->x, box->y, box->w, box->h, conf, ocrResult);
    }
+
    pixDestroy(&image);
    api->End();
    return 0;
