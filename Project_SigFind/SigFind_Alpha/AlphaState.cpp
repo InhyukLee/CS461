@@ -23,7 +23,7 @@ int main(int argc, char** argv){
    string result_image;
 
    result_image = runMain(argv[1]);  
-   displayImage(result_image);
+   RunNetwork(result_image);
 
    return 0;    
 }

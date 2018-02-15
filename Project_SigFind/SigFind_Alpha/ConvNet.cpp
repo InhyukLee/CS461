@@ -757,8 +757,34 @@ saveWeight(Mat &M, string s){
     fclose(pOut);
 }
 
+
+int forwardPass(string path, Cvl &cv, vector<Ntw> &hLayers, SMR &smr,double lamda){
+
+        Mat image;
+        Mat dst;
+        vector<Mat> images;
+        namedWindow("showIm",WINDOW_AUTOSIZE);
+        image = imread(path,0);
+        Size size(28,28);
+        resize(image,dst,size);
+
+        images.push_back(dst);
+        for(int i=0; i<images.size(); i++){
+                images[i].convertTo(images[i], CV_64FC1, 1.0/255, 0);
+                imshow("showIm",images[i]);
+                waitKey(1000);
+        }
+        cout << "check 1" <<endl;
+        Mat result = resultProdict(images,cv,hLayers,smr,3e-3);
+        cout << "check 2" << endl;
+
+        cout<< (double) result.ATD(0,0)<< endl;
+
+	return 0;
+}
+
 int 
-RunNetwork()
+RunNetwork(string path)
 {
     long start, end;
     start = clock();
@@ -796,7 +822,7 @@ RunNetwork()
     Mat tpX = concatenateMat(trainX);
     double lrate = getLearningRate(tpX);
     cout<<"lrate = "<<lrate<<endl;
-    trainNetwork(trainX, trainY, cvl, HiddenLayers, smr, 3e-3, iterations, lrate);
+    trainNetwork(trainX, trainY, cvl, HiddenLayers, smr, 3e-3, 10, lrate);
 
     if(! G_CHECKING){
         // Save the trained kernels, you can load them into Matlab/GNU Octave to see what are they look like.
@@ -810,28 +836,18 @@ RunNetwork()
         saveWeight(cvl.layer[7].W, "w7");
 
         // Test use test set
-        Mat result = resultProdict(testX, cvl, HiddenLayers, smr, 3e-3);
-        Mat err(testY);
-        err -= result;
-        int correct = err.cols;
-        for(int i=0; i<err.cols; i++){
-            if(err.ATD(0, i) != 0) --correct;
-        }
-        cout<<"correct: "<<correct<<", total: "<<err.cols<<", accuracy: "<<double(correct) / (double)(err.cols)<<endl;
-    }    
+        //Mat result = resultProdict(testX, cvl, HiddenLayers, smr, 3e-3);
+        //Mat err(testY);
+        //err -= result;
+        //int correct = err.cols;
+        //for(int i=0; i<err.cols; i++){
+          //  if(err.ATD(0, i) != 0) --correct;
+       // }
+        //cout<<"correct: "<<correct<<", total: "<<err.cols<<", accuracy: "<<double(correct) / (double)(err.cols)<<endl;
+    	forwardPass(path,cvl, HiddenLayers, smr, 3e-3);
+
+	}    
     end = clock();
     cout<<"Totally used time: "<<((double)(end - start)) / CLOCKS_PER_SEC<<" second"<<endl;
     return 0;
-}
-
-int displayImage(string path){
-
-	namedWindow("Sig Box",WINDOW_AUTOSIZE);
-	Mat image;
-	image = imread(path,1);
-	
-	imshow("Sig Box",image);
-	waitKey(0);
-
-
 }
