@@ -1,0 +1,33 @@
+\contentsline {section}{\numberline {1}Introduction}{2}
+\contentsline {section}{\numberline {2}Project Purposes and Goals}{2}
+\contentsline {section}{\numberline {3}Recap of Last Term and Progress}{2}
+\contentsline {section}{\numberline {4}Projected Goals of Winter Term}{3}
+\contentsline {section}{\numberline {5}ImageMagick}{3}
+\contentsline {section}{\numberline {6}OCR Tesseract}{3}
+\contentsline {subsection}{\numberline {6.1}Software and Technique}{3}
+\contentsline {subsubsection}{\numberline {6.1.1}ImageMagick}{3}
+\contentsline {subsubsection}{\numberline {6.1.2}OCR Tesseract}{3}
+\contentsline {subsection}{\numberline {6.2}Why This Was Chosen}{4}
+\contentsline {subsection}{\numberline {6.3}What It Can Do}{4}
+\contentsline {subsection}{\numberline {6.4}Possible Solutions}{5}
+\contentsline {subsubsection}{\numberline {6.4.1}Search Method}{5}
+\contentsline {subsubsection}{\numberline {6.4.2}Finding Accurate Location}{5}
+\contentsline {section}{\numberline {7}Convolutional Network}{5}
+\contentsline {section}{\numberline {8}Weekly Summary of Winter}{6}
+\contentsline {subsection}{\numberline {8.1}Week 1}{6}
+\contentsline {subsubsection}{\numberline {8.1.1}Activities}{6}
+\contentsline {subsubsection}{\numberline {8.1.2}Problems}{6}
+\contentsline {subsubsection}{\numberline {8.1.3}Solutions}{7}
+\contentsline {subsection}{\numberline {8.2}Week 2}{7}
+\contentsline {subsubsection}{\numberline {8.2.1}Activities}{7}
+\contentsline {subsubsection}{\numberline {8.2.2}Problems}{7}
+\contentsline {subsubsection}{\numberline {8.2.3}Solutions}{7}
+\contentsline {subsection}{\numberline {8.3}Week 3}{7}
+\contentsline {subsubsection}{\numberline {8.3.1}Activities}{7}
+\contentsline {subsection}{\numberline {8.4}Week 4}{8}
+\contentsline {subsubsection}{\numberline {8.4.1}Activities}{8}
+\contentsline {subsubsection}{\numberline {8.4.2}Problems}{8}
+\contentsline {subsection}{\numberline {8.5}Week 5}{8}
+\contentsline {subsubsection}{\numberline {8.5.1}Activities}{8}
+\contentsline {subsubsection}{\numberline {8.5.2}Problems}{8}
+\contentsline {subsubsection}{\numberline {8.5.3}Solutions}{9}
