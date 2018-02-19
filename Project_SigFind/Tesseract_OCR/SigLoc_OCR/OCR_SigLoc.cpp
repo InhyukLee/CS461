@@ -68,6 +68,7 @@ int main(int argc, char** argv) {
          strcpy (save_path, "./image/SignatureBox_");
          itoa(sigcounter,num_char);
          strncat (save_path, num_char,3);
+         strncat (save_path,".png",4);
          pixWrite(save_path, segbox, IFF_PNG);
          sigcounter++;
       }
