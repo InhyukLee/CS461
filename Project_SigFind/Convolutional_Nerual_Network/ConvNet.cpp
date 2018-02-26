@@ -13,6 +13,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string>
+#include <sstream>
 
 using namespace cv;
 using namespace std;
@@ -751,13 +753,288 @@ saveWeight(Mat &M, string s){
             fprintf(pOut, "%lf", M.ATD(i, j));
             if(j == M.cols - 1) fprintf(pOut, "\n");
             else fprintf(pOut, " ");
+
         }
     }
     fclose(pOut);
 }
+void
+loadWeight(Mat &M, string s){
+	s += ".txt";  
+	cout<<"loading file : "<<s<<endl;
+	FILE *pIn = fopen(s.c_str(), "r");
+	double n;
+	int i=0;
+	int j=0;
+	int count=0;
+	if(pIn == NULL){
+		cout<<"file could not be read"<<endl;
+		return;
+	}
+	cout<<"num cols = "<<M.cols<<" ; \n";
+	cout<<"num rows = "<<M.rows<<" ; \n";
+	while(fscanf(pIn,"%lf",&n) > 0 ){
+		//cout<<"%";
+		if(j == M.cols){
+			i++;
+			j=0;
+		}
+		if(i == M.rows)
+			break;
+		//cout<<"&";
+		M.ATD(i,j) = (double) n;
+		//cout<<"#";
+		//cout<<"loaded weight "<< M.ATD(i,j) <<" @index "<<i<<", "<<j<<" in file "<<s<<"\n";
+		count++;
+		j++;
+	}
+	cout<<"\nload sucess from loadWeight()....\n";
+	cout<<"elements loaded = "<<count<<endl;
+	fclose(pIn);
 
-int 
-main(int argc, char** argv)
+}
+
+int forwardPass(vector<string> path){
+	
+	Cvl cvl;
+	vector<Ntw> HiddenLayers;
+	SMR smr;
+	int imgDim;
+	int nsamples;
+	loadNetwork(cvl,HiddenLayers,smr,imgDim,nsamples);	
+        Mat image;
+        Mat dst;
+        vector<Mat> images;
+	namedWindow("showIm",WINDOW_AUTOSIZE);
+	for(int i=0; i < path.size(); i++){
+	
+        	image = imread(path[i],0);
+        	Size size(28,28);
+        	resize(image,dst,size);
+
+        	images.push_back(dst);
+		
+	}
+	for(int i=0; i<images.size(); i++){
+		images[i].convertTo(images[i], CV_64FC1, 1.0/255, 0);
+		imshow("showIm",images[i]);
+		waitKey(1000);
+	}	
+	cout << "check 1" <<endl;
+        Mat result = resultProdict(images,cv,hLayers,smr,3e-3);
+	cout << "check 2" << endl;
+	
+        cout<< (double) result.ATD(0,0)<< endl;
+
+
+}
+
+void
+saveNetwork(Cvl &cv1, vector<Ntw> &HiddenLayers, SMR &smr, int imgDim, int nsamples){
+	FILE *pOut1 = fopen("cv1dubs.txt","w+");
+	FILE *pOut2 = fopen("SMRcost.txt","w+");
+	FILE *pOut3 = fopen("cv1KernNum.txt","w+");
+	FILE *pOut4 = fopen("imgDim-Nsamples.txt","w+");
+	
+	string saver ="";
+	//save numsamples and imgdim
+	fprintf(pOut4,"%i\n",imgDim);
+	fprintf(pOut4,"%i\n",nsamples);
+	stringstream out;
+	//save weights in Conv layers
+	for(int i=0; i < cv1.layer.size(); i++){
+		saver = "wCV";
+		out << i;
+		saver += out.str();
+		saveWeight(cv1.layer[i].W,saver);
+		saver = "wgradCV";
+		saver += out.str();
+		saveWeight(cv1.layer[i].Wgrad,saver);
+		fprintf(pOut1,"%lf\n",cv1.layer[i].b);
+		fprintf(pOut1,"%lf\n",cv1.layer[i].bgrad);
+		cout<<"saved conv layer "<<i<<endl;
+		out.str(string());	
+	}
+	//save kernel amount
+	fprintf(pOut3,"%i",cv1.kernelAmount);
+	
+	//save structure of hidden layer network
+	for(int i=0; i < HiddenLayers.size(); i++){
+		out << i;
+		string index = out.str();
+		
+		saver = "wn";
+		saver += index;
+		saveWeight(HiddenLayers[i].W,saver);
+		
+		saver = "b";
+		saver += index;
+		saveWeight(HiddenLayers[i].b,saver);
+		
+		saver = "HWgrad";
+		saver += index;
+		saveWeight(HiddenLayers[i].Wgrad,saver);
+		
+		saver = "Hbgrad";
+		saver += index;
+		saveWeight(HiddenLayers[i].bgrad,saver);
+		cout <<"saved hidden layer "<<i<<endl;
+		out.str(string());
+		
+	}
+	//save soft max regression layer
+		
+	saver = "wS1";
+	saveWeight(smr.Weight,saver);
+	
+	saver = "bS1";
+	saveWeight(smr.b,saver);
+	
+	saver = "HWgradS1";
+	saveWeight(smr.Wgrad,saver);
+		
+	saver = "HbgradS1";
+	saveWeight(smr.bgrad,saver);
+	fprintf(pOut2,"%lf",smr.cost);
+	
+}
+
+void
+loadNetwork(Cvl &cv1, vector<Ntw> &HiddenLayers, SMR &smr, int &imgDim, int &nsamples){
+	FILE *pOut1 = fopen("cv1dubs.txt","r");
+	FILE *pOut2 = fopen("SMRcost.txt","r");
+	FILE *pOut4 = fopen("imgDim-Nsamples.txt","r");
+	double d;
+	int n;
+	int counter = 0;
+	int resetter = 0;
+	stringstream out;
+	string saver ="";
+	//load numsamples and imgdim
+	while(fscanf(pOut4,"%i",&n) > 0){
+		if(counter == 0) imgDim = n;
+		if(counter == 1) nsamples = n;
+		counter ++;
+	}
+	
+	fclose(pOut4);
+	cout<<"loaded numsamples: "<< nsamples<<"....\n";
+	cout<<"loaded image dimensions: "<< imgDim<<" ....\n";
+	ConvNetInitPrarms(cv1,HiddenLayers,smr,imgDim,nsamples);
+	cout<<"net randomized and ready for loading"<<endl;	
+	//load weights in Conv layers
+	for(int i=0; i < cv1.layer.size(); i++){
+		cout<<"layer size = "<<cv1.layer.size()<<"\n";
+		cout<<"layer check...."<<cv1.layer[i].W.ATD(0,0)<<"\n";
+		counter = 0;
+		saver = "wCV";
+		out << i;
+		saver += out.str();
+		loadWeight(cv1.layer[i].W,saver);
+		cout<<"loaded "<<saver<<"....\n\n";
+		saver = "wgradCV";
+		out.str(string());
+		out << i;
+		saver += out.str();
+		loadWeight(cv1.layer[i].Wgrad,saver);
+		cout<<"loaded "<<saver<<"....\n\n";
+		out.str(string());
+	}
+	counter = 0;
+	 while(fscanf(pOut1,"%lf",&d) > 0){
+		//cout << fscanf(pOut1,"%lf",&d) <<"nums pOut1\n";
+                if(counter >= 1 && counter %2 == 0)
+                        resetter++;
+
+		if(counter %2 == 0){ 
+			cv1.layer[resetter].b = d;
+			cout<<"loaded b @"<<resetter<<"\n";
+		}
+                if(counter %2 == 1){
+			cv1.layer[resetter].bgrad = d;
+			cout<<"loader bgrad @"<<resetter<<"\n";
+		}
+                counter ++;
+		cout<<"count: "<<counter<<endl;
+		cout << "loaded cv1dubs pair "<<resetter <<"\n";
+         }
+	cout<<"loaded cv1dubs....\n";
+	fclose(pOut1);	
+	
+	//load structure of hidden layer network
+	for(int i=0; i < HiddenLayers.size(); i++){
+		cout<<"loading hidden layers "<<i<<endl;
+		counter=0;
+		out << i;
+		string index = out.str();
+		
+		saver = "wn";
+		saver += index;
+		loadWeight(HiddenLayers[i].W,saver);
+		
+		saver = "b";
+		saver += index;
+		loadWeight(HiddenLayers[i].b,saver);
+		
+		saver = "HWgrad";
+		saver += index;
+		loadWeight(HiddenLayers[i].Wgrad,saver);
+		
+		saver = "Hbgrad";
+		saver += index;
+		loadWeight(HiddenLayers[i].bgrad,saver);
+		out.str(string());
+		cout<<"loaded hidden layer: "<<i<<endl;	
+	}
+	
+	//load soft max regression layer
+		
+	saver = "wS1";
+	loadWeight(smr.Weight,saver);
+	
+	saver = "bS1";
+	loadWeight(smr.b,saver);
+	
+	saver = "HWgradS1";
+	loadWeight(smr.Wgrad,saver);
+		
+	saver = "HbgradS1";
+	loadWeight(smr.bgrad,saver);
+	cout<<"loaded Soft max regression layer"<<endl;
+	while (fscanf(pOut2,"%lf",&d) > 0)
+		smr.cost = d;
+	//
+	out.clear();	
+	fclose(pOut2);
+	
+}
+void 
+loadCV(Cvl &cv1){
+	
+	stringstream out;
+	string saver = "";
+	for(int i=6; i < cv1.layer.size(); i++){
+		cout<<"layer size = "<<cv1.layer.size()<<"\n";
+		cout<<"layer check...."<<cv1.layer[i].W.ATD(0,0)<<"\n";
+		saver = "wCV";
+		out << i;
+		saver += out.str();
+		loadWeight(cv1.layer[i].W,saver);
+		cout<<"loaded "<<saver<<"....\n\n";
+		saver = "wgradCV";
+		out.str(string());
+		out << i;
+		saver += out.str();
+		loadWeight(cv1.layer[i].Wgrad,saver);
+		cout<<"loaded "<<saver<<"....\n\n";
+		out.str(string());
+	}
+	cout<<"CVL load was succesful"<<endl;
+}
+
+void 
+trainNet(Cvl &cvl,vector<Ntw> &HiddenLayers, SMR &smr,vector<Mat> &trainX, vector<Mat> &testX, Mat &trainY, 
+Mat &testY)
 {
     long start, end;
     start = clock();
@@ -766,12 +1043,8 @@ main(int argc, char** argv)
     cin >> iterations;
     cout <<endl;
     cout << "check 1" <<endl;
-
-    vector<Mat> trainX;
-    vector<Mat> testX;
-    Mat trainY, testY;
-    readData(trainX, trainY, "trainingSet/train-images.idx3-ubyte", "trainingSet/train-labels.idx1-ubyte", 60000);
-    readData(testX, testY, "trainingSet/t10k-images.idx3-ubyte", "trainingSet/t10k-labels.idx1-ubyte", 10000);
+    //readData(trainX, trainY, "trainingSet/train-images.idx3-ubyte", "trainingSet/train-labels.idx1-ubyte", 60000);
+    //readData(testX, testY, "trainingSet/t10k-images.idx3-ubyte", "trainingSet/t10k-labels.idx1-ubyte", 10000);
     cout << "check 2" <<endl;
 	
     cout<<"Read trainX successfully, including "<<trainX[0].cols * trainX[0].rows<<" features and "<<trainX.size()<<" samples."<<endl;
@@ -783,9 +1056,6 @@ main(int argc, char** argv)
     int nfeatures = trainX[0].rows * trainX[0].cols;
     int imgDim = trainX[0].rows;
     int nsamples = trainX.size();
-    Cvl cvl;
-    vector<Ntw> HiddenLayers;
-    SMR smr;
     
     cout << "check 3" <<endl;
   
@@ -799,7 +1069,7 @@ main(int argc, char** argv)
 
     if(! G_CHECKING){
         // Save the trained kernels, you can load them into Matlab/GNU Octave to see what are they look like.
-        saveWeight(cvl.layer[0].W, "w0");
+      /*saveWeight(cvl.layer[0].W, "w0");
         saveWeight(cvl.layer[1].W, "w1");
         saveWeight(cvl.layer[2].W, "w2");
         saveWeight(cvl.layer[3].W, "w3");
@@ -807,9 +1077,32 @@ main(int argc, char** argv)
         saveWeight(cvl.layer[5].W, "w5");
         saveWeight(cvl.layer[6].W, "w6");
         saveWeight(cvl.layer[7].W, "w7");
-
+      */
         // Test use test set
-        Mat result = resultProdict(testX, cvl, HiddenLayers, smr, 3e-3);
+        ///////////////////////////////////////////////////////////////////////////////////
+       	saveNetwork(cvl, HiddenLayers, smr, imgDim, nsamples); 
+        //Mat result = resultProdict(testX, cvl, HiddenLayers, smr, 3e-3);
+        //Mat err(testY);
+        //err -= result;
+        //int correct = err.cols;
+        //for(int i=0; i<err.cols; i++){
+        //    if(err.ATD(0, i) != 0) --correct;
+       // }
+       // cout<<"correct: "<<correct<<", total: "<<err.cols<<", accuracy: "<<double(correct) / (double)(err.cols)<<endl;
+	
+	////////////////////////////////////////////////////////////////////////////////////
+	//forwardPass("bellman.jpg",cvl, HiddenLayers, smr, 3e-3);
+    }    
+    end = clock();
+    cout<<"Totally used time: "<<((double)(end - start)) / CLOCKS_PER_SEC<<" second"<<endl;
+}
+void testNetwork(vector<Mat> &testX,Mat &testY, Cvl &cvl, vector<Ntw> &HiddenLayers, SMR &smr, double lambda,int &imgDim, 
+int &nsamples){
+	
+	loadNetwork(cvl,HiddenLayers,smr,imgDim,nsamples);
+	//CHANGE BELLMAN.JPG
+	if(! G_CHECKING){
+	Mat result = resultProdict(testX, cvl, HiddenLayers, smr, 3e-3);
         Mat err(testY);
         err -= result;
         int correct = err.cols;
@@ -817,8 +1110,78 @@ main(int argc, char** argv)
             if(err.ATD(0, i) != 0) --correct;
         }
         cout<<"correct: "<<correct<<", total: "<<err.cols<<", accuracy: "<<double(correct) / (double)(err.cols)<<endl;
-    }    
-    end = clock();
-    cout<<"Totally used time: "<<((double)(end - start)) / CLOCKS_PER_SEC<<" second"<<endl;
-    return 0;
+
+	
+	}
+	//forwardPass("bellman.jpg",cvl,HiddenLayers,smr,3e-3);	
+
+
+} 
+int 
+main(int argc, char** argv){
+	
+	Cvl cvl;
+	vector<Ntw> HiddenLayers;
+	SMR smr;
+	vector<Mat> trainX;
+	vector<Mat> testX;
+	Mat trainY, testY;
+	int imgDim;
+	int nsamples;
+	readData(trainX, trainY, "trainingSet/train-images.idx3-ubyte", "trainingSet/train-labels.idx1-ubyte", 60000);
+	readData(testX, testY, "trainingSet/t10k-images.idx3-ubyte", "trainingSet/t10k-labels.idx1-ubyte", 10000);
+		
+	while(true){
+		int response;
+		cout<<"Enter 1 to train network\n";
+		cout<<"Enter 2 to load network\n";
+		cout<<"Enter 3 for testing ...\n";
+		cout<<"Enter 4 to run forward pass on images...\n";
+		cout<<"Enter 5 to exit....\n";
+	
+		cin >> response;
+	
+		if(response == 1){
+			trainNet(cvl,HiddenLayers,smr,trainX,testX,trainY,testY);
+			
+		}
+		if(response == 2){
+			loadNetwork(cvl,HiddenLayers,smr,imgDim,nsamples);
+		}
+		if(response == 3){
+			cout<<"loading numsamples and image dimensions....."<<endl;
+			FILE *pOut4 = fopen("imgDim-Nsamples.txt","r");
+			int counter = 0;
+			int n;
+			while(fscanf(pOut4,"%i",&n) > 0){
+				if(counter == 0) imgDim = n;
+				if(counter == 1) nsamples = n;
+				counter ++;
+			}
+			counter = 0;
+			fclose(pOut4);
+			cout<<"numsamples loaded: "<<nsamples<<"....\n";
+			cout<<"imgdim loaded: "<<imgDim<<"....\n";
+			ConvNetInitPrarms(cvl,HiddenLayers,smr,imgDim,nsamples);
+			cout<<"architecture randomnized and ready for setting....\n";
+			cout<< "testing load Cvl...." << endl;
+			//loading CV
+			loadCV(cvl);
+			cout<<"testing indexes ....\n";
+			//for( int i=0; i < cvl.layer.size(); i++){
+			//	cout<<" last index = "<<cvl.layer[i].W.ATD(12,12)<<endl;
+			//}
+			//add testing methods here if neccessary
+		
+		}
+		if(response == 4){
+			cout<<"im not doing anything....."<<endl;
+		
+		}
+		if(response == 5)
+			break;
+	
+	}
+	return 0;
 }
+
