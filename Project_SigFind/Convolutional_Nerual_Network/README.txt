@@ -24,3 +24,12 @@ we can show the TA and Chris. Next step is to aquire as many signatures as possi
 
 Cheers. 
 Juan
+
+////////////////////////////////////////////////UPDATE 2/26/2018/////////////////////////////////////////////////////////////////
+Updated ConvNet:
+    Split training and forward passing
+        forwardPass(vector<string> path) can now be invoked as a standalone method once the net is loaded.
+    Created saving Conv Net structure method 
+        saveNetwork()
+    Created loading Conv Net structure method
+        loadNetwork()
