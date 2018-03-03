@@ -4,7 +4,10 @@
 #include <tesseract/baseapi.h>
 #include <tesseract/strngs.h>
 #include <leptonica/allheaders.h>
+#include <opencv2/opencv.hpp>
+#include <math.h>
 
+using namespace cv;
 using namespace std;
 
 void reverse(char s[]){
@@ -38,8 +41,18 @@ int main(int argc, char** argv) {
       cout << "Need png file" << endl;
       return -1;
    }
-
    char* img_path = argv[1];
+   
+   //Line detection
+   
+   Mat src, dst, color_dst;
+   src = imread(img_path, 0);
+   int Minline =  src.cols/8;
+   vector<Vec4i> lines;
+   Canny( src, dst, 50, 200, 3 );
+   //cvtColor( dst, color_dst, CV_GRAY2BGR );
+   HoughLinesP( dst, lines, 1, CV_PI/180, 80, Minline, 10 );
+   
    char save_path[30];
    char num_char[3];
    Pix *segbox;
@@ -60,10 +73,35 @@ int main(int argc, char** argv) {
       char* ocrResult = api->GetUTF8Text();
       char* sigfind = strstr(ocrResult, "CUSTOMER SIGNATURE");
       if(sigfind){
-         box->x = box->x - 315;
-         box->y = box->y-320;
-         box->w = 2671;
-         box->h = 355;
+         int line_distence = 5*box->h;
+         int line_loc = 0;
+         for( size_t i = 0; i < lines.size(); i++ ){
+            cout << "Lines" <<endl;
+            cout << "S x: "<<lines[i][0] << " S y: "<< lines[i][1] << " E x: "<<lines[i][2] << " E y: "<< lines[i][3] << endl;
+            if(lines[i][0]<=box->x && lines[i][2]>=box->x+box->w){
+               if(lines[i][1]>=box->y-5*box->h && lines[i][1]<=box->y){
+                  int new_line_dist = box->y - lines[i][1];
+                  if(new_line_dist<line_distence){
+                     line_distence = new_line_dist;
+                     line_loc = i;
+                  }
+                  cout << "Hi"<< endl;
+                  cout << "x: "<<lines[i][0] << " y: "<< lines[i][1] << endl;
+               } 
+            } 
+         }
+         cout << "BOX" <<endl;
+         cout << "x: "<<box->x << " y: " << box->y << endl;
+         cout << "h: "<<box->h << "w: "<<box->w <<endl;
+         box->x = lines[line_loc][0];
+         box->y = lines[line_loc][1]-355;
+         box->w = lines[line_loc][2] - lines[line_loc][0];
+         box->h = 355+box->h;
+
+         //box->x = box->x - 315;
+         //box->y = box->y-320;
+         //box->w = 2671;
+         //box->h = 355;
          segbox = pixClipRectangle(image, box, NULL);
          strcpy (save_path, "./image/SignatureBox_");
          itoa(sigcounter,num_char);
