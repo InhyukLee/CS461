@@ -102,8 +102,18 @@ int main(int argc, char** argv) {
          //box->y = box->y-320;
          //box->w = 2671;
          //box->h = 355;
+         
          segbox = pixClipRectangle(image, box, NULL);
-         strcpy (save_path, "./image/SignatureBox_");
+         string infile = argv[1];
+         string remove_pre = "./png_bin/";
+         string remove_pro = ".png";
+         int i = infile.find(remove_pre);
+         infile.erase(i,remove_pre.length());
+         i = infile.find(remove_pro);
+         infile.erase(i,remove_pro.length());
+         strcpy (save_path, "./image/");
+         strncat(save_path, infile.c_str(),infile.length());
+         strncat(save_path, "_sig",4);
          itoa(sigcounter,num_char);
          strncat (save_path, num_char,3);
          strncat (save_path,".png",4);
