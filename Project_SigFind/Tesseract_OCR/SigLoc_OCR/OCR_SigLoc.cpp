@@ -43,8 +43,9 @@ int main(int argc, char** argv) {
    }
    char* img_path = argv[1];
    
+   string[10] SigPaths;   
+
    //Line detection
-   
    Mat src, dst, color_dst;
    src = imread(img_path, 0);
    int Minline =  src.cols/8;
@@ -66,7 +67,7 @@ int main(int argc, char** argv) {
    printf("Found %d textline image components.\n", boxes->n);
    api->SetPageSegMode(tesseract::PSM_SINGLE_BLOCK);
 
-   int sigcounter = 1;
+   int sigcounter = 0;
    for (int i = 0; i < boxes->n; i++) {
       BOX* box = boxaGetBox(boxes, i, L_CLONE);
       api->SetRectangle(box->x, box->y, box->w, box->h);
@@ -76,8 +77,8 @@ int main(int argc, char** argv) {
          int line_distence = 5*box->h;
          int line_loc = 0;
          for( size_t i = 0; i < lines.size(); i++ ){
-            cout << "Lines" <<endl;
-            cout << "S x: "<<lines[i][0] << " S y: "<< lines[i][1] << " E x: "<<lines[i][2] << " E y: "<< lines[i][3] << endl;
+            //cout << "Lines" <<endl;
+            //cout << "S x: "<<lines[i][0] << " S y: "<< lines[i][1] << " E x: "<<lines[i][2] << " E y: "<< lines[i][3] << endl;
             if(lines[i][0]<=box->x && lines[i][2]>=box->x+box->w){
                if(lines[i][1]>=box->y-5*box->h && lines[i][1]<=box->y){
                   int new_line_dist = box->y - lines[i][1];
@@ -90,9 +91,9 @@ int main(int argc, char** argv) {
                } 
             } 
          }
-         cout << "BOX" <<endl;
-         cout << "x: "<<box->x << " y: " << box->y << endl;
-         cout << "h: "<<box->h << "w: "<<box->w <<endl;
+         //cout << "BOX" <<endl;
+         //cout << "x: "<<box->x << " y: " << box->y << endl;
+         //cout << "h: "<<box->h << "w: "<<box->w <<endl;
          box->x = lines[line_loc][0];
          box->y = lines[line_loc][1]-355;
          box->w = lines[line_loc][2] - lines[line_loc][0];
@@ -103,7 +104,9 @@ int main(int argc, char** argv) {
          //box->w = 2671;
          //box->h = 355;
          
+         //naming and saving signature box
          segbox = pixClipRectangle(image, box, NULL);
+         //removing path components
          string infile = argv[1];
          string remove_pre = "./png_bin/";
          string remove_pro = ".png";
@@ -111,6 +114,7 @@ int main(int argc, char** argv) {
          infile.erase(i,remove_pre.length());
          i = infile.find(remove_pro);
          infile.erase(i,remove_pro.length());
+         //adding new path and file name
          strcpy (save_path, "./image/");
          strncat(save_path, infile.c_str(),infile.length());
          strncat(save_path, "_sig",4);
@@ -118,8 +122,13 @@ int main(int argc, char** argv) {
          strncat (save_path, num_char,3);
          strncat (save_path,".png",4);
          pixWrite(save_path, segbox, IFF_PNG);
+         SigPaths[sigcounter] = save_path;
          sigcounter++;
       }
+   }
+
+   for(int i=0;i<sigcounter;i++){
+      cout << SigPaths[sigcounter] << endl;
    }
 
    pixDestroy(&image);
