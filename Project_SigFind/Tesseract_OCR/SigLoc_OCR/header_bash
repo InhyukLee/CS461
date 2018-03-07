@@ -1,0 +1,26 @@
+#!/bin/bash
+
+arch_dir=./form_bin
+
+pdf_name="${archive_dir}/*.pdf"
+
+cd ./form_bin
+
+fullfile="*"
+filename=$(echo $fullfile)
+name=$(echo $fullfile | cut -f 1 -d '.')
+
+echo $name
+
+cd ../form_bin
+
+convert -colorspace sRGB -density 300 ${filename} -background white -alpha background -alpha remove -colorspace RGB ${name}.png
+
+mv *.png ../png_bin
+
+cd ..
+
+for file in png_bin/*.png; do
+	[ -e "$file" ] || continue
+	./OCR_SigLoc ./${file}
+done
