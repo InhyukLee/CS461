@@ -43,7 +43,7 @@ int main(int argc, char** argv) {
    }
    char* img_path = argv[1];
    
-   string[10] SigPaths;   
+   string SigPaths[10];   
 
    //Line detection
    Mat src, dst, color_dst;
@@ -51,10 +51,9 @@ int main(int argc, char** argv) {
    int Minline =  src.cols/8;
    vector<Vec4i> lines;
    Canny( src, dst, 50, 200, 3 );
-   //cvtColor( dst, color_dst, CV_GRAY2BGR );
    HoughLinesP( dst, lines, 1, CV_PI/180, 80, Minline, 10 );
    
-   char save_path[30];
+   char save_path[100];
    char num_char[3];
    Pix *segbox;
    Pix *image = pixRead(img_path);
@@ -86,23 +85,19 @@ int main(int argc, char** argv) {
                      line_distence = new_line_dist;
                      line_loc = i;
                   }
-                  cout << "Hi"<< endl;
-                  cout << "x: "<<lines[i][0] << " y: "<< lines[i][1] << endl;
+                  //cout << "Hi"<< endl;
+                  //cout << "x: "<<lines[i][0] << " y: "<< lines[i][1] << endl;
                } 
             } 
          }
+         //cut the signature box based on line location
          //cout << "BOX" <<endl;
          //cout << "x: "<<box->x << " y: " << box->y << endl;
          //cout << "h: "<<box->h << "w: "<<box->w <<endl;
          box->x = lines[line_loc][0];
-         box->y = lines[line_loc][1]-355;
+         box->y = lines[line_loc][1]-7*box->h;
          box->w = lines[line_loc][2] - lines[line_loc][0];
-         box->h = 355+box->h;
-
-         //box->x = box->x - 315;
-         //box->y = box->y-320;
-         //box->w = 2671;
-         //box->h = 355;
+         box->h = 8*box->h;
          
          //naming and saving signature box
          segbox = pixClipRectangle(image, box, NULL);
@@ -122,13 +117,14 @@ int main(int argc, char** argv) {
          strncat (save_path, num_char,3);
          strncat (save_path,".png",4);
          pixWrite(save_path, segbox, IFF_PNG);
+         cout << save_path << endl;
          SigPaths[sigcounter] = save_path;
          sigcounter++;
       }
    }
 
-   for(int i=0;i<sigcounter;i++){
-      cout << SigPaths[sigcounter] << endl;
+   for(int i=0;i<=sigcounter;i++){
+      cout << SigPaths[i] << endl;
    }
 
    pixDestroy(&image);
