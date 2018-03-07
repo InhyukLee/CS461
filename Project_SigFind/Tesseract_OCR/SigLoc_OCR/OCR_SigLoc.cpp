@@ -6,6 +6,7 @@
 #include <leptonica/allheaders.h>
 #include <opencv2/opencv.hpp>
 #include <math.h>
+#include <vector>
 
 using namespace cv;
 using namespace std;
@@ -43,7 +44,7 @@ int main(int argc, char** argv) {
    }
    char* img_path = argv[1];
    
-   string SigPaths[10];   
+   vector<string> SigPaths;   
 
    //Line detection
    Mat src, dst, color_dst;
@@ -66,7 +67,7 @@ int main(int argc, char** argv) {
    printf("Found %d textline image components.\n", boxes->n);
    api->SetPageSegMode(tesseract::PSM_SINGLE_BLOCK);
 
-   int sigcounter = 0;
+   int sigcounter = 1;
    for (int i = 0; i < boxes->n; i++) {
       BOX* box = boxaGetBox(boxes, i, L_CLONE);
       api->SetRectangle(box->x, box->y, box->w, box->h);
@@ -76,8 +77,6 @@ int main(int argc, char** argv) {
          int line_distence = 5*box->h;
          int line_loc = 0;
          for( size_t i = 0; i < lines.size(); i++ ){
-            //cout << "Lines" <<endl;
-            //cout << "S x: "<<lines[i][0] << " S y: "<< lines[i][1] << " E x: "<<lines[i][2] << " E y: "<< lines[i][3] << endl;
             if(lines[i][0]<=box->x && lines[i][2]>=box->x+box->w){
                if(lines[i][1]>=box->y-5*box->h && lines[i][1]<=box->y){
                   int new_line_dist = box->y - lines[i][1];
@@ -85,15 +84,10 @@ int main(int argc, char** argv) {
                      line_distence = new_line_dist;
                      line_loc = i;
                   }
-                  //cout << "Hi"<< endl;
-                  //cout << "x: "<<lines[i][0] << " y: "<< lines[i][1] << endl;
                } 
             } 
          }
          //cut the signature box based on line location
-         //cout << "BOX" <<endl;
-         //cout << "x: "<<box->x << " y: " << box->y << endl;
-         //cout << "h: "<<box->h << "w: "<<box->w <<endl;
          box->x = lines[line_loc][0];
          box->y = lines[line_loc][1]-7*box->h;
          box->w = lines[line_loc][2] - lines[line_loc][0];
@@ -117,14 +111,14 @@ int main(int argc, char** argv) {
          strncat (save_path, num_char,3);
          strncat (save_path,".png",4);
          pixWrite(save_path, segbox, IFF_PNG);
-         cout << save_path << endl;
-         SigPaths[sigcounter] = save_path;
+         //cout << save_path << endl;
+         SigPaths.push_back(save_path);
          sigcounter++;
       }
    }
 
-   for(int i=0;i<=sigcounter;i++){
-      cout << SigPaths[i] << endl;
+   for(int i=0;i<SigPaths.size();i++){
+      cout << SigPaths.at(i) << endl;
    }
 
    pixDestroy(&image);
