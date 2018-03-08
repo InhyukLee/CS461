@@ -16,6 +16,7 @@
 #include <string>
 #include <sstream>
 
+
 using namespace cv;
 using namespace std;
 
@@ -369,12 +370,15 @@ UnPooling(Mat &M, int pVert, int pHori, int poolingMethod, vector<Point> &locat)
 
 double 
 getLearningRate(Mat &data){
+    cout<<"gathering learning rate"<<endl;
     // see Yann LeCun's Efficient BackProp, 5.1 A Little Theory
     int nfeatures = data.rows;
     int nsamples = data.cols;
     //covariance matrix = x * x' ./ nfeatures;
     Mat Sigma = data * data.t() / nsamples;
+    cout<<"learning rate check 1...."<<endl;
     SVD uwvT = SVD(Sigma);
+    cout<<"learning rate check 2...."<<endl;
     return 0.9 / uwvT.w.ATD(0, 0);
 }
 
@@ -448,6 +452,7 @@ ConvNetInitPrarms(Cvl &cvl, vector<Ntw> &HiddenLayers, SMR &smr, int imgDim, int
     outDim = outDim / PoolingDim;
     
     int hiddenfeatures = pow(outDim, 2) * KernelAmount;
+    cout<<"check 1 matmul = "<<hiddenfeatures<<endl;
     Ntw tpntw;
     weightRandomInit(tpntw, hiddenfeatures, NumHiddenNeurons, nsamples);
     HiddenLayers.push_back(tpntw);
@@ -626,6 +631,7 @@ void
 trainNetwork(vector<Mat> &x, Mat &y, Cvl &cvl, vector<Ntw> &HiddenLayers, SMR &smr, double lambda, int MaxIter, double lrate){
 	
     if (G_CHECKING){
+	cout<<"gradient checking....."<<endl;
         gradientChecking(cvl, HiddenLayers, smr, x, y, lambda);
     }else{
 	
@@ -697,18 +703,25 @@ resultProdict(vector<Mat> &x, Cvl &cvl, vector<Ntw> &hLayers, SMR &smr, double l
             tpConv1st.push_back(tmpconv);
             tmpconv = Pooling(tmpconv, PoolingDim, PoolingDim, Pooling_Methed, PLperKernel, true);
             tpPool1st.push_back(tmpconv);
+	    //if(1 % 20 == 0)
+		//cout<<"[-]";
         }
         Conv1st.push_back(tpConv1st);
         Pool1st.push_back(tpPool1st);
     }
+    cout<<"conv layer loaded...\npooling layer loaded...\n";
     Mat convolvedX = concatenateMat(Pool1st);
 
     vector<Mat> acti;
     acti.push_back(convolvedX);
     for(int i=1; i<=NumHiddenLayers; i++){
-        Mat tmpacti = hLayers[i - 1].W * acti[i - 1] + repeat(hLayers[i - 1].b, 1, convolvedX.cols);
+        cout<< hLayers[i-1].W.cols <<" =? "<<acti[i-1].rows<<"\n";
+	Mat tmpacti = hLayers[i - 1].W * acti[i - 1] + repeat(hLayers[i - 1].b, 1, convolvedX.cols);
         acti.push_back(sigmoid(tmpacti));
+	//cout<<"[-]";
     }
+    cout<<"loaded hidden layers...\n";
+
 
     Mat M = smr.Weight * acti[acti.size() - 1] + repeat(smr.b, 1, nsamples);
     Mat tmp;
@@ -729,9 +742,11 @@ resultProdict(vector<Mat> &x, Cvl &cvl, vector<Ntw> &hLayers, SMR &smr, double l
                 maxele = tmp.ATD(j, i);
                 which = j;
             }
+	//cout<<"[-]";
         }
         result.ATD(0, i) = which;
     }
+    cout<<"results gathered...\n";
 
     // deconstruct
     for(int i=0; i<Conv1st.size(); i++){
@@ -741,6 +756,7 @@ resultProdict(vector<Mat> &x, Cvl &cvl, vector<Ntw> &hLayers, SMR &smr, double l
     Conv1st.clear();
     Pool1st.clear();
     acti.clear();
+    cout<<"forward pass finished, memory cleared...\n";
     return result;
 }
 
@@ -794,45 +810,12 @@ loadWeight(Mat &M, string s){
 
 }
 
-int forwardPass(vector<string> path){
-	
-	Cvl cvl;
-	vector<Ntw> HiddenLayers;
-	SMR smr;
-	int imgDim;
-	int nsamples;
-	loadNetwork(cvl,HiddenLayers,smr,imgDim,nsamples);	
-        Mat image;
-        Mat dst;
-        vector<Mat> images;
-	namedWindow("showIm",WINDOW_AUTOSIZE);
-	for(int i=0; i < path.size(); i++){
-	
-        	image = imread(path[i],0);
-        	Size size(28,28);
-        	resize(image,dst,size);
 
-        	images.push_back(dst);
-		
-	}
-	for(int i=0; i<images.size(); i++){
-		images[i].convertTo(images[i], CV_64FC1, 1.0/255, 0);
-		imshow("showIm",images[i]);
-		waitKey(1000);
-	}	
-	cout << "check 1" <<endl;
-        Mat result = resultProdict(images,cv,hLayers,smr,3e-3);
-	cout << "check 2" << endl;
-	
-        cout<< (double) result.ATD(0,0)<< endl;
-
-
-}
 
 void
 saveNetwork(Cvl &cv1, vector<Ntw> &HiddenLayers, SMR &smr, int imgDim, int nsamples){
 	FILE *pOut1 = fopen("cv1dubs.txt","w+");
-	FILE *pOut2 = fopen("SMRcost.txt","w+");
+	FILE *pOut2 = fopen("SMRcost.txt","w+.");
 	FILE *pOut3 = fopen("cv1KernNum.txt","w+");
 	FILE *pOut4 = fopen("imgDim-Nsamples.txt","w+");
 	
@@ -1058,11 +1041,13 @@ Mat &testY)
     int nsamples = trainX.size();
     
     cout << "check 3" <<endl;
-  
     ConvNetInitPrarms(cvl, HiddenLayers, smr, imgDim, nsamples);
+    cout<<"ConvNet initialized"<<endl;
     // Train network using Back Propogation
     batch = nsamples / 100;
+    cout<<"concatenating trainX..."<<endl;
     Mat tpX = concatenateMat(trainX);
+    cout<<"concatenation succesful..."<<endl;
     double lrate = getLearningRate(tpX);
     cout<<"lrate = "<<lrate<<endl;
     trainNetwork(trainX, trainY, cvl, HiddenLayers, smr, 3e-3, iterations, lrate);
@@ -1117,20 +1102,265 @@ int &nsamples){
 
 
 } 
+void enhanceBlack(Mat &image){
+
+
+        image.convertTo(image, CV_64FC1, 1.0/255, 0);
+        for(int i=0; i<image.rows; i++){
+                for(int a=0; a<image.cols; a++){
+                        //cout<<"intensity at :"<<i<<", "<<a<<" = "<<image.at<double>(i,a)<<"\n";
+                        if(image.at<double>(i,a) < .9){
+                                //cout<<image.at<double>(i,a)<<"\n";
+                                image.at<double>(i,a)=0;
+                        }
+
+                }
+
+        }
+
+}
+
+
+int forwardPass(vector<string> path/*, vector <Mat> &testIms*/){
+	
+	Cvl cvl;
+	vector<Ntw> HiddenLayers;
+	SMR smr;
+	int imgDim;
+	int nsamples;
+	loadNetwork(cvl,HiddenLayers,smr,imgDim,nsamples);	
+        Mat image;
+        vector<Mat> images;
+	namedWindow("showIm",WINDOW_AUTOSIZE);
+	//CHANGE FOR STRING VECTOR //
+	for(int i=0; i < path.size(); i++){
+		Mat dst;
+        /*	Size size(28,28);
+        	resize(testIms[i],dst,size);
+
+        	images.push_back(dst);
+		dst.release(); */
+		dst = imread(path[i],0);
+		enhanceBlack(dst);
+		images.push_back(dst);
+		dst.release();
+		
+	
+	}
+	Mat result = resultProdict(images,cvl,HiddenLayers,smr,3e-3);
+
+	while(true){
+		
+		int response;
+		cout<<"type 1 to test an image index....\n";
+		cout<<"type 2 to exit....\n";
+		cin >> response;
+		if(response == 1){
+			int index;
+        		cout<<"type the image index 1-10000: ";
+			cin >> index;
+			cout<<"\n";
+			imshow("showIm",images[index]);	
+				
+        		if((double) result.ATD(0,index) == 3){
+				cout<<"signature detected"<<endl;
+			
+			}
+			else{
+				cout<<"not a signature"<<endl;
+			}
+			waitKey(1000);
+		}
+		if(response == 2){
+			break;
+		
+		}
+		else{}
+	}
+}
+
+void loadToArr(vector<Mat> &ims, int numIms){
+
+	//namedWindow("COLLECTING...",WINDOW_AUTOSIZE);
+	string end = ".png";
+	
+	for(int i=1; i < numIms+1; i++){
+		Mat image,dst;
+		stringstream out;
+		
+		string path="SigSamples/SigSamples/seg_sig/Sig_";
+		if(i < 10){
+			
+			path+="000";	
+		}	
+		if(i > 9 && i < 100){
+			
+			path+="00";
+		}
+		if(i > 99 && i < 1000){
+			
+			path+="0";
+		
+		}
+		else{}
+		
+		//correcting enumeration error in signature files...	
+		if(i == 412) i++;
+		
+		out << i;
+		path+= out.str();
+		
+		if( i ==  354){
+			end = ".PNG";
+		}
+		path+=end;
+			
+		//cout<<path<<endl;
+		
+		image = imread(path,0);
+		
+		enhanceBlack(image);
+		
+		Size size(40,40);
+		resize(image,dst,size);
+		
+		
+		/*if( i % 50 == 0){
+		
+			imshow("COLLECTING...",dst);
+			waitKey(300);
+		
+		}*/
+		
+		ims.push_back(dst);
+		dst.release();
+		
+	
+	}
+	cout<<numIms<<" images loaded into array.."<<endl;
+
+
+}
+void fillArrNegatives(vector<Mat> &arr, int numEmpties){
+
+	for(int i=0; i < numEmpties; i++){
+		Mat canvas = Mat::ones(Size(40,40), CV_64FC1);
+		arr.push_back(canvas);
+		Mat bcanvas = Mat::zeros(Size(40,40), CV_64FC1);
+		arr.push_back(bcanvas);
+	}
+
+}
+
+
+int readFiles(vector<Mat> &signatures, int numImages){
+	//edit when this method is not main to take an input number
+	//vector<Mat> signatures;
+	//int numImages = 466;	
+
+	//namedWindow("IMAGE",WINDOW_AUTOSIZE);
+	//namedWindow("POS",WINDOW_AUTOSIZE);
+	//namedWindow("NEG",WINDOW_AUTOSIZE);
+	
+	loadToArr(signatures,numImages);
+	fillArrNegatives(signatures,(numImages-1)/2);
+	cout<<"size = "<<signatures.size()<<endl;
+
+	//imshow("IMAGE",signatures[465]);
+	//imshow("POS",signatures[467]);
+	//imshow("NEG",signatures[signatures.size()-1]);
+	
+	/*while(true){
+		
+		int response;
+		int index;
+		cout<<"1 to check an index \n2 to exit\n";
+		cin>> response;
+		
+		if(response == 1){
+			
+			cout<<"type an index to view: ";
+			cin >> index;
+			
+			imshow("IMAGE",signatures[index]);
+			waitKey(2000);
+			cout<<"\n";
+		}
+		if(response == 2)
+			break;
+	
+	}
+	waitKey(1000);	*/
+	return 0;
+
+}
+
 int 
-main(int argc, char** argv){
+runNet(){
 	
 	Cvl cvl;
 	vector<Ntw> HiddenLayers;
 	SMR smr;
 	vector<Mat> trainX;
+	vector<Mat> resizeX;
 	vector<Mat> testX;
-	Mat trainY, testY;
+	vector<Mat> resizeY;
+	vector<Mat> signatures;
+	Mat trainY, testY, resizeTestX, resizeTestY,sigLabels;
+	
 	int imgDim;
 	int nsamples;
 	readData(trainX, trainY, "trainingSet/train-images.idx3-ubyte", "trainingSet/train-labels.idx1-ubyte", 60000);
 	readData(testX, testY, "trainingSet/t10k-images.idx3-ubyte", "trainingSet/t10k-labels.idx1-ubyte", 10000);
+	
+	
+	//TESTING DIFFERENT SIZED DATA//
+	for(int i=0; i < trainX.size(); i++){
+		Mat dst;
 		
+        	Size size(28,28);
+        	resize(trainX[i],dst,size);
+        	resizeX.push_back(dst);
+		dst.release();
+	}
+	for(int i=0; i < testX.size(); i++){
+                Mat dst;
+
+                Size size(28,28);
+                resize(testX[i],dst,size);
+                resizeY.push_back(dst);
+                dst.release();
+        }
+
+	readFiles(signatures,466);
+	sigLabels = Mat::zeros(1,1938,CV_64FC1);
+	for(int i=0; i < 969; i++){
+		if(i < 465)	
+			sigLabels.ATD(0,i) = (double) 3;
+		else{
+			if( i % 2 != 0)
+				sigLabels.ATD(0,i) = (double) 1;
+			if( i % 2 == 0)
+				sigLabels.ATD(0,i) = (double) 2;
+		}
+	
+	}
+	readFiles(signatures,466);
+	 for(int i=969; i < 1938; i++){
+                if(i < 969+465)
+                        sigLabels.ATD(0,i) = (double) 3;
+                else{
+                        if( i % 2 != 0)
+                                sigLabels.ATD(0,i) = (double) 2;
+                        if( i % 2 == 0)
+                                sigLabels.ATD(0,i) = (double) 2;
+                }
+
+        }
+
+		
+        	        	        			
+        			
 	while(true){
 		int response;
 		cout<<"Enter 1 to train network\n";
@@ -1140,9 +1370,10 @@ main(int argc, char** argv){
 		cout<<"Enter 5 to exit....\n";
 	
 		cin >> response;
+		//ERASE WHEN NOT USING GDB//
 	
 		if(response == 1){
-			trainNet(cvl,HiddenLayers,smr,trainX,testX,trainY,testY);
+			trainNet(cvl,HiddenLayers,smr,signatures,resizeY,sigLabels,testY);
 			
 		}
 		if(response == 2){
@@ -1174,8 +1405,9 @@ main(int argc, char** argv){
 			//add testing methods here if neccessary
 		
 		}
+		vector<string> arr;
 		if(response == 4){
-			cout<<"im not doing anything....."<<endl;
+			//forwardPass(arr,signatures);
 		
 		}
 		if(response == 5)
@@ -1185,3 +1417,7 @@ main(int argc, char** argv){
 	return 0;
 }
 
+int main(){
+	cout<<"i do nothing"<<endl;
+
+}
