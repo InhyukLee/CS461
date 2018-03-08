@@ -20,10 +20,10 @@ int main(int argc, char** argv){
       return -1;
    }
 
-   string result_image;
+   vector<string> result_images;
 
-   result_image = runMain(argv[1]);  
-   RunNetwork(result_image);
+   result_images = OCR(argc,argv);  
+   //RunNetwork(result_images);
 
    return 0;    
 }

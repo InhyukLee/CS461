@@ -758,13 +758,13 @@ saveWeight(Mat &M, string s){
 }
 
 
-int forwardPass(string path, Cvl &cv, vector<Ntw> &hLayers, SMR &smr,double lamda){
+int forwardPass(vector<string> path, Cvl &cv, vector<Ntw> &hLayers, SMR &smr,double lamda){
 
         Mat image;
         Mat dst;
         vector<Mat> images;
         namedWindow("showIm",WINDOW_AUTOSIZE);
-        image = imread(path,0);
+        image = imread(path[0],0);
         Size size(28,28);
         resize(image,dst,size);
 
@@ -784,7 +784,7 @@ int forwardPass(string path, Cvl &cv, vector<Ntw> &hLayers, SMR &smr,double lamd
 }
 
 int 
-RunNetwork(string path)
+RunNetwork(vector<string> path)
 {
     long start, end;
     start = clock();
