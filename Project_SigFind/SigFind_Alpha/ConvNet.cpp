@@ -1135,6 +1135,7 @@ int forwardPass(vector<string> path/*, vector <Mat> &testIms*/){
 	//CHANGE FOR STRING VECTOR //
 	for(int i=0; i < path.size(); i++){
 		Mat dst;
+                Mat image;
         /*	Size size(28,28);
         	resize(testIms[i],dst,size);
 
@@ -1142,8 +1143,11 @@ int forwardPass(vector<string> path/*, vector <Mat> &testIms*/){
 		dst.release(); */
 		dst = imread(path[i],0);
 		enhanceBlack(dst);
-		images.push_back(dst);
+                Size size(40,40);
+                resize(dst,image,size);
+		images.push_back(image);
 		dst.release();
+                image.release();
 		
 	
 	}
@@ -1157,7 +1161,7 @@ int forwardPass(vector<string> path/*, vector <Mat> &testIms*/){
 		cin >> response;
 		if(response == 1){
 			int index;
-        		cout<<"type the image index 1-10000: ";
+        		cout<<"type the image index 0-"<<images.size()-1<<"......";;
 			cin >> index;
 			cout<<"\n";
 			imshow("showIm",images[index]);	
