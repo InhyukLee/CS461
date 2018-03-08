@@ -23,7 +23,7 @@ int main(int argc, char** argv){
    vector<string> result_images;
 
    result_images = OCR(argc,argv);  
-   //RunNetwork(result_images);
+   forwardPass(result_images);
 
    return 0;    
 }
