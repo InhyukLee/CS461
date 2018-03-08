@@ -1,3 +1,0 @@
-#!/bin/bash
-convert -colorspace sRGB -density 300 form.pdf -background white -alpha background -alpha remove -colorspace RGB  form_image.png
-./AlphaState ./form_image-0.png
