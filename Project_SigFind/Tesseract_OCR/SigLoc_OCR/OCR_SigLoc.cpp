@@ -46,13 +46,53 @@ int main(int argc, char** argv) {
    
    vector<string> SigPaths;   
 
+   //create border
+   Mat src, border, gray;
+   src = imread(img_path);
+
+   //set the size of top, bottom, left, and right
+   int top = (int) (0.001*src.rows);
+   int bottom = (int) (0.001*src.rows);
+   int left = (int) (0.001*src.cols);
+   int right = (int) (0.001*src.cols);
+   
+   copyMakeBorder( src, border, top, bottom, left, right, BORDER_CONSTANT );
+   
+   //namedWindow( "border", 1 );
+   //imshow("border", border);
+   //waitKey(0);
+   
+   src = border;
+   //namedWindow( "src", 1 );
+   //imshow("src", src);
+   //waitKey(0);
+   
    //Line detection
-   Mat src, dst, color_dst;
-   src = imread(img_path, 0);
-   int Minline =  src.cols/8;
+   int Minline =  src.cols/10;
+   cvtColor( src, gray, COLOR_BGR2GRAY );
+   
+   //adaptive mean thresholding
+   Mat amth;
+   adaptiveThreshold(~gray, amth, 255, CV_ADAPTIVE_THRESH_MEAN_C, THRESH_BINARY, 15, -2);
+	
+   // extracted horizontal lines will be saved in horiz mat
+   Mat horiz = amth.clone();
+   int horiz_size = horiz.cols / 15;
+
+   // Create structure element for extracting horizontal lines through morphology operations
+   Mat horiz_struct = getStructuringElement(MORPH_RECT, Size(horiz_size,1));
+
+   // Apply morphology operations
+   erode(horiz, horiz, horiz_struct, Point(-1, -1));
+   dilate(horiz, horiz, horiz_struct, Point(-1, -1));
+   
    vector<Vec4i> lines;
-   Canny( src, dst, 50, 200, 3 );
-   HoughLinesP( dst, lines, 1, CV_PI/180, 80, Minline, 10 );
+   HoughLinesP( horiz, lines, 1, CV_PI/180, 80, Minline, 20 );
+   
+   //namedWindow( "horizontal", 1 );
+   //imshow("horizontal", horiz);
+   //waitKey(0);
+   
    
    char save_path[100];
    char num_char[3];
@@ -72,7 +112,7 @@ int main(int argc, char** argv) {
       BOX* box = boxaGetBox(boxes, i, L_CLONE);
       api->SetRectangle(box->x, box->y, box->w, box->h);
       char* ocrResult = api->GetUTF8Text();
-      char* sigfind = strstr(ocrResult, "CUSTOMER SIGNATURE");
+      char* sigfind = strstr(ocrResult, "SIGNATURE");
       if(sigfind){
          int line_distence = 5*box->h;
          int line_loc = 0;
@@ -123,6 +163,7 @@ int main(int argc, char** argv) {
 
    pixDestroy(&image);
    api->End();
+   
    return 0;
 }
 
