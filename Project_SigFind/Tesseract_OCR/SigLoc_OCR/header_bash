@@ -18,7 +18,7 @@ do
 	iter=$((iter+1))
 done
 
-echo "${array_pdf[@]}"
+#echo "${array_pdf[@]}"
 
 cd ../form_bin
 
@@ -26,6 +26,7 @@ iter=0
 for i in "${array_pdf[@]}"
 do
 	convert -colorspace sRGB -density 300 ${array_full_pdf[$iter]} -background white -alpha background -alpha remove -colorspace RGB ${i}.png
+	iter=$((iter+1))
 done
 
 
