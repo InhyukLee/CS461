@@ -47,6 +47,7 @@ int main(int argc, char** argv) {
    vector<string> SigPaths;   
 
    //create border
+   cout << "Creating border ... " << endl;
    Mat src, border, gray;
    src = imread(img_path);
 
@@ -57,6 +58,7 @@ int main(int argc, char** argv) {
    int right = (int) (0.001*src.cols);
    
    copyMakeBorder( src, border, top, bottom, left, right, BORDER_CONSTANT );
+   cout << "Border successfully created" << endl << endl;
    
    //namedWindow( "border", 1 );
    //imshow("border", border);
@@ -68,7 +70,8 @@ int main(int argc, char** argv) {
    //waitKey(0);
    
    //Line detection
-   int Minline =  src.cols/10;
+   cout << "Detecting lines ... " << endl;
+   int Maxline =  src.cols/8;
    cvtColor( src, gray, COLOR_BGR2GRAY );
    
    //adaptive mean thresholding
@@ -77,7 +80,7 @@ int main(int argc, char** argv) {
 	
    // extracted horizontal lines will be saved in horiz mat
    Mat horiz = amth.clone();
-   int horiz_size = horiz.cols / 15;
+   int horiz_size = horiz.cols / 8;
 
    // Create structure element for extracting horizontal lines through morphology operations
    Mat horiz_struct = getStructuringElement(MORPH_RECT, Size(horiz_size,1));
@@ -87,13 +90,21 @@ int main(int argc, char** argv) {
    dilate(horiz, horiz, horiz_struct, Point(-1, -1));
    
    vector<Vec4i> lines;
-   HoughLinesP( horiz, lines, 1, CV_PI/180, 80, Minline, 20 );
+   HoughLinesP( horiz, lines, 1, CV_PI/180, 80, Maxline, 10 );
+   if(lines.size()>0){
+      cout << "Lines are detected" << endl << endl;
+      //namedWindow( "horizontal", WINDOW_NORMAL );
+      //imshow("horizontal", horiz);
+      //waitKey(0);
+   }else{
+      cout << "Fail to detect lines" << endl << endl;
+   }
    
    //namedWindow( "horizontal", 1 );
    //imshow("horizontal", horiz);
    //waitKey(0);
    
-   
+   cout << "Running OCR" << endl;
    char save_path[100];
    char num_char[3];
    Pix *segbox;
@@ -103,10 +114,13 @@ int main(int argc, char** argv) {
    api->SetPageSegMode(tesseract::PSM_AUTO);
    api->SetImage(image);
    api->SetSourceResolution(70);
+   cout << "Analysing page" << endl;
    Boxa* boxes = api->GetComponentImages(tesseract::RIL_BLOCK, true, NULL, NULL);
    printf("Found %d textline image components.\n", boxes->n);
    api->SetPageSegMode(tesseract::PSM_SINGLE_BLOCK);
+   cout << "Page analysis is done" << endl;
 
+   cout << "Converting images to text, and search for signature box" << endl;
    int sigcounter = 1;
    for (int i = 0; i < boxes->n; i++) {
       BOX* box = boxaGetBox(boxes, i, L_CLONE);
@@ -114,8 +128,10 @@ int main(int argc, char** argv) {
       char* ocrResult = api->GetUTF8Text();
       char* sigfind = strstr(ocrResult, "SIGNATURE");
       if(sigfind){
+         cout << "Signature box has been detected" << endl;
          int line_distence = 5*box->h;
          int line_loc = 0;
+         cout << "Searching for the signature line ... " << endl;
          for( size_t i = 0; i < lines.size(); i++ ){
             if(lines[i][0]<=box->x && lines[i][2]>=box->x+box->w){
                if(lines[i][1]>=box->y-5*box->h && lines[i][1]<=box->y){
@@ -127,6 +143,7 @@ int main(int argc, char** argv) {
                } 
             } 
          }
+         cout << "Setting the size of signature box" << endl;
          //cut the signature box based on line location
          box->x = lines[line_loc][0];
          box->y = lines[line_loc][1]-7*box->h;
@@ -150,7 +167,9 @@ int main(int argc, char** argv) {
          itoa(sigcounter,num_char);
          strncat (save_path, num_char,3);
          strncat (save_path,".png",4);
+         cout << "Saving signature box" << endl;
          pixWrite(save_path, segbox, IFF_PNG);
+         cout << "Signature box saved" << endl << endl;
          //cout << save_path << endl;
          SigPaths.push_back(save_path);
          sigcounter++;
