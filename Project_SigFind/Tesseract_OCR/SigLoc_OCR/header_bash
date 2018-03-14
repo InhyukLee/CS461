@@ -14,7 +14,7 @@ echo $name
 
 cd ../form_bin
 
-convert -colorspace sRGB -density 300 ${filename} -background white -alpha background -alpha remove -colorspace RGB ${name}.png
+convert -colorspace sRGB -density 300 ${filename} -background white -alpha background -alpha remove -colorspace RGB -resize %200 ${name}.png
 
 mv *.png ../png_bin
 
