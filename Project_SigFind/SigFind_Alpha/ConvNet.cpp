@@ -508,6 +508,7 @@ getNetworkCost(vector<Mat> &x, Mat &y, Cvl &cvl, vector<Ntw> &hLayers, SMR &smr,
     vector<Mat> acti;
     acti.push_back(convolvedX);
     for(int i=1; i<=NumHiddenLayers; i++){
+	cout<< hLayers[i-1].W.cols<<" =? "<<acti[i-1].rows<<"\n";
         Mat tmpacti = hLayers[i - 1].W * acti[i - 1] + repeat(hLayers[i - 1].b, 1, convolvedX.cols);
         acti.push_back(sigmoid(tmpacti));
     }
@@ -1121,7 +1122,7 @@ void enhanceBlack(Mat &image){
 }
 
 
-int forwardPass(vector<string> path/*, vector <Mat> &testIms*/){
+int forwardPass(vector<string> path /*, vector <Mat> &testIms*/){
 	
 	Cvl cvl;
 	vector<Ntw> HiddenLayers;
@@ -1135,21 +1136,13 @@ int forwardPass(vector<string> path/*, vector <Mat> &testIms*/){
 	//CHANGE FOR STRING VECTOR //
 	for(int i=0; i < path.size(); i++){
 		Mat dst;
-                Mat image;
-        /*	Size size(28,28);
-        	resize(testIms[i],dst,size);
-
-        	images.push_back(dst);
-		dst.release(); */
-		dst = imread(path[i],0);
+		Mat src;
+		src = imread(path[i],0);
+		Size size(60,60);
+		resize(src,dst,size);
 		enhanceBlack(dst);
-                Size size(40,40);
-                resize(dst,image,size);
-		images.push_back(image);
+		images.push_back(dst);
 		dst.release();
-                image.release();
-		
-	
 	}
 	Mat result = resultProdict(images,cvl,HiddenLayers,smr,3e-3);
 
@@ -1161,7 +1154,7 @@ int forwardPass(vector<string> path/*, vector <Mat> &testIms*/){
 		cin >> response;
 		if(response == 1){
 			int index;
-        		cout<<"type the image index 0-"<<images.size()-1<<"......";;
+        		cout<<"type the image index 0-"<<images.size()-1<<" : ";
 			cin >> index;
 			cout<<"\n";
 			imshow("showIm",images[index]);	
@@ -1171,7 +1164,7 @@ int forwardPass(vector<string> path/*, vector <Mat> &testIms*/){
 			
 			}
 			else{
-				cout<<"not a signature"<<endl;
+				cout<<"not a signature ("<<(double) result.ATD(0,index)<<")"<<endl;
 			}
 			waitKey(1000);
 		}
@@ -1225,7 +1218,7 @@ void loadToArr(vector<Mat> &ims, int numIms){
 		
 		enhanceBlack(image);
 		
-		Size size(40,40);
+		Size size(60,60);
 		resize(image,dst,size);
 		
 		
@@ -1248,9 +1241,9 @@ void loadToArr(vector<Mat> &ims, int numIms){
 void fillArrNegatives(vector<Mat> &arr, int numEmpties){
 
 	for(int i=0; i < numEmpties; i++){
-		Mat canvas = Mat::ones(Size(40,40), CV_64FC1);
+		Mat canvas = Mat::ones(Size(60,60), CV_64FC1);
 		arr.push_back(canvas);
-		Mat bcanvas = Mat::zeros(Size(40,40), CV_64FC1);
+		Mat bcanvas = Mat::ones(Size(60,60), CV_64FC1);
 		arr.push_back(bcanvas);
 	}
 
@@ -1300,7 +1293,7 @@ int readFiles(vector<Mat> &signatures, int numImages){
 }
 
 int 
-runNet(){
+run(){
 	
 	Cvl cvl;
 	vector<Ntw> HiddenLayers;
@@ -1343,7 +1336,7 @@ runNet(){
 			sigLabels.ATD(0,i) = (double) 3;
 		else{
 			if( i % 2 != 0)
-				sigLabels.ATD(0,i) = (double) 1;
+				sigLabels.ATD(0,i) = (double) 2;
 			if( i % 2 == 0)
 				sigLabels.ATD(0,i) = (double) 2;
 		}
@@ -1411,7 +1404,7 @@ runNet(){
 		}
 		vector<string> arr;
 		if(response == 4){
-			//forwardPass(arr,signatures);
+			//forwardPass(signatures);
 		
 		}
 		if(response == 5)
@@ -1420,8 +1413,8 @@ runNet(){
 	}
 	return 0;
 }
-
-//int main(){
-//	cout<<"i do nothing"<<endl;
-
-//}
+/*
+int main(){
+	cout << "Do nothing" <<endl;
+}
+*/
