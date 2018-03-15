@@ -103,7 +103,7 @@ vector<string> OCR(int argc, char** argv) {
    //imshow("horizontal", horiz);
    //waitKey(0);
    
-   cout << "Running OCR" << endl;
+   cout << "<Running OCR>" << endl;
    char save_path[100];
    char num_char[3];
    Pix *segbox;
@@ -113,13 +113,13 @@ vector<string> OCR(int argc, char** argv) {
    api->SetPageSegMode(tesseract::PSM_AUTO);
    api->SetImage(image);
    api->SetSourceResolution(70);
-   cout << "Analysing page" << endl;
+   cout << "Analysing page ... " << endl;
    Boxa* boxes = api->GetComponentImages(tesseract::RIL_BLOCK, true, NULL, NULL);
    printf("Found %d textline image components.\n", boxes->n);
    api->SetPageSegMode(tesseract::PSM_SINGLE_BLOCK);
    cout << "Page analysis is done" << endl;
 
-   cout << "Converting images to text, and search for signature box" << endl;
+   cout << "Converting images to text, and search for signature box ... " << endl;
    int sigcounter = 1;
    for (int i = 0; i < boxes->n; i++) {
       BOX* box = boxaGetBox(boxes, i, L_CLONE);
@@ -130,7 +130,7 @@ vector<string> OCR(int argc, char** argv) {
 		 cout << "Signature box has been detected" << endl;
          int line_distence = 5*box->h;
          int line_loc = 0;
-		 cout << "Searching for the signature line ... " << endl;
+		 cout << "Searching for closest signature line ... " << endl;
          for( size_t i = 0; i < lines.size(); i++ ){
             if(lines[i][0]<=box->x && lines[i][2]>=box->x+box->w){
                if(lines[i][1]>=box->y-5*box->h && lines[i][1]<=box->y){
@@ -142,13 +142,14 @@ vector<string> OCR(int argc, char** argv) {
                } 
             } 
          }
-		 cout << "Setting the size of signature box" << endl;
+		 cout << "Found closest signature line" << endl;
+		 cout << "Setting the size of signature box ... " << endl;
          //cut the signature box based on line location
          box->x = lines[line_loc][0];
          box->y = lines[line_loc][1]-7*box->h;
          box->w = lines[line_loc][2] - lines[line_loc][0];
          box->h = 8*box->h;
-         
+         cout << "Done with setting the size of signature box" << endl;
          //naming and saving signature box
          segbox = pixClipRectangle(image, box, NULL);
          //removing path components
@@ -166,7 +167,7 @@ vector<string> OCR(int argc, char** argv) {
          itoa(sigcounter,num_char);
          strncat (save_path, num_char,3);
          strncat (save_path,".png",4);
-		 cout << "Saving signature box" << endl;
+		 cout << "Saving signature box ... " << endl;
          pixWrite(save_path, segbox, IFF_PNG);
 		 cout << "Signature box saved" << endl << endl;
          //cout << save_path << endl;
