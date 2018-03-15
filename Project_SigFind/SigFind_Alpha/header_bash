@@ -1,20 +1,34 @@
 #!/bin/bash
 
-arch_dir=./form_bin
-
-pdf_name="${archive_dir}/*.pdf"
-
 cd ./form_bin
 
-fullfile="*"
-filename=$(echo $fullfile)
-name=$(echo $fullfile | cut -f 1 -d '.')
+array_pdf=( * )
+array_full_pdf=( * )
 
-echo $name
+num_of_pdf=$(echo ${#array_pdf[@]})
+total=$(echo ${num_of_pdf})
+
+
+
+iter=0
+for i in "${array_pdf[@]}"
+do
+	name=$(echo $i | cut -f 1 -d '.')
+	array_pdf[$iter]=$name
+	iter=$((iter+1))
+done
+
+#echo "${array_pdf[@]}"
 
 cd ../form_bin
 
-convert -colorspace sRGB -density 300 ${filename} -background white -alpha background -alpha remove -colorspace RGB ${name}.png
+iter=0
+for i in "${array_pdf[@]}"
+do
+	convert -colorspace sRGB -density 300 ${array_full_pdf[$iter]} -background white -alpha background -alpha remove -colorspace RGB -resize %200 ${i}.png
+	iter=$((iter+1))
+done
+
 
 mv *.png ../png_bin
 
