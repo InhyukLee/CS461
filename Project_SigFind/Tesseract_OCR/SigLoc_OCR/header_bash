@@ -25,7 +25,7 @@ cd ../form_bin
 iter=0
 for i in "${array_pdf[@]}"
 do
-	convert -colorspace sRGB -density 300 ${array_full_pdf[$iter]} -background white -alpha background -alpha remove -colorspace RGB ${i}.png
+	convert -colorspace sRGB -density 300 ${array_full_pdf[$iter]} -background white -alpha background -alpha remove -colorspace RGB -resize %200 ${i}.png
 	iter=$((iter+1))
 done
 
@@ -36,5 +36,5 @@ cd ..
 
 for file in png_bin/*.png; do
 	[ -e "$file" ] || continue
-	./AlphaState ./${file}
+	./OCR_SigLoc ./${file}
 done
