@@ -38,6 +38,7 @@ void itoa(int n, char s[]){
 }  
 
 int main(int argc, char** argv) {
+   cout << "----------------Starting SigLoc ----------------" << endl;
    if(argc <2){
       cout << "Need png file" << endl;
       return -1;
@@ -129,17 +130,23 @@ int main(int argc, char** argv) {
       char* sigfind = strstr(ocrResult, "SIGNATURE");
       if(sigfind){
          cout << "Signature box has been detected" << endl;
-         int line_distence = 5*box->h;
+         //int line_distence = 5*box->h;
+		 int line_length = box->w;
          int line_loc = 0;
          cout << "Searching for the signature line ... " << endl;
          for( size_t i = 0; i < lines.size(); i++ ){
             if(lines[i][0]<=box->x && lines[i][2]>=box->x+box->w){
                if(lines[i][1]>=box->y-5*box->h && lines[i][1]<=box->y){
-                  int new_line_dist = box->y - lines[i][1];
-                  if(new_line_dist<line_distence){
-                     line_distence = new_line_dist;
-                     line_loc = i;
-                  }
+                  //int new_line_dist = box->y - lines[i][1];
+				  int new_line_length = lines[line_loc][2] - lines[line_loc][0];
+                  //if(new_line_dist<line_distence){
+                     //line_distence = new_line_dist;
+                     //line_loc = i;
+					 if(line_length<new_line_length){
+						 line_length = new_line_length;
+						 line_loc = i;
+					 }
+                  //}
                } 
             } 
          }
@@ -179,7 +186,7 @@ int main(int argc, char** argv) {
    for(int i=0;i<SigPaths.size();i++){
       cout << SigPaths.at(i) << endl;
    }
-
+   cout << "----------------SigLoc Completed----------------" << endl<< endl;
    pixDestroy(&image);
    api->End();
    
