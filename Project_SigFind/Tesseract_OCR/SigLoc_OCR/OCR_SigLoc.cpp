@@ -92,7 +92,69 @@ int main(int argc, char** argv) {
    
    vector<Vec4i> lines;
    HoughLinesP( horiz, lines, 1, CV_PI/180, 80, Maxline, 10 );
-   if(lines.size()>0){
+
+   //merging lines
+   vector<int> line_elem;
+   vector<Vec4i> lines_c = lines;
+   vector<Vec4i> group;
+   vector<Vec4i> merged_lines;
+   //create tracking vector
+   for(int i = 0; i<lines_c.size(); i++){
+      line_elem.push_back(i);
+   }
+   Vec4i temp = lines_c[line_elem.front()];
+   line_elem.erase(line_elem.begin());
+   group.push_back(temp);
+   //start merging
+   while(!line_elem.empty()){
+      for(int i = 0; i<line_elem.size();i++){
+         Vec4i temp2 = lines_c[line_elem.at(i)];
+         if(abs(temp[1]-temp2[1])<3){
+            //temp = temp2;
+            group.push_back(temp2);
+            line_elem.erase(line_elem.begin()+i);
+         }
+      }
+      //merge group
+      for(int k = 0; k<group.size();k++){
+         for(int l = 0; l<group.size();l++){
+            if(!((group[k][0]<group[l][0])&&(group[k][2]<group[l][0]))||!((group[l][0]<group[k][0])&&(group[l][2]<group[k][0]))){
+               if(group[k][0]>group[l][0]){
+                  group[k][0] = group[l][0];
+               }else{
+                  group[l][0] = group[k][0];
+               }
+               if(group[k][2]>group[l][2]){
+                  group[l][2] = group[k][2];
+               }else{
+                  group[k][2] = group[l][2];
+               }
+            }
+         }
+      }
+      //copy the merged lines
+      for(int k = 0; k<group.size();k++){
+         merged_lines.push_back(group[k]);
+      }
+      group.clear();
+      if(!line_elem.empty()){
+         temp = lines_c[line_elem.front()];
+         line_elem.erase(line_elem.begin());
+         group.push_back(temp);
+      }
+   }
+//display merged lines
+/*
+   for( size_t i = 0; i < merged_lines.size(); i++ )
+   {
+      line( src, Point(merged_lines[i][0], merged_lines[i][1]), Point(merged_lines[i][2], merged_lines[i][3]), Scalar(0,0,255), 3, 8 );
+   }
+
+   namedWindow( "merged_lines", WINDOW_NORMAL );
+   imshow("merged_lines", src);
+   waitKey(0);
+*/
+   if(merged_lines.size()>0){
       cout << "Lines are detected" << endl << endl;
       //namedWindow( "horizontal", WINDOW_NORMAL );
       //imshow("horizontal", horiz);
@@ -130,31 +192,31 @@ int main(int argc, char** argv) {
       char* sigfind = strstr(ocrResult, "SIGNATURE");
       if(sigfind){
          cout << "Signature box has been detected" << endl;
-         //int line_distence = 5*box->h;
-		 int line_length = box->w;
+         int line_distence = 5*box->h;
+         //int line_length = box->w;
          int line_loc = 0;
          cout << "Searching for the signature line ... " << endl;
-         for( size_t i = 0; i < lines.size(); i++ ){
-            if(lines[i][0]<=box->x && lines[i][2]>=box->x+box->w){
-               if(lines[i][1]>=box->y-5*box->h && lines[i][1]<=box->y){
-                  //int new_line_dist = box->y - lines[i][1];
-				  int new_line_length = lines[line_loc][2] - lines[line_loc][0];
-                  //if(new_line_dist<line_distence){
-                     //line_distence = new_line_dist;
-                     //line_loc = i;
-					 if(line_length<new_line_length){
-						 line_length = new_line_length;
-						 line_loc = i;
-					 }
-                  //}
+         for( size_t i = 0; i < merged_lines.size(); i++ ){
+            if(merged_lines[i][0]<=box->x && merged_lines[i][2]>=box->x+box->w){
+               if(merged_lines[i][1]>=box->y-5*box->h && merged_lines[i][1]<=box->y){
+                  int new_line_dist = box->y - merged_lines[i][1];
+                  //int new_line_length = merged_lines[line_loc][2] - merged_lines[line_loc][0];
+                  if(new_line_dist<line_distence){
+                     line_distence = new_line_dist;
+                     line_loc = i;
+                     //if(line_length<new_line_length){
+                        //line_length = new_line_length;
+                        //line_loc = i;
+                     //}
+                  }
                } 
             } 
          }
          cout << "Setting the size of signature box" << endl;
          //cut the signature box based on line location
-         box->x = lines[line_loc][0];
-         box->y = lines[line_loc][1]-7*box->h;
-         box->w = lines[line_loc][2] - lines[line_loc][0];
+         box->x = merged_lines[line_loc][0];
+         box->y = merged_lines[line_loc][1]-7*box->h;
+         box->w = merged_lines[line_loc][2] - merged_lines[line_loc][0];
          box->h = 8*box->h;
          
          //naming and saving signature box
