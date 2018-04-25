@@ -61,14 +61,13 @@ int main(int argc, char** argv) {
    copyMakeBorder( src, border, top, bottom, left, right, BORDER_CONSTANT );
    cout << "Border successfully created" << endl << endl;
    
-   //namedWindow( "border", 1 );
-   //imshow("border", border);
-   //waitKey(0);
-   
    src = border;
-   //namedWindow( "src", 1 );
-   //imshow("src", src);
-   //waitKey(0);
+   /*
+   //display border
+   namedWindow( "src", 1 );
+   imshow("src", src);
+   waitKey(0);
+   */
    
    //Line detection
    cout << "Detecting lines ... " << endl;
@@ -143,29 +142,22 @@ int main(int argc, char** argv) {
          group.push_back(temp);
       }
    }
-//display merged lines
-/*
-   for( size_t i = 0; i < merged_lines.size(); i++ )
-   {
-      line( src, Point(merged_lines[i][0], merged_lines[i][1]), Point(merged_lines[i][2], merged_lines[i][3]), Scalar(0,0,255), 3, 8 );
-   }
-
-   namedWindow( "merged_lines", WINDOW_NORMAL );
-   imshow("merged_lines", src);
-   waitKey(0);
-*/
+   
+   
    if(merged_lines.size()>0){
       cout << "Lines are detected" << endl << endl;
-      //namedWindow( "horizontal", WINDOW_NORMAL );
-      //imshow("horizontal", horiz);
-      //waitKey(0);
+	  /*
+	  //display merged_lines
+	  for( size_t i = 0; i < merged_lines.size(); i++ ){
+         line( src, Point(merged_lines[i][0], merged_lines[i][1]), Point(merged_lines[i][2], merged_lines[i][3]), Scalar(0,0,255), 3, 8 );
+      }
+      namedWindow( "merged_lines", WINDOW_NORMAL );
+      imshow("merged_lines", src);
+      waitKey(0);
+	  */
    }else{
       cout << "Fail to detect lines" << endl << endl;
    }
-   
-   //namedWindow( "horizontal", 1 );
-   //imshow("horizontal", horiz);
-   //waitKey(0);
    
    cout << "Running OCR" << endl;
    char save_path[100];
@@ -186,62 +178,80 @@ int main(int argc, char** argv) {
    cout << "Converting images to text, and search for signature box" << endl;
    int sigcounter = 1;
    for (int i = 0; i < boxes->n; i++) {
+	  bool sign_line = false;
       BOX* box = boxaGetBox(boxes, i, L_CLONE);
       api->SetRectangle(box->x, box->y, box->w, box->h);
       char* ocrResult = api->GetUTF8Text();
+	  //lowercase to uppercase
+      for(int k = 0; k< strlen(ocrResult); k++){
+         ocrResult[k] = toupper(ocrResult[k]);
+      }
       char* sigfind = strstr(ocrResult, "SIGNATURE");
       if(sigfind){
          cout << "Signature box has been detected" << endl;
-         int line_distence = 5*box->h;
+		 
+		 /*
+		 //cout box coordinates
+		 cout << "Signature Box" <<endl;
+		 cout << "X: "<<box->x<<" X2: "<<box->x+box->w<<" Y: "<<box->y<<" H: "<<box->h<<endl;
+		 cout << endl;
+		 */
+		 
+         int line_distence = box->h;
          //int line_length = box->w;
          int line_loc = 0;
          cout << "Searching for the signature line ... " << endl;
-         for( size_t i = 0; i < merged_lines.size(); i++ ){
-            if(merged_lines[i][0]<=box->x && merged_lines[i][2]>=box->x+box->w){
-               if(merged_lines[i][1]>=box->y-5*box->h && merged_lines[i][1]<=box->y){
-                  int new_line_dist = box->y - merged_lines[i][1];
-                  //int new_line_length = merged_lines[line_loc][2] - merged_lines[line_loc][0];
+         for( size_t j = 0; j < merged_lines.size(); j++ ){
+			
+			/*
+			//cout line coordinates
+			cout << j <<" line" << endl;
+			cout << "X: "<<merged_lines[j][0]<<" X2: "<<merged_lines[j][2]<<" Y: "<<merged_lines[j][1]<< endl;
+			cout << endl;
+			*/
+            if(merged_lines[j][0]<=box->x+5 && merged_lines[j][2]+5>=box->x+box->w){
+               if(merged_lines[j][1]>=box->y-box->h && merged_lines[j][1]<=box->y){
+				  sign_line = true;
+                  int new_line_dist = box->y - merged_lines[j][1];
                   if(new_line_dist<line_distence){
                      line_distence = new_line_dist;
-                     line_loc = i;
-                     //if(line_length<new_line_length){
-                        //line_length = new_line_length;
-                        //line_loc = i;
-                     //}
+                     line_loc = j;
                   }
                } 
             } 
          }
-         cout << "Setting the size of signature box" << endl;
-         //cut the signature box based on line location
-         box->x = merged_lines[line_loc][0];
-         box->y = merged_lines[line_loc][1]-7*box->h;
-         box->w = merged_lines[line_loc][2] - merged_lines[line_loc][0];
-         box->h = 8*box->h;
-         
-         //naming and saving signature box
-         segbox = pixClipRectangle(image, box, NULL);
-         //removing path components
-         string infile = argv[1];
-         string remove_pre = "./png_bin/";
-         string remove_pro = ".png";
-         int i = infile.find(remove_pre);
-         infile.erase(i,remove_pre.length());
-         i = infile.find(remove_pro);
-         infile.erase(i,remove_pro.length());
-         //adding new path and file name
-         strcpy (save_path, "./image/");
-         strncat(save_path, infile.c_str(),infile.length());
-         strncat(save_path, "_sig",4);
-         itoa(sigcounter,num_char);
-         strncat (save_path, num_char,3);
-         strncat (save_path,".png",4);
-         cout << "Saving signature box" << endl;
-         pixWrite(save_path, segbox, IFF_PNG);
-         cout << "Signature box saved" << endl << endl;
-         //cout << save_path << endl;
-         SigPaths.push_back(save_path);
-         sigcounter++;
+		 if(sign_line == true){
+			 cout << "Setting the size of signature box" << endl;
+			 //cut the signature box based on line location
+			 box->x = merged_lines[line_loc][0];
+			 box->y = merged_lines[line_loc][1]-7*box->h;
+			 box->w = merged_lines[line_loc][2] - merged_lines[line_loc][0];
+			 box->h = 8*box->h;
+			 
+			 //naming and saving signature box
+			 segbox = pixClipRectangle(image, box, NULL);
+			 //removing path components
+			 string infile = argv[1];
+			 string remove_pre = "./png_bin/";
+			 string remove_pro = ".png";
+			 int i = infile.find(remove_pre);
+			 infile.erase(i,remove_pre.length());
+			 i = infile.find(remove_pro);
+			 infile.erase(i,remove_pro.length());
+			 //adding new path and file name
+			 strcpy (save_path, "./image/");
+			 strncat(save_path, infile.c_str(),infile.length());
+			 strncat(save_path, "_sig",4);
+			 itoa(sigcounter,num_char);
+			 strncat (save_path, num_char,3);
+			 strncat (save_path,".png",4);
+			 cout << "Saving signature box" << endl;
+			 pixWrite(save_path, segbox, IFF_PNG);
+			 cout << "Signature box saved" << endl << endl;
+			 //cout << save_path << endl;
+			 SigPaths.push_back(save_path);
+			 sigcounter++;
+		 }
       }
    }
 
