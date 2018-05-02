@@ -15,7 +15,7 @@
 #include <stdio.h>
 #include <string>
 #include <sstream>
-
+#include "SigLoc_Struct.h"
 
 using namespace cv;
 using namespace std;
@@ -1121,8 +1121,58 @@ void enhanceBlack(Mat &image){
 
 }
 
+void drawOn(Mat &inImage, Mat image, int start_x, int start_y){
 
-int forwardPass(vector<string> path /*, vector <Mat> &testIms*/){
+    //for every x in pixel array
+    for( int i=0; i < image.cols; i++){
+
+        //for every y in pixel array
+        for(int a=0; a < image.rows; a++){
+
+                inImage.at<Vec3b>(start_y+a,start_x+i)[0] = image.at<Vec3b>(a,i)[0];
+                inImage.at<Vec3b>(start_y+a,start_x+i)[1] = image.at<Vec3b>(a,i)[1];
+                inImage.at<Vec3b>(start_y+a,start_x+i)[2] = image.at<Vec3b>(a,i)[2];
+        }
+
+    }
+
+}
+
+void windowMakeGreen(Mat &image){
+
+    //for every x in pixel array
+    for( int i=0; i < image.cols; i++){
+
+        //for every y in pixel array
+        for(int a=0; a < image.rows; a++){
+                if(image.at<Vec3b>(a,i)[1] < 100)
+                        image.at<Vec3b>(a,i)[1] += 100 ;
+                else
+                        image.at<Vec3b>(a,i)[1] = 255 ;
+
+        }
+
+    }
+}
+
+void windowMakeRed(Mat &image){
+
+    //for every x in pixel array
+    for( int i=0; i < image.cols; i++){
+
+        //for every y in pixel array
+        for(int a=0; a < image.rows; a++){
+                if(image.at<Vec3b>(a,i)[0] < 100)
+                        image.at<Vec3b>(a,i)[2] += 100 ;
+                else
+                        image.at<Vec3b>(a,i)[2] = 255 ;
+
+        }
+
+    }
+}
+
+int forwardPass(sigloc loc, string originalPath){
 	
 	Cvl cvl;
 	vector<Ntw> HiddenLayers;
@@ -1130,21 +1180,40 @@ int forwardPass(vector<string> path /*, vector <Mat> &testIms*/){
 	int imgDim;
 	int nsamples;
 	loadNetwork(cvl,HiddenLayers,smr,imgDim,nsamples);	
-        Mat image;
-        vector<Mat> images;
+    Mat image;
+	Mat originalIm;
+	originalIm = imread(originalPath,1);
+    vector<Mat> images;
+	vector<Mat> drawImages;
 	namedWindow("showIm",WINDOW_AUTOSIZE);
 	//CHANGE FOR STRING VECTOR //
-	for(int i=0; i < path.size(); i++){
-		Mat dst;
-		Mat src;
-		src = imread(path[i],0);
-		Size size(60,60);
-		resize(src,dst,size);
-		enhanceBlack(dst);
-		images.push_back(dst);
+	for(int i=0; i < loc.Sig_Paths.size(); i++){
+		Mat dst,dstB;
+        Size size(60,60);
+		
+		dst = imread(loc.Sig_Paths[i],1);
+		image = imread(loc.Sig_Paths[i],0);
+		
+		resize(image,dstB,size);
+		enhanceBlack(dstB);
+		
+		Point2f src_centerB(dstB.cols/2.0F, dstB.rows/2.0F);
+		Mat rot_matB = getRotationMatrix2D(src_centerB, 270, 1.0);
+		Mat dstRot;
+		warpAffine(dstB, dstRot, rot_matB, dstB.size());
+		images.push_back(dstRot);
+		
+			
+		drawImages.push_back(dst);
 		dst.release();
+		dstB.release();
+		dstRot.release();
+		image.release();
+		
+	
 	}
 	Mat result = resultProdict(images,cvl,HiddenLayers,smr,3e-3);
+	
 
 	while(true){
 		
@@ -1174,7 +1243,29 @@ int forwardPass(vector<string> path /*, vector <Mat> &testIms*/){
 		}
 		else{}
 	}
+	
+	for(int i=0; i < loc.Sig_Paths.size(); i++){
+			if((double) result.ATD(0,i) == 3){
+				windowMakeGreen(drawImages[i]);
+				drawOn(originalIm,drawImages[i],loc.Sig_coordinates[i][0],loc.Sig_coordinates[i][1]);
+				
+			}
+			
+			if((double) result.ATD(0,i) == 2){
+				windowMakeRed(drawImages[i]);
+				drawOn(originalIm,drawImages[i],loc.Sig_coordinates[i][0],loc.Sig_coordinates[i][1]);
+			}
+				
+			
+	}
+	namedWindow("ScannedDoc",WINDOW_NORMAL);
+	resizeWindow("ScannedDoc",800,1000);
+	imshow("ScannedDoc",originalIm);
+	waitKey(0);
+	destroyWindow("showIm");
+	destroyWindow("ScannedDoc");
 }
+
 
 void loadToArr(vector<Mat> &ims, int numIms){
 
