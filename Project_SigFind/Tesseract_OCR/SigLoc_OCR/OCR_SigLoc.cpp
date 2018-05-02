@@ -12,6 +12,11 @@
 using namespace cv;
 using namespace std;
 
+struct sigloc{
+	vector<string> Sig_Paths; 
+	vector<Vec4i> Sig_coordinates;
+};
+
 void reverse(char s[]){
    int i, j;
    char c;
@@ -44,10 +49,9 @@ int main(int argc, char** argv) {
       cout << "Need png file" << endl;
       return -1;
    }
-   char* img_path = argv[1];
-   
-   vector<string> SigPaths;   
+   char* img_path = argv[1]; 
 
+   sigloc save_sigloc;
    //create border
    cout << "Creating border ... " << endl;
    Mat src, border, gray;
@@ -162,6 +166,7 @@ int main(int argc, char** argv) {
    }
    
    cout << "Running OCR" << endl;
+   //create OCR api and initialize it
    char save_path[100];
    char num_char[3];
    Pix *segbox;
@@ -172,6 +177,7 @@ int main(int argc, char** argv) {
    api->SetPageSegMode(tesseract::PSM_AUTO);
    api->SetImage(image);
    api->SetSourceResolution(70);
+   //do page analysis
    cout << "Analysing page" << endl;
    Boxa* boxes = api->GetComponentImages(tesseract::RIL_BLOCK, true, NULL, NULL);
    printf("Found %d textline image components.\n", boxes->n);
@@ -200,6 +206,7 @@ int main(int argc, char** argv) {
 	  Mat segmented_page;
 	  page_segment(Rect(box->x,box->y,box->w,box->h)).copyTo(segmented_page);
 	  */
+	  
 	  //segmenting segmented page by word
       segmented_image = pixClipRectangle(image, box, NULL);
       api->Init(NULL, "eng");
@@ -277,6 +284,14 @@ int main(int argc, char** argv) {
 				 box_temp->w = merged_lines[line_loc][2] - merged_lines[line_loc][0];
 				 box_temp->h = 4*(y2-y1);
 				 
+				 //store the signature coordinates
+				 Vec4i temp;
+				 temp[0] = box_temp->x;
+				 temp[1] = box_temp->y;
+				 temp[2] = box_temp->w;
+				 temp[3] = box_temp->h;
+				 save_sigloc.Sig_coordinates.push_back(temp);
+				 
 				 //naming and saving signature box
 				 segbox = pixClipRectangle(image, box_temp, NULL);
 				 //removing path components
@@ -297,8 +312,7 @@ int main(int argc, char** argv) {
 				 cout << "Saving signature box" << endl;
 				 pixWrite(save_path, segbox, IFF_PNG);
 				 cout << "Signature box saved" << endl << endl;
-				 //cout << save_path << endl;
-				 SigPaths.push_back(save_path);
+				 save_sigloc.Sig_Paths.push_back(save_path);
 				 sigcounter++;
 			 }
 		  }
@@ -307,8 +321,9 @@ int main(int argc, char** argv) {
 	  }
    }
 
-   for(int i=0;i<SigPaths.size();i++){
-      cout << SigPaths.at(i) << endl;
+   for(int i=0;i<save_sigloc.Sig_Paths.size();i++){
+      cout << save_sigloc.Sig_Paths.at(i) << endl;
+	  cout << save_sigloc.Sig_coordinates.at(i) << endl;
    }
    cout << "----------------SigLoc Completed----------------" << endl<< endl;
    pixDestroy(&image);
