@@ -1,4 +1,4 @@
-// A Convolutional Neural Networks hand writing classifier.
+// A Signature detecting Convolutional Neural Network.
 // Using:
 // 1 Conv layer
 // 1 Pooling layer
@@ -45,6 +45,7 @@ int PoolingDim = 4;
 int batch;
 int Pooling_Methed = POOL_STOCHASTIC;
 
+//Convolutional Kernel definition
 typedef struct ConvKernel{
     Mat W;
     double b;
@@ -52,11 +53,13 @@ typedef struct ConvKernel{
     double bgrad;
 }ConvK;
 
+//Convolutional Layer definition
 typedef struct ConvLayer{
     vector<ConvK> layer;
     int kernelAmount;
 }Cvl;
 
+//Fully connected net definition
 typedef struct Network{
     Mat W;
     Mat b;
@@ -64,6 +67,7 @@ typedef struct Network{
     Mat bgrad;
 }Ntw;
 
+//SoftMax regression layer definition
 typedef struct SoftmaxRegession{
     Mat Weight;
     Mat Wgrad;
@@ -72,6 +76,42 @@ typedef struct SoftmaxRegession{
     double cost;
 }SMR;
 
+/* 	prints the type of the input Mat object
+
+	param: 	int type (Mat.type())
+	pre:	Mat object exists
+	post:	
+*/
+
+string type2str(int type) {
+  string r;
+
+  uchar depth = type & CV_MAT_DEPTH_MASK;
+  uchar chans = 1 + (type >> CV_CN_SHIFT);
+
+  switch ( depth ) {
+    case CV_8U:  r = "8U"; break;
+    case CV_8S:  r = "8S"; break;
+    case CV_16U: r = "16U"; break;
+    case CV_16S: r = "16S"; break;
+    case CV_32S: r = "32S"; break;
+    case CV_32F: r = "32F"; break;
+    case CV_64F: r = "64F"; break;
+    default:     r = "User"; break;
+  }
+
+  r += "C";
+  r += (chans+'0');
+
+  return r;
+}
+/* 	Concatenates a 2D Mat object vector into 1 Mat object
+
+	param: 	vector<vector<Mat>> &vec (reference)
+	pre:	vec exists
+	post:	Mat object res created adn returned
+	post:	vec remains the same
+*/
 Mat 
 concatenateMat(vector<vector<Mat> > &vec){
 
@@ -91,6 +131,14 @@ concatenateMat(vector<vector<Mat> > &vec){
     return res;
 }
 
+
+/* 	Concatenates a Mat object vector into 1 Mat object
+
+	param: 	vector<Mat> &vec (reference)
+	pre:	vec exists
+	post:	Mat object res created and returned
+	post:	vec remains the same
+*/
 Mat 
 concatenateMat(vector<Mat> &vec){
 
@@ -108,6 +156,15 @@ concatenateMat(vector<Mat> &vec){
     return res;
 }
 
+/* 	Unconcatenates a concatenated Mat object into a 2D 
+	Mat object vector
+
+	param: 	Mat &M (reference)
+	param:	vector<vector<Mat>> &vec (reference)
+	pre:	vec was concatenated through concatenateMat
+	post:	input array vec modified to contain unconcatenated
+			M features via push_back	
+*/
 void
 unconcatenateMat(Mat &M, vector<vector<Mat> > &vec, int vsize){
 
@@ -126,6 +183,12 @@ unconcatenateMat(Mat &M, vector<vector<Mat> > &vec, int vsize){
     }
 }
 
+/* Returns the reverse of an integer value 	
+
+	param: 	int i
+	pre:	
+	post:	new int created and returned	
+*/
 int 
 ReverseInt (int i){
     unsigned char ch1, ch2, ch3, ch4;
@@ -136,6 +199,15 @@ ReverseInt (int i){
     return((int) ch1 << 24) + ((int)ch2 << 16) + ((int)ch3 << 8) + ch4;
 }
 
+
+/* 	Reads a ubyte format file into a Mat object vector
+
+	param: 	string filename
+	param:	vector<Mat> &vec (reference)
+	pre:	filename value is a valid file location
+	post:	vec modified to contain Mat objects within
+			ubyte file via push_back	
+*/
 void 
 read_Mnist(string filename, vector<Mat> &vec){
     ifstream file(filename.c_str(), ios::binary);
@@ -166,6 +238,15 @@ read_Mnist(string filename, vector<Mat> &vec){
     }
 }
 
+
+/* 	Reads a ubyte format file into a Mat object vector
+
+	param: 	string filename
+	param:	vector<Mat> &vec (reference)
+	pre:	filename value is a valid file location
+	post:	vec modified to contain Mat objects within
+			ubyte file via push_back	
+*/
 void 
 read_Mnist_Label(string filename, Mat &mat)
 {
@@ -687,7 +768,7 @@ readData(vector<Mat> &x, Mat &y, string xpath, string ypath, int number_of_image
 
 Mat 
 resultProdict(vector<Mat> &x, Cvl &cvl, vector<Ntw> &hLayers, SMR &smr, double lambda){
-
+    cout<<"result prodict process started..."<<endl;
     int nsamples = x.size();
     vector<vector<Mat> > Conv1st;
     vector<vector<Mat> > Pool1st;
@@ -697,6 +778,8 @@ resultProdict(vector<Mat> &x, Cvl &cvl, vector<Ntw> &hLayers, SMR &smr, double l
         vector<Mat> tpPool1st;
         for(int i=0; i<cvl.kernelAmount; i++){
             Mat temp = rot90(cvl.layer[i].W, 2);
+	    string ty = type2str(x[k].type());
+	    cout<<"index "<<k+1<<", type = "<<ty<<" out of "<<nsamples<<endl;
             Mat tmpconv = conv2(x[k], temp, CONV_VALID);
             tmpconv += cvl.layer[i].b;
             //tmpconv = sigmoid(tmpconv);
@@ -1105,15 +1188,16 @@ int &nsamples){
 } 
 void enhanceBlack(Mat &image){
 
-
         image.convertTo(image, CV_64FC1, 1.0/255, 0);
-        for(int i=0; i<image.rows; i++){
-                for(int a=0; a<image.cols; a++){
+        for(int i=0; i<image.cols; i++){
+                for(int a=0; a<image.rows; a++){
                         //cout<<"intensity at :"<<i<<", "<<a<<" = "<<image.at<double>(i,a)<<"\n";
-                        if(image.at<double>(i,a) < .9){
-                                //cout<<image.at<double>(i,a)<<"\n";
-                                image.at<double>(i,a)=0;
+                        //cout<<image.at<double>(a,i)<<"\n";
+			if(image.at<double>(a,i) < .9){
+                                image.at<double>(a,i)=0;
                         }
+			else
+				image.at<double>(a,i)=1;
 
                 }
 
@@ -1122,7 +1206,7 @@ void enhanceBlack(Mat &image){
 }
 
 
-int forwardPass(/*vector<string> path,*/ vector <Mat> &testIms){
+int forwardPass(/*vector<string> path,*/ vector <Mat> &testIms, Mat &retArr){
 	
 	Cvl cvl;
 	vector<Ntw> HiddenLayers;
@@ -1149,6 +1233,7 @@ int forwardPass(/*vector<string> path,*/ vector <Mat> &testIms){
 	
 	}
 	Mat result = resultProdict(images,cvl,HiddenLayers,smr,3e-3);
+	retArr = result;
 
 	while(true){
 		
@@ -1178,11 +1263,11 @@ int forwardPass(/*vector<string> path,*/ vector <Mat> &testIms){
 		}
 		else{}
 	}
+	destroyWindow("showIm");
 }
 
 void loadToArr(vector<Mat> &ims, int numIms){
 
-	//namedWindow("COLLECTING...",WINDOW_AUTOSIZE);
 	string end = ".png";
 	
 	for(int i=1; i < numIms+1; i++){
@@ -1215,8 +1300,6 @@ void loadToArr(vector<Mat> &ims, int numIms){
 			end = ".PNG";
 		}
 		path+=end;
-			
-		//cout<<path<<endl;
 		
 		image = imread(path,0);
 		
@@ -1224,14 +1307,6 @@ void loadToArr(vector<Mat> &ims, int numIms){
 		
 		Size size(60,60);
 		resize(image,dst,size);
-		
-		
-		/*if( i % 50 == 0){
-		
-			imshow("COLLECTING...",dst);
-			waitKey(300);
-		
-		}*/
 		
 		ims.push_back(dst);
 		dst.release();
@@ -1255,46 +1330,264 @@ void fillArrNegatives(vector<Mat> &arr, int numEmpties){
 
 
 int readFiles(vector<Mat> &signatures, int numImages){
-	//edit when this method is not main to take an input number
-	//vector<Mat> signatures;
-	//int numImages = 466;	
-
-	//namedWindow("IMAGE",WINDOW_AUTOSIZE);
-	//namedWindow("POS",WINDOW_AUTOSIZE);
-	//namedWindow("NEG",WINDOW_AUTOSIZE);
 	
 	loadToArr(signatures,numImages);
-	fillArrNegatives(signatures,(numImages-1)/2);
+	//fillArrNegatives(signatures,(numImages-1)/2);
 	cout<<"size = "<<signatures.size()<<endl;
 
-	//imshow("IMAGE",signatures[465]);
-	//imshow("POS",signatures[467]);
-	//imshow("NEG",signatures[signatures.size()-1]);
-	
-	/*while(true){
-		
-		int response;
-		int index;
-		cout<<"1 to check an index \n2 to exit\n";
-		cin>> response;
-		
-		if(response == 1){
-			
-			cout<<"type an index to view: ";
-			cin >> index;
-			
-			imshow("IMAGE",signatures[index]);
-			waitKey(2000);
-			cout<<"\n";
-		}
-		if(response == 2)
-			break;
-	
-	}
-	waitKey(1000);	*/
 	return 0;
 
 }
+
+
+void drawOn(Mat &inImage, Mat image, int start_x, int start_y){
+
+    //for every x in pixel array
+    for( int i=0; i < image.cols; i++){
+
+        //for every y in pixel array
+        for(int a=0; a < image.rows; a++){
+
+                inImage.at<Vec3b>(start_y+a,start_x+i)[0] = image.at<Vec3b>(a,i)[0];
+                inImage.at<Vec3b>(start_y+a,start_x+i)[1] = image.at<Vec3b>(a,i)[1];
+                inImage.at<Vec3b>(start_y+a,start_x+i)[2] = image.at<Vec3b>(a,i)[2];
+        }
+
+    }
+
+}
+
+void windowMakeGreen(Mat &image){
+
+    //for every x in pixel array
+    for( int i=0; i < image.cols; i++){
+
+        //for every y in pixel array
+        for(int a=0; a < image.rows; a++){
+                if(image.at<Vec3b>(a,i)[1] < 100)
+                        image.at<Vec3b>(a,i)[1] += 100 ;
+                else
+                        image.at<Vec3b>(a,i)[1] = 255 ;
+
+        }
+
+    }
+}
+
+void windowMakeRed(Mat &image){
+
+    //for every x in pixel array
+    for( int i=0; i < image.cols; i++){
+
+        //for every y in pixel array
+        for(int a=0; a < image.rows; a++){
+                if(image.at<Vec3b>(a,i)[0] < 100)
+                        image.at<Vec3b>(a,i)[2] += 100 ;
+                else
+                        image.at<Vec3b>(a,i)[2] = 255 ;
+
+        }
+
+    }
+}
+
+
+Mat createImSlice(Mat inImage,  int w_width, int w_height,int start_x, int start_y){
+
+    Size size(w_width,w_height);
+    Mat image = Mat::ones(size,CV_8UC3);
+
+    //for every x in pixel array
+    for( int i=0; i < w_width; i++){
+
+        //for every y in pixel array
+        for(int a=0; a < w_height; a++){
+
+                image.at<Vec3b>(a,i)[0] = inImage.at<Vec3b>(start_y+a,start_x+i)[0];
+                image.at<Vec3b>(a,i)[1] = inImage.at<Vec3b>(start_y+a,start_x+i)[1];
+                image.at<Vec3b>(a,i)[2] = inImage.at<Vec3b>(start_y+a,start_x+i)[2];
+        }
+
+    }
+
+   return image;
+
+}
+
+Mat createImSliceBlack(Mat inImage,  int w_width, int w_height,int start_x, int start_y){
+
+    Size size(w_width,w_height);
+    Mat image = Mat::zeros(size,CV_64FC1);
+    image.convertTo(image,CV_64FC1,1.0/255,0);
+    //for every x in pixel array
+    for(int i=0; i < w_width; i++){
+        //for every y in pixel array
+        for(int a=0; a < w_height-1; a++){
+                image.at<double>(a,i) = inImage.at<double>(start_y+a,start_x+i);
+		if(image.at<double>(a,i) < .9)
+			image.at<double>(a,i) = 0;
+		else
+			image.at<double>(a,i) = 1;
+        }
+
+    }
+
+   return image;
+
+}
+void segmentNSave(Mat image, int xMax, int yMax, int segSizeX,int segSizeY){
+	int count=0;
+	for(int x=0; x < xMax - segSizeX; x+=20){
+                for(int y=0; y < yMax - segSizeY; y+=20){
+			stringstream out;
+			string saver = "SigSamples/SigSamples/neg_sig/neg_sig_";
+			string end = ".png";
+			out << count;
+			saver += out.str();
+			saver += end;
+				
+                        Mat imageSlice;
+                        imageSlice = createImSlice(image,segSizeX,segSizeY,x,y);
+			
+			imwrite(saver,imageSlice);
+				
+                        imageSlice.release();
+			cout<<saver<<" saved ..."<<endl;
+			out.str(string());
+			count++;
+                       
+
+                }
+
+        }
+
+}
+
+void loadNegsToArr(vector<Mat> &arr, int numIms){
+	cout<<"load negs started......"<<endl;
+	for(int i=0; i < numIms; i++){
+		
+		stringstream out;
+                string saver = "SigSamples/SigSamples/neg_sig/neg_sig_";
+                string end = ".png";
+                out << i;
+                saver += out.str();
+                saver += end;
+		//cout<<"check 1"<<endl;
+		Mat saveIm,dst;
+		
+		saveIm = imread(saver,0);
+		enhanceBlack(saveIm);
+		
+		Size size(60,60);
+		resize(saveIm,dst,size);
+		cout<<"loaded image = "<<saver<<endl;
+		//namedWindow("CHECKING",WINDOW_AUTOSIZE);
+		//imshow("CHECKING",dst);
+		//waitKey(50);	
+		arr.push_back(dst);
+		dst.release();
+		out.str(string());
+	}
+
+
+
+}
+
+void scanImage(Mat image, Mat blackIm){
+	
+	cout<<"image type = "<<type2str(image.type())<<endl;
+	
+	cout<<"blackIm type = "<<type2str(blackIm.type())<<endl;
+		
+	Mat redrawIm = Mat::ones(Size(image.cols,image.rows),CV_8UC3);
+	vector<Mat> inputIms;
+	vector<Mat> originalIms;
+	Mat returnArr;
+
+	cout<<"CHECK 1"<<endl;
+
+	int checker = 0;
+	
+	
+	
+	blackIm.convertTo(blackIm,CV_64FC1,1.0/255,0);
+	//Prelim val 200
+	int splitterX = 200;
+	
+	//Prelim val 100
+	int splitterY = 100;
+	for(int x=0; x < image.cols - splitterX; x += splitterX/10){
+		for(int y=0; y < image.rows - splitterY; y += splitterY/10){
+			
+			Mat imageSlice,dst,blackSlice;
+			imageSlice = createImSlice(image,splitterX,splitterY,x,y);
+			originalIms.push_back(imageSlice);
+			
+			blackSlice = createImSliceBlack(blackIm,splitterX,splitterY,x,y);
+				
+			Size size(60,60);		
+
+			resize(blackSlice,dst,size);	
+			inputIms.push_back(dst);
+		
+			imageSlice.release();
+			blackSlice.release();
+			dst.release();
+
+			if(x % 50 == 0)
+				cout<<"##";
+		
+		} 
+	
+	}
+	cout<<"documented segmented into "<<inputIms.size()<<" snippets, running through net..."<<endl;
+	forwardPass(inputIms,returnArr);
+	int count=0;
+	namedWindow("IMAGE",WINDOW_NORMAL);
+	resizeWindow("IMAGE",800,1000);
+	imshow("IMAGE",image);
+	cout<<"CHECK 2"<<endl;	
+	
+	for(int x=0; x < image.cols - splitterX; x += splitterX/10){
+                for(int y=0; y < image.rows - splitterY; y += splitterY/10){
+
+			drawOn(redrawIm,originalIms[count],x,y);
+			count++;
+		}
+	}
+	
+	count=0;
+		
+	for(int x=0; x < image.cols - splitterX; x += splitterX/10){
+                for(int y=0; y < image.rows - splitterY; y += splitterY/10){
+			/*
+                        if((double) returnArr.ATD(0,count) == 2){
+                                windowMakeRed(originalIms[count]);
+                                drawOn(redrawIm,originalIms[count],x,y);
+                        }
+			*/
+			if((double) returnArr.ATD(0,count) == 3){
+				windowMakeGreen(originalIms[count]);
+				drawOn(redrawIm,originalIms[count],x,y);
+			
+			}
+	
+                        count++;
+                }
+        }
+
+	
+	namedWindow("SCANNED IMAGE",WINDOW_NORMAL);
+	resizeWindow("SCANNED IMAGE",800,1000);
+	imshow("SCANNED IMAGE",redrawIm);
+	waitKey(0);
+	
+	
+}
+
+
+
 
 int 
 main(){
@@ -1307,7 +1600,7 @@ main(){
 	vector<Mat> testX;
 	vector<Mat> resizeY;
 	vector<Mat> signatures;
-	Mat trainY, testY, resizeTestX, resizeTestY,sigLabels;
+	Mat trainY, testY, resizeTestX, resizeTestY,sigLabels,saveArr;
 	
 	int imgDim;
 	int nsamples;
@@ -1332,11 +1625,15 @@ main(){
                 resizeY.push_back(dst);
                 dst.release();
         }
-
-	readFiles(signatures,466);
-	sigLabels = Mat::zeros(1,1938,CV_64FC1);
-	for(int i=0; i < 969; i++){
-		if(i < 465)	
+	for(int i=0; i < 8; i++)
+		readFiles(signatures,466);
+	cout<<"check 1"<<endl;
+	
+	loadNegsToArr(signatures,2720);
+	
+	sigLabels = Mat::zeros(1,6448,CV_64FC1);
+	for(int i=0; i < 6448; i++){
+		if(i < 3728)	
 			sigLabels.ATD(0,i) = (double) 3;
 		else{
 			if( i % 2 != 0)
@@ -1346,6 +1643,7 @@ main(){
 		}
 	
 	}
+	/*
 	readFiles(signatures,466);
 	 for(int i=969; i < 1938; i++){
                 if(i < 969+465)
@@ -1358,7 +1656,7 @@ main(){
                 }
 
         }
-
+	*/
 		
         	        	        			
         			
@@ -1368,7 +1666,9 @@ main(){
 		cout<<"Enter 2 to load network\n";
 		cout<<"Enter 3 for testing ...\n";
 		cout<<"Enter 4 to run forward pass on images...\n";
-		cout<<"Enter 5 to exit....\n";
+		cout<<"Enter 5 to scan a document for signatures...\n";
+		cout<<"Enter 6 to segment part of an image and save the segments...\n";
+		cout<<"Enter 7 to exit....\n";
 	
 		cin >> response;
 		//ERASE WHEN NOT USING GDB//
@@ -1408,10 +1708,47 @@ main(){
 		}
 		vector<string> arr;
 		if(response == 4){
-			forwardPass(signatures);
+			forwardPass(signatures,saveArr);
 		
 		}
-		if(response == 5)
+		if(response == 5){
+			Mat scanDoc;
+			Mat blackDoc;
+			scanDoc.convertTo(scanDoc,CV_64FC3);
+			string path;
+			
+			//namedWindow("ORIGINAL IM",WINDOW_AUTOSIZE);
+			//cout<<"type the name of the document to scan: ";
+			//cin >> path;
+			scanDoc = imread("SigSamples/SigSamples/SigSample_11.png",1);
+			blackDoc = imread("SigSamples/SigSamples/SigSample_11.png",0);
+			//namedWindow("CHECKING",WINDOW_AUTOSIZE);
+			//imshow("CHECKING",scanDoc);
+			waitKey(50);	
+			//Rotate scanDoc 90 clockwise
+			Point2f src_center(scanDoc.cols/2.0F, scanDoc.rows/2.0F);
+			Mat rot_mat = getRotationMatrix2D(src_center, 270, 1.0);
+			Mat dst;
+			warpAffine(scanDoc, dst, rot_mat, scanDoc.size());
+			
+			//Rotate blackDoc 90 clockwise
+			Point2f src_centerB(blackDoc.cols/2.0F, blackDoc.rows/2.0F);
+			Mat rot_matB = getRotationMatrix2D(src_centerB, 270, 1.0);
+			Mat dstB;
+			warpAffine(blackDoc, dstB, rot_matB, blackDoc.size());
+				
+			//imshow("ORIGINAL IM",scanDoc);
+			//waitKey(1000);
+			scanImage(dst,dstB);
+
+		}
+		if(response == 6){
+			Mat segmentIm;
+			segmentIm = imread("SigSamples/SigSamples/Sample_3-0_LR.png",1);
+			segmentNSave(segmentIm,segmentIm.cols,600,200,100);
+		
+		}
+		if(response == 7)
 			break;
 	
 	}
