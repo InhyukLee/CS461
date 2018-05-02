@@ -12,6 +12,7 @@
 using namespace cv;
 using namespace std;
 
+//struct that contains signature location info
 struct sigloc{
 	vector<string> Sig_Paths; 
 	vector<Vec4i> Sig_coordinates;
@@ -77,6 +78,8 @@ int main(int argc, char** argv) {
    //Line detection
    cout << "Detecting lines ... " << endl;
    int Maxline =  src.cols/8;
+   int Maxhight =  src.rows/43;
+   
    cvtColor( src, gray, COLOR_BGR2GRAY );
    
    //adaptive mean thresholding
@@ -233,7 +236,6 @@ int main(int argc, char** argv) {
              word[k] = toupper(word[k]);
           }
           char* sigfind = strstr(word, "SIGNATURE");
-		  
 		  if(sigfind){
 			 BOX* box_temp = boxCopy(box);
 			 cout << "Signature box has been detected" << endl;
@@ -245,14 +247,14 @@ int main(int argc, char** argv) {
 			 cout << endl;
 			 */
 			 
-			 int line_distence = y2-y1;
+			 int line_distence = Maxhight;
 			 //int line_length = x2-x1;
 			 int line_loc = 0;
 			 cout << "Searching for the signature line ... " << endl;
 			 //searching for line above
 			 for( size_t j = 0; j < merged_lines.size(); j++ ){
 				if(merged_lines[j][0]<=box_temp->x+x1+5 && merged_lines[j][2]+5>=box_temp->x+x2){
-				   if(merged_lines[j][1]>=box_temp->y+y1-(y2-y1) && merged_lines[j][1]<=box_temp->y+y1){
+				   if(merged_lines[j][1]>=box_temp->y+y1-(Maxhight) && merged_lines[j][1]<=box_temp->y+y1){
 					  sign_line = true;
 					  int new_line_dist = box_temp->y+y1 - merged_lines[j][1];
 					  if(new_line_dist<line_distence){
@@ -262,6 +264,7 @@ int main(int argc, char** argv) {
 				   } 
 				} 
 			 }
+			 /*
 			 int line_gap = x2-x1;
 			 //searching for line on right side
 			 for( size_t j = 0; j < merged_lines.size(); j++ ){
@@ -276,13 +279,14 @@ int main(int argc, char** argv) {
 				   } 
 				} 
 			 }
+			 */
 			 if(sign_line == true){
 				 cout << "Setting the size of signature box" << endl;
 				 //cut the signature box based on line location
 				 box_temp->x = merged_lines[line_loc][0];
-				 box_temp->y = merged_lines[line_loc][1]-3*(y2-y1);
+				 box_temp->y = merged_lines[line_loc][1]-(Maxhight);
 				 box_temp->w = merged_lines[line_loc][2] - merged_lines[line_loc][0];
-				 box_temp->h = 4*(y2-y1);
+				 box_temp->h = Maxhight;
 				 
 				 //store the signature coordinates
 				 Vec4i temp;
