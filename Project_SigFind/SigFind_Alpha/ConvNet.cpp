@@ -1235,7 +1235,7 @@ int forwardPass(sigloc loc, string originalPath){
 			else{
 				cout<<"not a signature ("<<(double) result.ATD(0,index)<<")"<<endl;
 			}
-			waitKey(1000);
+			waitKey(0);
 		}
 		if(response == 2){
 			break;
@@ -1259,7 +1259,7 @@ int forwardPass(sigloc loc, string originalPath){
 			
 	}
 	namedWindow("ScannedDoc",WINDOW_NORMAL);
-	resizeWindow("ScannedDoc",800,1000);
+	//resizeWindow("ScannedDoc",800,1000);
 	imshow("ScannedDoc",originalIm);
 	waitKey(0);
 	destroyWindow("showIm");
