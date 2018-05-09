@@ -95,11 +95,24 @@ sigloc OCR(int argc, char** argv) {
    vector<Vec4i> lines;
    HoughLinesP( horiz, lines, 1, CV_PI/180, 80, Maxline, 10 );
 
-   //merging lines
+   //equalizing the length of the overlapping lines
    vector<int> line_elem;
    vector<Vec4i> lines_c = lines;
    vector<Vec4i> group;
    vector<Vec4i> merged_lines;
+   //sort lines
+   bool swapp = true;
+      while(swapp){
+        swapp = false;
+        for (size_t i = 0; i < lines_c.size()-1; i++) {
+            if (lines_c[i][1]>lines_c[i+1][1] ){
+				Vec4i temp = lines_c[i];
+				lines_c[i] = lines_c[i+1];
+				lines_c[i+1] = temp;
+                swapp = true;
+            }
+        }
+    }
    //create tracking vector
    for(int i = 0; i<lines_c.size(); i++){
       line_elem.push_back(i);
@@ -107,20 +120,26 @@ sigloc OCR(int argc, char** argv) {
    Vec4i temp = lines_c[line_elem.front()];
    line_elem.erase(line_elem.begin());
    group.push_back(temp);
-   //start merging
+   //start equalizing the length
    while(!line_elem.empty()){
+	  //group the lines
       for(int i = 0; i<line_elem.size();i++){
-         Vec4i temp2 = lines_c[line_elem.at(i)];
-         if(abs(temp[1]-temp2[1])<3){
-            //temp = temp2;
+         Vec4i temp2 = lines_c[line_elem.front()];
+         if(abs(temp[1]-temp2[1])<10){
+            temp = temp2;
             group.push_back(temp2);
-            line_elem.erase(line_elem.begin()+i);
-         }
+            line_elem.erase(line_elem.begin());
+         }else{
+			 break;
+		 }
       }
-      //merge group
+      //equalizing the length of overlapping lines in group
       for(int k = 0; k<group.size();k++){
          for(int l = 0; l<group.size();l++){
-            if(!((group[k][0]<group[l][0])&&(group[k][2]<group[l][0]))||!((group[l][0]<group[k][0])&&(group[l][2]<group[k][0]))){
+            if(((group[k][0]<group[l][0])&&(group[k][2]>group[l][0])&&(group[k][2]<group[l][2]))
+			||((group[k][0]<group[l][2])&&(group[k][0]>group[l][0])&&(group[k][2]>group[l][2]))
+			||((group[k][0]<group[l][0])&&(group[k][2]>group[l][2]))
+			||((group[k][0]>group[l][0])&&(group[k][2]<group[l][2]))){
                if(group[k][0]>group[l][0]){
                   group[k][0] = group[l][0];
                }else{
@@ -134,7 +153,18 @@ sigloc OCR(int argc, char** argv) {
             }
          }
       }
-      //copy the merged lines
+	  /*
+	  //display equalized lines for each group at a time
+	  Mat group_linse;
+	  src.copyTo(group_linse);
+	  for( size_t i = 0; i < group.size(); i++ ){
+         line( group_linse, Point(group[i][0], group[i][1]), Point(group[i][2], group[i][3]), Scalar(0,0,255), 3, 8 );
+      }
+	  namedWindow( "merged_lines", WINDOW_NORMAL );
+      imshow("merged_lines", group_linse);
+      waitKey(0);
+	  */
+	  //copy the equalized lines
       for(int k = 0; k<group.size();k++){
          merged_lines.push_back(group[k]);
       }
