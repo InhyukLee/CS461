@@ -1172,6 +1172,118 @@ void windowMakeRed(Mat &image){
     }
 }
 
+Mat createImSliceBlack(Mat inImage,  int w_width, int w_height,int start_x, int start_y){
+
+    Size size(w_width,w_height);
+    Mat image = Mat::zeros(size,CV_64FC1);
+    image.convertTo(image,CV_64FC1,1.0/255,0);
+    //for every x in pixel array
+    for(int i=0; i < w_width; i++){
+        //for every y in pixel array
+        for(int a=0; a < w_height-1; a++){
+                image.at<double>(a,i) = inImage.at<double>(start_y+a,start_x+i);
+		if(image.at<double>(a,i) < .9)
+			image.at<double>(a,i) = 0;
+		else
+			image.at<double>(a,i) = 1;
+        }
+
+    }
+
+   return image;
+
+}
+
+//Assumes input is image has been rotated 90 deegrees in traversal
+bool scanImageWidth(Mat blackIm,Cvl &cvl, vector<Ntw> &HiddenLayers,SMR &smr){
+	bool containsIm = false;
+	
+	//cout<<"image type = "<<type2str(image.type())<<endl;	
+	vector<Mat> inputIms;
+
+	namedWindow("showIm",WINDOW_AUTOSIZE);
+	cout<<"CHECK 1"<<endl;
+
+	
+	//blackIm.convertTo(blackIm,CV_64FC1,1.0/255,0);
+	
+	//Check how many times bigger than 200 image is width wise
+	//to divide images into ~200 pixel width segments
+	//add +1 to ensure split
+	int splitterX = blackIm.cols/ ((blackIm.cols / 200) + 1);
+	cout<<"segment length :"<<splitterX<<endl;
+	
+	//Prelim val 100
+	int splitterY = blackIm.rows;
+	//the number n in (splitterX / n) determines how many times  
+	//it will scan horizontally
+	for(int x=0; x < blackIm.cols - (splitterX-1); x += splitterX/10){
+			
+		Mat dst,blackSlice;
+		blackSlice = createImSliceBlack(blackIm,splitterX,splitterY,x,0);
+				
+		Size size(60,60);		
+
+		resize(blackSlice,dst,size);	
+		//enhanceBlack(dst);
+		
+		Point2f src_centerB(dst.cols/2.0F, dst.rows/2.0F);
+		Mat rot_matB = getRotationMatrix2D(src_centerB, 270, 1.0);
+		Mat dstRot;
+		warpAffine(dst, dstRot, rot_matB, dst.size());
+		
+		inputIms.push_back(dstRot);
+		
+		blackSlice.release();
+		dst.release();
+		
+		dstRot.release();
+
+		if(x % 50 == 0)
+			cout<<"##";
+	
+	}
+	cout<<"documented segmented into "<<inputIms.size()<<" snippets, running through net..."<<endl;
+	Mat  result = resultProdict(inputIms,cvl,HiddenLayers,smr,3e-3);
+	/*while(true){
+		
+		int response;
+		cout<<"type 1 to test an image index....\n";
+		cout<<"type 2 to exit....\n";
+		cin >> response;
+		if(response == 1){
+			int index;
+        		cout<<"type the image index 0-"<<inputIms.size()-1<<" : ";
+			cin >> index;
+			cout<<"\n";
+			imshow("showIm",inputIms[index]);	
+				
+        		if((double) result.ATD(0,index) == 3){
+				cout<<"signature detected"<<endl;
+			
+			}
+			else{
+				cout<<"not a signature ("<<(double) result.ATD(0,index)<<")"<<endl;
+			}
+			waitKey(0);
+		}
+		if(response == 2){
+			break;
+		
+		}
+		else{}
+	}
+	*/
+	for(int i=0; i < inputIms.size(); i++){
+			if((double) result.ATD(0,i) == 3){
+				containsIm = true;
+				return containsIm;
+			}
+	}
+	
+	return containsIm;
+}
+
 int forwardPass(sigloc loc, string originalPath){
 	
 	Cvl cvl;
@@ -1186,35 +1298,36 @@ int forwardPass(sigloc loc, string originalPath){
     vector<Mat> images;
 	vector<Mat> drawImages;
 	namedWindow("showIm",WINDOW_AUTOSIZE);
+	
+	vector< bool > results;
 	//CHANGE FOR STRING VECTOR //
 	for(int i=0; i < loc.Sig_Paths.size(); i++){
 		Mat dst,dstB;
         Size size(60,60);
 		
 		dst = imread(loc.Sig_Paths[i],1);
-		image = imread(loc.Sig_Paths[i],0);
+		dstB = imread(loc.Sig_Paths[i],0);
 		
-		resize(image,dstB,size);
+		//resize(image,dstB,size);
 		enhanceBlack(dstB);
 		
-		Point2f src_centerB(dstB.cols/2.0F, dstB.rows/2.0F);
-		Mat rot_matB = getRotationMatrix2D(src_centerB, 270, 1.0);
-		Mat dstRot;
-		warpAffine(dstB, dstRot, rot_matB, dstB.size());
-		images.push_back(dstRot);
+		
+		images.push_back(dstB);
 		
 			
 		drawImages.push_back(dst);
 		dst.release();
 		dstB.release();
-		dstRot.release();
-		image.release();
+		
+		
 		
 	
 	}
-	Mat result = resultProdict(images,cvl,HiddenLayers,smr,3e-3);
+	for(int i=0; i < images.size(); i++){
+		results.push_back(scanImageWidth(images[i],cvl,HiddenLayers,smr));
+	}
 	
-
+	/*
 	while(true){
 		
 		int response;
@@ -1243,15 +1356,15 @@ int forwardPass(sigloc loc, string originalPath){
 		}
 		else{}
 	}
-	
+	*/
 	for(int i=0; i < loc.Sig_Paths.size(); i++){
-			if((double) result.ATD(0,i) == 3){
+			if(results[i]){
 				windowMakeGreen(drawImages[i]);
 				drawOn(originalIm,drawImages[i],loc.Sig_coordinates[i][0],loc.Sig_coordinates[i][1]);
 				
 			}
 			
-			if((double) result.ATD(0,i) == 2){
+			if(!results[i]){
 				windowMakeRed(drawImages[i]);
 				drawOn(originalIm,drawImages[i],loc.Sig_coordinates[i][0],loc.Sig_coordinates[i][1]);
 			}
@@ -1259,12 +1372,13 @@ int forwardPass(sigloc loc, string originalPath){
 			
 	}
 	namedWindow("ScannedDoc",WINDOW_NORMAL);
-	//resizeWindow("ScannedDoc",800,1000);
+	resizeWindow("ScannedDoc",800,1000);
 	imshow("ScannedDoc",originalIm);
 	waitKey(0);
-	destroyWindow("showIm");
+	//destroyWindow("showIm");
 	destroyWindow("ScannedDoc");
 }
+
 
 
 void loadToArr(vector<Mat> &ims, int numIms){
