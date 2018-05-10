@@ -98,7 +98,7 @@ int main(int argc, char** argv) {
    dilate(horiz, horiz, horiz_struct, Point(-1, -1));
    
    vector<Vec4i> lines;
-   HoughLinesP( horiz, lines, 1, CV_PI/180, 80, Maxline, 10 );
+   HoughLinesP( horiz, lines, 1, CV_PI/180, 50, Maxline, 10 );
 
    //equalizing the length of the overlapping lines
    vector<int> line_elem;
@@ -186,10 +186,12 @@ int main(int argc, char** argv) {
       cout << "Lines are detected" << endl << endl;
 	  
 	  //display merged_lines
+	  /*
 	  for( size_t i = 0; i < merged_lines.size(); i++ ){
          line( src, Point(merged_lines[i][0], merged_lines[i][1]), Point(merged_lines[i][2], merged_lines[i][3]), Scalar(0,0,255), 3, 8 );
-      }
-	  /*
+         cout << "X: "<<merged_lines[i][0]<<" X2: "<<merged_lines[i][2]<<" Y: "<<merged_lines[i][1]<<endl;
+	  }
+	  
       namedWindow( "merged_lines", WINDOW_NORMAL );
       imshow("merged_lines", src);
       waitKey(0);
@@ -213,14 +215,15 @@ int main(int argc, char** argv) {
    //do page analysis
    cout << "Analysing page" << endl;
    Boxa* boxes = api->GetComponentImages(tesseract::RIL_BLOCK, true, NULL, NULL);
-   printf("Found %d textline image components.\n", boxes->n);
+   printf("Found %d text image components.\n", boxes->n);
    api->SetPageSegMode(tesseract::PSM_SINGLE_BLOCK);
    cout << "Page analysis is done" << endl;
 
    cout << "Converting images to text, and search for signature box" << endl;
    int sigcounter = 1;
    for (int i = 0; i < boxes->n; i++) {
-	  bool sign_line = false;
+	  bool sign_line_u = false;
+	  bool sign_line_r = false;
       BOX* box = boxaGetBox(boxes, i, L_CLONE);
 	  
 	  /*
@@ -241,6 +244,7 @@ int main(int argc, char** argv) {
 	  */
 	  
 	  //segmenting segmented page by word
+	  cout << "Segment text components into words" << endl;
       segmented_image = pixClipRectangle(image, box, NULL);
       api->Init(NULL, "eng");
       api->SetImage(segmented_image);
@@ -277,45 +281,57 @@ int main(int argc, char** argv) {
 			 cout << endl;
 			 */
 			 
+			 int line_gap = x2-x1;
+			 int line_length_r = 0;
+			 int line_loc_r = 0;
+			 
 			 int line_distence = Maxhight;
-			 //int line_length = x2-x1;
-			 int line_loc = 0;
+			 int line_length_u = 0;
+			 int line_loc_u = 0;
 			 cout << "Searching for the signature line ... " << endl;
 			 //searching for line above
 			 for( size_t j = 0; j < merged_lines.size(); j++ ){
-				if(merged_lines[j][0]<=box_temp->x+x1+5 && merged_lines[j][2]+5>=box_temp->x+x2){
-				   if(merged_lines[j][1]>=box_temp->y+y1-(Maxhight) && merged_lines[j][1]<=box_temp->y+y1){
-					  sign_line = true;
-					  int new_line_dist = box_temp->y+y1 - merged_lines[j][1];
-					  if(new_line_dist<line_distence){
-						 line_distence = new_line_dist;
-						 line_loc = j;
-					  }
-				   } 
-				} 
-			 }
-			 /*
-			 int line_gap = x2-x1;
-			 //searching for line on right side
-			 for( size_t j = 0; j < merged_lines.size(); j++ ){
-				if(merged_lines[j][1]>=box_temp->y+y1 && merged_lines[j][1]+5<=box_temp->y+y2){
-				   if(merged_lines[j][2]>=box_temp->x+x2){
-					  sign_line = true;
+				//find line on right side
+				if(merged_lines[j][1]>=box_temp->y+y1 && merged_lines[j][1]<=box_temp->y+y2+10){
+				   if(merged_lines[j][0]>=box_temp->x+x2 && merged_lines[j][0]<=box_temp->x+x2+(x2-x1)){
+					  sign_line_r = true;
 					  int new_line_gap = merged_lines[j][0] - (box_temp->x+x2);
-					  if(new_line_gap<line_gap){
-						 line_gap = new_line_gap;
-						 line_loc = j;
+					  int new_line_length_r = merged_lines[j][2] - merged_lines[j][0];
+					  if(line_length_r <= new_line_length_r){
+						  if(new_line_gap<line_gap){
+							 line_length_r = new_line_length_r;
+							 line_gap = new_line_gap;
+							 line_loc_r = j;
+						  }
 					  }
 				   } 
-				} 
+				}
+				//find line on up side
+				if(line_loc_r != true){
+					if(merged_lines[j][0]<=box_temp->x+x1+5 && merged_lines[j][2]+5>=box_temp->x+x2){
+					   if(merged_lines[j][1]>=box_temp->y+y1-(Maxhight) && merged_lines[j][1]<=box_temp->y+y1){
+						  sign_line_u = true;
+						  int new_line_dist = box_temp->y+y1 - merged_lines[j][1];
+						  int new_line_length_u = merged_lines[j][2] - merged_lines[j][0];
+						  if(line_length_u <= new_line_length_u){
+							  if(new_line_dist<line_distence){
+								 line_length_u = new_line_length_u;
+								 line_distence = new_line_dist;
+								 line_loc_u = j;
+							  }
+						  }
+					   } 
+					}
+				}
 			 }
-			 */
-			 if(sign_line == true){
+			 
+			 if(sign_line_r == true){
+				 cout << "Signature Line detected (R)" << endl;
 				 cout << "Setting the size of signature box" << endl;
 				 //cut the signature box based on line location
-				 box_temp->x = merged_lines[line_loc][0];
-				 box_temp->y = merged_lines[line_loc][1]-(Maxhight);
-				 box_temp->w = merged_lines[line_loc][2] - merged_lines[line_loc][0];
+				 box_temp->x = merged_lines[line_loc_r][0];
+				 box_temp->y = merged_lines[line_loc_r][1]-(Maxhight);
+				 box_temp->w = merged_lines[line_loc_r][2] - merged_lines[line_loc_r][0];
 				 box_temp->h = Maxhight;
 				 
 				 //store the signature coordinates
@@ -324,6 +340,59 @@ int main(int argc, char** argv) {
 				 temp[1] = box_temp->y;
 				 temp[2] = box_temp->w;
 				 temp[3] = box_temp->h;
+				 save_sigloc.Sig_coordinates.push_back(temp);
+				 
+				 //naming and saving signature box
+				 segbox = pixClipRectangle(image, box_temp, NULL);
+				 //removing path components
+				 string infile = argv[1];
+				 string remove_pre = "./png_bin/";
+				 string remove_pro = ".png";
+				 int i = infile.find(remove_pre);
+				 infile.erase(i,remove_pre.length());
+				 i = infile.find(remove_pro);
+				 infile.erase(i,remove_pro.length());
+				 //adding new path and file name
+				 strcpy (save_path, "./image/");
+				 strncat(save_path, infile.c_str(),infile.length());
+				 strncat(save_path, "_sig",4);
+				 itoa(sigcounter,num_char);
+				 strncat (save_path, num_char,3);
+				 strncat (save_path,".png",4);
+				 cout << "Saving signature box" << endl;
+				 pixWrite(save_path, segbox, IFF_PNG);
+				 cout << "Signature box saved" << endl << endl;
+				 save_sigloc.Sig_Paths.push_back(save_path);
+				 sigcounter++;
+			 }
+			 if(sign_line_u == true){
+				 cout << "Signature Line detected (U)" << endl;
+				 cout << "Setting the size of signature box" << endl;
+				 //cut the signature box based on line location
+				 box_temp->x = merged_lines[line_loc_u][0];
+				 box_temp->y = merged_lines[line_loc_u][1]-(Maxhight);
+				 box_temp->w = merged_lines[line_loc_u][2] - merged_lines[line_loc_u][0];
+				 box_temp->h = Maxhight;
+				 
+				 //store the signature coordinates
+				 Vec4i temp;
+				 temp[0] = box_temp->x;
+				 temp[1] = box_temp->y;
+				 temp[2] = box_temp->w;
+				 temp[3] = box_temp->h;
+				 
+				 //check overlapping signature box
+				 bool overlap_check = false;
+				 for( size_t j = 0; j < save_sigloc.Sig_Paths.size(); j++ ){
+					 if(save_sigloc.Sig_coordinates[j][0] == temp[0] && save_sigloc.Sig_coordinates[j][2] == temp[2] && abs(save_sigloc.Sig_coordinates[j][1]-temp[1]) <10){
+						 overlap_check = true;
+						 break;
+					 }
+				 }
+				 //if the same signature box exist break
+				 if(overlap_check == true){
+					 break;
+				 }
 				 save_sigloc.Sig_coordinates.push_back(temp);
 				 
 				 //naming and saving signature box

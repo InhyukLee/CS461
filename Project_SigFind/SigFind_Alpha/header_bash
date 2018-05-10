@@ -1,5 +1,12 @@
 #!/bin/bash
 
+chmod 777 AlphaState.cpp
+chmod 777 SigLoc_Struct.h
+chmod 777 OCR_SigLoc.cpp
+chmod 777 ConvNet.cpp
+
+g++ AlphaState.cpp -o AlphaState `pkg-config opencv --cflags --libs` -llept -ltesseract
+
 cd ./form_bin
 
 array_pdf=( * )
@@ -45,5 +52,5 @@ rm -f *.png
 
 cd ..
 
-cd images
+cd image
 rm -f *.png
