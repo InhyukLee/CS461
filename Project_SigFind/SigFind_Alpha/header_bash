@@ -9,7 +9,7 @@ num_of_pdf=$(echo ${#array_pdf[@]})
 total=$(echo ${num_of_pdf})
 
 
-
+#Prepare pdf names for usage
 iter=0
 for i in "${array_pdf[@]}"
 do
@@ -18,10 +18,9 @@ do
 	iter=$((iter+1))
 done
 
-#echo "${array_pdf[@]}"
-
 cd ../form_bin
 
+#Look through all pdf's present in form_bin and pass them through ImageMagick
 iter=0
 for i in "${array_pdf[@]}"
 do
@@ -29,12 +28,22 @@ do
 	iter=$((iter+1))
 done
 
-
+#Send all single page images into png_bin folder for next stage
 mv *.png ../png_bin
 
 cd ..
 
+#Loop through all single page png's and submit through to remainder of program
 for file in png_bin/*.png; do
 	[ -e "$file" ] || continue
 	./AlphaState ./${file}
 done
+
+#Clean up directories for png_bing and images
+cd png_bin
+rm -f *.png
+
+cd ..
+
+cd images
+rm -f *.png
