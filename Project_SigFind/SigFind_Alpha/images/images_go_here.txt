@@ -1,1 +1,0 @@
-images from OCR component go here for hand off with OpenCV
