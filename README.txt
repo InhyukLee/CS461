@@ -4,6 +4,12 @@ Project: 'SigFind'
 Client: CDK Global
 Team: Geddings, Lee, Mugica
 
+Layout:
+
+PDF for required installation and setup to run SigFind is located on this directory. The complete project is located under:
+
+Group65/Project_SigFind/SigFind_Alpha/
+
 Overview:
 
 The goal of this project is the creation of an open-source program capable of interpreting forms and documents to determine whether they posess a signature line and if said signature line is sufficiently marked to constitute as a binding signature.
