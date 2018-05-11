@@ -42,6 +42,7 @@ void itoa(int n, char s[]){
 
 sigloc OCR(int argc, char** argv) {
    cout << "----------------Starting SigLoc ----------------" << endl;
+   cout << "Processing " << argv[1] << " document" << endl << endl;
    sigloc save_sigloc;
    if(argc <2){
       cout << "Need png file" << endl;
@@ -419,13 +420,14 @@ sigloc OCR(int argc, char** argv) {
 		} while (ri->Next(level));
 	  }
    }
-   /*
+   
+   cout << "Following signature boxes were found and saved" << endl;
    //display all signature location infos
    for(int i=0;i<save_sigloc.Sig_Paths.size();i++){
       cout << save_sigloc.Sig_Paths.at(i) << endl;
 	  cout << save_sigloc.Sig_coordinates.at(i) << endl;
    }
-   */
+   
    
    cout << "----------------SigLoc Completed----------------" << endl<< endl;
    pixDestroy(&image);
