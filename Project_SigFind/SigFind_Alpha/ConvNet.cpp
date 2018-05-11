@@ -1297,7 +1297,7 @@ int forwardPass(sigloc loc, string originalPath){
 	originalIm = imread(originalPath,1);
     vector<Mat> images;
 	vector<Mat> drawImages;
-	namedWindow("showIm",WINDOW_AUTOSIZE);
+	//namedWindow("showIm",WINDOW_AUTOSIZE);
 	
 	vector< bool > results;
 	//CHANGE FOR STRING VECTOR //
@@ -1357,6 +1357,51 @@ int forwardPass(sigloc loc, string originalPath){
 		else{}
 	}
 	*/
+	//Creates a saved file with format *(name_of-file)_SIGNED_posCount_Unsigned_negCount.png
+	// e.g. : SampleDoc3_SIGNED_4_UNSIGNED_0=.png
+	//
+
+	
+	
+	//counts positives and negatives
+	int posCount = 0;
+	for(int i=0; i < results.size(); i++){
+		if(!results[i])
+			posCount++;
+		
+	}
+	
+	int negCount = results.size() - posCount;
+	
+	//creates filename
+	//saves to file
+	int index=0;
+	for(int i=0; i < originalPath.length(); i++){
+			
+			if(originalPath[i] == '/')
+				index = i;
+			cout<<originalPath[i];
+	}
+	cout<<endl;
+	stringstream out;
+	string saver = "contains_signature/(";
+
+	saver += originalPath.substr(index+1);
+	
+	saver+=")_SIGNED_";
+	out << posCount;
+	saver+= out.str();
+	out.str(string());
+	
+	saver+="_UNSIGNED_";
+	out << negCount;
+	saver+= out.str();
+	out.str(string());
+	
+	saver +=".png";
+	cout<<"saved file as : "<<saver<<endl;
+	
+	
 	for(int i=0; i < loc.Sig_Paths.size(); i++){
 			if(results[i]){
 				windowMakeGreen(drawImages[i]);
@@ -1371,13 +1416,19 @@ int forwardPass(sigloc loc, string originalPath){
 				
 			
 	}
+	if(results.size() > 0)
+	imwrite(saver,originalIm);
+	/*
+	//UNCOMMENT TO SHOW IMAGES AS THEYRE PROCESSED//
+	
 	namedWindow("ScannedDoc",WINDOW_NORMAL);
 	resizeWindow("ScannedDoc",800,1000);
 	imshow("ScannedDoc",originalIm);
 	waitKey(0);
 	//destroyWindow("showIm");
 	destroyWindow("ScannedDoc");
-}
+	*/
+	}
 
 
 
