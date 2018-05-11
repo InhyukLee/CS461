@@ -1,3 +1,22 @@
+/****************************************************************************
+Program description: This program locates the signature boxes from the given document.
+It will take file location from the AlphaState.cpp main function, and do following work.
+It will first create boarder at the original images. Then, it detects all the horizontal
+lines and save the list of the horizontal lines. After finishing that process, it run 
+tesseract_OCR’s page analysis function to segment the page into large chunk, and segment
+each chunk into words. For each word program searches for the word “SIGNATURE,” and find
+corresponding signature line to set signature box. After locating both text and line, it
+will save the path and coordinate in sigloc struct, and save the signature box image in 
+image directory.
+
+Input: This program can only process one png file at a time, so the argument must be the
+path of pdf file.
+
+Output: It will return struct called “sigloc.” It contains two vector variable called
+Sig_Paths and Sig_coordinates. Sig_Paths contains the list of signature box paths, and
+Sig_coordinates contains coordinates of x and y, width and height of the signature box.
+*****************************************************************************/
+
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
@@ -14,6 +33,10 @@ using namespace std;
 
 #include "SigLoc_Struct.h"
 
+//use this for debugging
+//#define DEBUG
+
+//This is function for reversing the order of char string
 void reverse(char s[]){
    int i, j;
    char c;
@@ -25,6 +48,7 @@ void reverse(char s[]){
    }
 }
 
+//This is function that changes int to char string
 void itoa(int n, char s[]){
    int i, sign;
 
@@ -65,12 +89,13 @@ sigloc OCR(int argc, char** argv) {
    cout << "Border successfully created" << endl << endl;
    
    src = border;
-   /*
+   
+   #ifdef DEBUG
    //display border
-   namedWindow( "src", 1 );
-   imshow("src", src);
+   namedWindow( "border", WINDOW_NORMAL );
+   imshow("border", src);
    waitKey(0);
-   */
+   #endif
    
    //Line detection
    cout << "Detecting lines ... " << endl;
@@ -155,7 +180,7 @@ sigloc OCR(int argc, char** argv) {
             }
          }
       }
-	  /*
+	  #ifdef DEBUG
 	  //display equalized lines for each group at a time
 	  Mat group_linse;
 	  src.copyTo(group_linse);
@@ -165,7 +190,7 @@ sigloc OCR(int argc, char** argv) {
 	  namedWindow( "merged_lines", WINDOW_NORMAL );
       imshow("merged_lines", group_linse);
       waitKey(0);
-	  */
+	  #endif
 	  //copy the equalized lines
       for(int k = 0; k<group.size();k++){
          merged_lines.push_back(group[k]);
@@ -183,7 +208,7 @@ sigloc OCR(int argc, char** argv) {
       cout << "Lines are detected" << endl << endl;
 	  
 	  //display merged_lines
-	  /*
+	  #ifdef DEBUG
 	  for( size_t i = 0; i < merged_lines.size(); i++ ){
          line( src, Point(merged_lines[i][0], merged_lines[i][1]), Point(merged_lines[i][2], merged_lines[i][3]), Scalar(0,0,255), 3, 8 );
          cout << "X: "<<merged_lines[i][0]<<" X2: "<<merged_lines[i][2]<<" Y: "<<merged_lines[i][1]<<endl;
@@ -192,7 +217,7 @@ sigloc OCR(int argc, char** argv) {
       namedWindow( "merged_lines", WINDOW_NORMAL );
       imshow("merged_lines", src);
       waitKey(0);
-	  */
+	  #endif
    }else{
       cout << "Fail to detect lines" << endl << endl;
    }
@@ -223,7 +248,7 @@ sigloc OCR(int argc, char** argv) {
 	  bool sign_line_r = false;
       BOX* box = boxaGetBox(boxes, i, L_CLONE);
 	  
-	  /*
+	  #ifdef DEBUG
 	  Mat page_segment;
 	  src.copyTo(page_segment);
 	  line( page_segment, Point(box->x, box->y), Point(box->x+box->w, box->y), Scalar(0,0,255), 3, 8 );
@@ -233,12 +258,12 @@ sigloc OCR(int argc, char** argv) {
 	  namedWindow( "page_segment", WINDOW_NORMAL );
       imshow("page_segment", page_segment);
       waitKey(0);
-	  */
+	  #endif
 	  
-	  /*
+	  #ifdef DEBUG
 	  Mat segmented_page;
 	  page_segment(Rect(box->x,box->y,box->w,box->h)).copyTo(segmented_page);
-	  */
+	  #endif
 	  
 	  //segmenting segmented page by word
 	  cout << "Segment text components into words" << endl;
@@ -254,14 +279,16 @@ sigloc OCR(int argc, char** argv) {
 		  char* word = ri->GetUTF8Text(level);
 		  int x1, y1, x2, y2;
 		  ri->BoundingBox(level, &x1, &y1, &x2, &y2);
-		  /*
+		  
+		  #ifdef DEBUG
 		  float conf = ri->Confidence(level);
 		  printf("word: '%s';  \tconf: %.2f; BoundingBox: %d,%d,%d,%d;\n", word, conf, x1, y1, x2, y2);
 		  line( segmented_page, Point(x1, y1), Point(x2, y1), Scalar(0,0,255), 3, 8 );
 		  line( segmented_page, Point(x1, y2), Point(x2, y2), Scalar(0,0,255), 3, 8 );
 		  line( segmented_page, Point(x1, y1), Point(x1, y2), Scalar(0,0,255), 3, 8 );
 		  line( segmented_page, Point(x2, y1), Point(x2, y2), Scalar(0,0,255), 3, 8 );
-		  */
+		  #endif
+		  
 		  //lowercase to uppercase
 		  for(int k = 0; k< strlen(word); k++){
              word[k] = toupper(word[k]);
@@ -271,12 +298,12 @@ sigloc OCR(int argc, char** argv) {
 			 BOX* box_temp = boxCopy(box);
 			 cout << "Signature box has been detected" << endl;
 			 
-			 /*
+			 #ifdef DEBUG
 			 //cout box coordinates
 			 cout << "Signature Box" <<endl;
 			 cout << "X: "<<box_temp->x+x1<<" X2: "<<box_temp->x+x2<<" Y: "<<box_temp->y+y1<<" H: "<<y2-y1<<endl;
 			 cout << endl;
-			 */
+			 #endif
 			 
 			 int line_gap = x2-x1;
 			 int line_length_r = 0;
