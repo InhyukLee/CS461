@@ -5,6 +5,13 @@
 // 2 full connected layers
 // 1 softmax regression output
 //
+
+//*ConvNet.cpp contains all methods pertaining to the initialization,
+// saving, loading, and training of a convolutional neural network.
+//Input must always be images in the form of Mat objects
+//Labels must always double vectors as Mat objects containing a single rowRange
+//where the row values are our desired labels
+
 #include "opencv2/core/core.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/highgui/highgui.hpp"
@@ -36,8 +43,13 @@ using namespace std;
 #define POOL_STOCHASTIC 2
 #define ATD at<double>
 #define elif else if
+
+//GLOBAL VARIABLES
 int NumHiddenNeurons = 200;
 int NumHiddenLayers = 2;
+
+//number of classes intialized to 10,
+//actual number is amount is binary
 int nclasses = 10;
 int KernelSize = 13;
 int KernelAmount = 8;
@@ -45,6 +57,10 @@ int PoolingDim = 4;
 int batch;
 int Pooling_Methed = POOL_STOCHASTIC;
 
+
+//STRUCTURE DEFINITIONS
+
+//Convolutional Kernel structure
 typedef struct ConvKernel{
     Mat W;
     double b;
@@ -52,11 +68,15 @@ typedef struct ConvKernel{
     double bgrad;
 }ConvK;
 
+
+//Convolutional Layer structure
 typedef struct ConvLayer{
     vector<ConvK> layer;
     int kernelAmount;
 }Cvl;
 
+
+//Fully connected network structure
 typedef struct Network{
     Mat W;
     Mat b;
@@ -64,6 +84,8 @@ typedef struct Network{
     Mat bgrad;
 }Ntw;
 
+
+//SoftMax regression Layer structure
 typedef struct SoftmaxRegession{
     Mat Weight;
     Mat Wgrad;
@@ -72,6 +94,9 @@ typedef struct SoftmaxRegession{
     double cost;
 }SMR;
 
+
+// Concatenates a 2D Mat vector into a single Mat object
+//(Mat objects are OpenCV Matrix object )
 Mat 
 concatenateMat(vector<vector<Mat> > &vec){
 
@@ -91,6 +116,8 @@ concatenateMat(vector<vector<Mat> > &vec){
     return res;
 }
 
+
+//Concatenates a Mat vector into a single Mat object
 Mat 
 concatenateMat(vector<Mat> &vec){
 
@@ -108,6 +135,10 @@ concatenateMat(vector<Mat> &vec){
     return res;
 }
 
+
+//Unconcatenates a Mat object into a 2D Mat vector
+// M parameter must be a concatenated Mat object via 
+//ConcatenateMat (2D)
 void
 unconcatenateMat(Mat &M, vector<vector<Mat> > &vec, int vsize){
 
@@ -126,6 +157,8 @@ unconcatenateMat(Mat &M, vector<vector<Mat> > &vec, int vsize){
     }
 }
 
+
+//Returns the inverse of an integer
 int 
 ReverseInt (int i){
     unsigned char ch1, ch2, ch3, ch4;
@@ -135,6 +168,10 @@ ReverseInt (int i){
     ch4 = (i >> 24) & 255;
     return((int) ch1 << 24) + ((int)ch2 << 16) + ((int)ch3 << 8) + ch4;
 }
+
+
+//Reads an MNIST image set into a Mat vector
+//Training debugging oriented
 
 void 
 read_Mnist(string filename, vector<Mat> &vec){
@@ -166,6 +203,9 @@ read_Mnist(string filename, vector<Mat> &vec){
     }
 }
 
+
+//Reads an MNIST label set into a Mat object
+//Training debugging oriented
 void 
 read_Mnist_Label(string filename, Mat &mat)
 {
@@ -187,6 +227,8 @@ read_Mnist_Label(string filename, Mat &mat)
     }
 }
 
+
+//Sigmoid activation function
 Mat 
 sigmoid(Mat &M){
     Mat temp;
@@ -194,6 +236,7 @@ sigmoid(Mat &M){
     return 1.0 / (temp + 1.0);
 }
 
+//Sigmoid activation function
 Mat 
 dsigmoid(Mat &a){
     Mat res = 1.0 - a;
@@ -201,6 +244,8 @@ dsigmoid(Mat &a){
     return res;
 }
 
+
+//Performs ReLu on a Mat object
 Mat
 ReLU(Mat& M){
     Mat res(M);
@@ -212,6 +257,7 @@ ReLU(Mat& M){
     return res;
 }
 
+//Performs ReLu on a Mat object
 Mat
 dReLU(Mat& M){
     Mat res = Mat::zeros(M.rows, M.cols, CV_64FC1);
@@ -279,6 +325,7 @@ kron(Mat &a, Mat &b){
     return res;
 }
 
+//Finds the location of parameter val within a Mat object
 Point
 findLoc(double val, Mat &M){
     Point res = Point(0, 0);
@@ -295,6 +342,8 @@ findLoc(double val, Mat &M){
     return res;
 }
 
+
+//Performs a pooling operation on Mat M
 Mat
 Pooling(Mat &M, int pVert, int pHori, int poolingMethod, vector<Point> &locat, bool isTest){
     int remX = M.cols % pHori;
@@ -351,6 +400,8 @@ Pooling(Mat &M, int pVert, int pHori, int poolingMethod, vector<Point> &locat, b
     return res;
 }
 
+
+//Performs unpooling operation on Mat M
 Mat 
 UnPooling(Mat &M, int pVert, int pHori, int poolingMethod, vector<Point> &locat){
     Mat res;
@@ -368,6 +419,8 @@ UnPooling(Mat &M, int pVert, int pHori, int poolingMethod, vector<Point> &locat)
     return res;
 }
 
+
+//Gathers a desired learning rate dependant on input learning data
 double 
 getLearningRate(Mat &data){
     cout<<"gathering learning rate"<<endl;
@@ -382,6 +435,8 @@ getLearningRate(Mat &data){
     return 0.9 / uwvT.w.ATD(0, 0);
 }
 
+
+//Randonly initalizes the weights of a convolutional layer
 void
 weightRandomInit(ConvK &convk, int width){
 
@@ -400,6 +455,8 @@ weightRandomInit(ConvK &convk, int width){
     convk.bgrad = 0;
 }
 
+
+//Randoly intializes the rates of a fully connected layer
 void
 weightRandomInit(Ntw &ntw, int inputsize, int hiddensize, int nsamples){
 
@@ -418,6 +475,8 @@ weightRandomInit(Ntw &ntw, int inputsize, int hiddensize, int nsamples){
     ntw.bgrad = Mat::zeros(hiddensize, 1, CV_64FC1);
 }
 
+
+//Randoly intializes the weights of a SoftMaxRegression layer
 void 
 weightRandomInit(SMR &smr, int nclasses, int nfeatures){
     double epsilon = 0.01;
@@ -437,6 +496,8 @@ weightRandomInit(SMR &smr, int nclasses, int nfeatures){
 }
 
 
+
+//Initialzes the convolutional network's structure
 void
 ConvNetInitPrarms(Cvl &cvl, vector<Ntw> &HiddenLayers, SMR &smr, int imgDim, int nsamples){
 
@@ -465,6 +526,8 @@ ConvNetInitPrarms(Cvl &cvl, vector<Ntw> &HiddenLayers, SMR &smr, int imgDim, int
     weightRandomInit(smr, nclasses, NumHiddenNeurons);
 }
 
+
+//Adresses the networks activation rate
 Mat
 getNetworkActivation(Ntw &ntw, Mat &data){
     Mat acti;
@@ -474,6 +537,8 @@ getNetworkActivation(Ntw &ntw, Mat &data){
 }
 
 
+
+//Returns the cost value after a pass through the convolutional network
 void
 getNetworkCost(vector<Mat> &x, Mat &y, Cvl &cvl, vector<Ntw> &hLayers, SMR &smr, double lambda){
 
@@ -604,6 +669,8 @@ getNetworkCost(vector<Mat> &x, Mat &y, Cvl &cvl, vector<Ntw> &hLayers, SMR &smr,
     delta.clear();
 }
 
+
+//Addresses the direction of adjustment delta
 void
 gradientChecking(Cvl &cvl, vector<Ntw> &hLayers, SMR &smr, vector<Mat> &x, Mat &y, double lambda){
     //Gradient Checking (remember to disable this part after you're sure the 
@@ -628,6 +695,10 @@ gradientChecking(Cvl &cvl, vector<Ntw> &hLayers, SMR &smr, vector<Mat> &x, Mat &
     }
 }
 
+
+//Takes an input data set and trains the network accordingly
+//Input must be a vector of images with its correspondent
+//Label set
 void
 trainNetwork(vector<Mat> &x, Mat &y, Cvl &cvl, vector<Ntw> &HiddenLayers, SMR &smr, double lambda, int MaxIter, double lrate){
 	
@@ -672,6 +743,7 @@ trainNetwork(vector<Mat> &x, Mat &y, Cvl &cvl, vector<Ntw> &HiddenLayers, SMR &s
     }
 }
 
+//Reads MNIST data into a Mat vector
 void
 readData(vector<Mat> &x, Mat &y, string xpath, string ypath, int number_of_images){
 
@@ -685,6 +757,9 @@ readData(vector<Mat> &x, Mat &y, string xpath, string ypath, int number_of_image
     read_Mnist_Label(ypath, y);
 }
 
+
+//Returns the result after running a Mat image vector through the network
+//in the form of a label array, as aforementioned
 Mat 
 resultProdict(vector<Mat> &x, Cvl &cvl, vector<Ntw> &hLayers, SMR &smr, double lambda){
 
@@ -761,6 +836,8 @@ resultProdict(vector<Mat> &x, Cvl &cvl, vector<Ntw> &hLayers, SMR &smr, double l
     return result;
 }
 
+
+//Saves weight matrix to a file
 void
 saveWeight(Mat &M, string s){
     s += ".txt";
@@ -775,6 +852,8 @@ saveWeight(Mat &M, string s){
     }
     fclose(pOut);
 }
+
+//Loads weight matrix from a file
 void
 loadWeight(Mat &M, string s){
 	s += ".txt";  
@@ -812,7 +891,9 @@ loadWeight(Mat &M, string s){
 }
 
 
-
+//Saves each of the structures in the network to a set of files
+//the number contained within the name determines
+//which layer they are petinent to
 void
 saveNetwork(Cvl &cv1, vector<Ntw> &HiddenLayers, SMR &smr, int imgDim, int nsamples){
 	FILE *pOut1 = fopen("cv1dubs.txt","w+");
@@ -883,6 +964,9 @@ saveNetwork(Cvl &cv1, vector<Ntw> &HiddenLayers, SMR &smr, int imgDim, int nsamp
 	
 }
 
+
+//Loads a network structure existing within the directory
+//to a newly intialized network
 void
 loadNetwork(Cvl &cv1, vector<Ntw> &HiddenLayers, SMR &smr, int &imgDim, int &nsamples){
 	FILE *pOut1 = fopen("cv1dubs.txt","r");
@@ -992,6 +1076,8 @@ loadNetwork(Cvl &cv1, vector<Ntw> &HiddenLayers, SMR &smr, int &imgDim, int &nsa
 	fclose(pOut2);
 	
 }
+
+//Loads a single convolutional layer from a file
 void 
 loadCV(Cvl &cv1){
 	
@@ -1016,6 +1102,8 @@ loadCV(Cvl &cv1){
 	cout<<"CVL load was succesful"<<endl;
 }
 
+
+//Performs training operation on the given set of network parameters
 void 
 trainNet(Cvl &cvl,vector<Ntw> &HiddenLayers, SMR &smr,vector<Mat> &trainX, vector<Mat> &testX, Mat &trainY, 
 Mat &testY)
@@ -1103,6 +1191,8 @@ int &nsamples){
 
 
 } 
+
+//Black/White Thresholding operation
 void enhanceBlack(Mat &image){
 
 
@@ -1121,6 +1211,8 @@ void enhanceBlack(Mat &image){
 
 }
 
+
+//Draws a an Mat image onto another Mat image at desired x,y coordinates
 void drawOn(Mat &inImage, Mat image, int start_x, int start_y){
 
     //for every x in pixel array
@@ -1138,6 +1230,8 @@ void drawOn(Mat &inImage, Mat image, int start_x, int start_y){
 
 }
 
+
+//Tints a Mat image green
 void windowMakeGreen(Mat &image){
 
     //for every x in pixel array
@@ -1155,6 +1249,7 @@ void windowMakeGreen(Mat &image){
     }
 }
 
+//Tints a Mat image red
 void windowMakeRed(Mat &image){
 
     //for every x in pixel array
@@ -1172,6 +1267,8 @@ void windowMakeRed(Mat &image){
     }
 }
 
+
+//Returns a desired area within a Mat image
 Mat createImSliceBlack(Mat inImage,  int w_width, int w_height,int start_x, int start_y){
 
     Size size(w_width,w_height);
@@ -1194,7 +1291,7 @@ Mat createImSliceBlack(Mat inImage,  int w_width, int w_height,int start_x, int 
 
 }
 
-//Assumes input is image has been rotated 90 deegrees in traversal
+//Scans widht-wise a Mat image and feeds results into the network
 bool scanImageWidth(Mat blackIm,Cvl &cvl, vector<Ntw> &HiddenLayers,SMR &smr){
 	bool containsIm = false;
 	
@@ -1245,6 +1342,7 @@ bool scanImageWidth(Mat blackIm,Cvl &cvl, vector<Ntw> &HiddenLayers,SMR &smr){
 	}
 	cout<<"documented segmented into "<<inputIms.size()<<" snippets, running through net..."<<endl;
 	Mat  result = resultProdict(inputIms,cvl,HiddenLayers,smr,3e-3);
+	//UNCOMMENT TO CHECK SPECIFIC RESULTS//
 	/*while(true){
 		
 		int response;
@@ -1284,6 +1382,8 @@ bool scanImageWidth(Mat blackIm,Cvl &cvl, vector<Ntw> &HiddenLayers,SMR &smr){
 	return containsIm;
 }
 
+
+//Performs a full pass of input data through the network
 int forwardPass(sigloc loc, string originalPath){
 	
 	Cvl cvl;
@@ -1297,7 +1397,7 @@ int forwardPass(sigloc loc, string originalPath){
 	originalIm = imread(originalPath,1);
     vector<Mat> images;
 	vector<Mat> drawImages;
-	//namedWindow("showIm",WINDOW_AUTOSIZE);
+	
 	
 	vector< bool > results;
 	//CHANGE FOR STRING VECTOR //
@@ -1327,6 +1427,8 @@ int forwardPass(sigloc loc, string originalPath){
 		results.push_back(scanImageWidth(images[i],cvl,HiddenLayers,smr));
 	}
 	
+	
+	//UNCOMMENT TO CHECK SPECIFIC RESULTS//
 	/*
 	while(true){
 		
@@ -1419,7 +1521,7 @@ int forwardPass(sigloc loc, string originalPath){
 	if(results.size() > 0)
 	imwrite(saver,originalIm);
 	/*
-	//UNCOMMENT TO SHOW IMAGES AS THEYRE PROCESSED//
+	//UNCOMMENT TO SHOW IMAGES AS THEY'RE PROCESSED//
 	
 	namedWindow("ScannedDoc",WINDOW_NORMAL);
 	resizeWindow("ScannedDoc",800,1000);
@@ -1432,6 +1534,8 @@ int forwardPass(sigloc loc, string originalPath){
 
 
 
+	
+//Loads specific training data to array *IGNORE OR CHANGE*
 void loadToArr(vector<Mat> &ims, int numIms){
 
 	//namedWindow("COLLECTING...",WINDOW_AUTOSIZE);
@@ -1494,6 +1598,8 @@ void loadToArr(vector<Mat> &ims, int numIms){
 
 
 }
+
+//loads a number of negative (full black / full white into array)
 void fillArrNegatives(vector<Mat> &arr, int numEmpties){
 
 	for(int i=0; i < numEmpties; i++){
@@ -1506,6 +1612,8 @@ void fillArrNegatives(vector<Mat> &arr, int numEmpties){
 }
 
 
+
+//Reads Mat files into Mat arrays
 int readFiles(vector<Mat> &signatures, int numImages){
 	//edit when this method is not main to take an input number
 	//vector<Mat> signatures;
@@ -1548,6 +1656,8 @@ int readFiles(vector<Mat> &signatures, int numImages){
 
 }
 
+
+//Runs neural network main method prompting for specific actions
 int 
 run(){
 	
@@ -1669,8 +1779,3 @@ run(){
 	}
 	return 0;
 }
-/*
-int main(){
-	cout << "Do nothing" <<endl;
-}
-*/
