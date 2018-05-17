@@ -1366,7 +1366,7 @@ int forwardPass(sigloc loc, string originalPath){
 	//counts positives and negatives
 	int posCount = 0;
 	for(int i=0; i < results.size(); i++){
-		if(!results[i])
+		if(results[i])
 			posCount++;
 		
 	}
