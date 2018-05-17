@@ -1,5 +1,10 @@
 #!/bin/bash
 
+mkdir -p form_bin
+mkdir -p png_bin
+mkdir -p image
+mkdir -p contains_signature
+
 chmod 777 AlphaState.cpp
 chmod 777 SigLoc_Struct.h
 chmod 777 OCR_SigLoc.cpp
@@ -15,7 +20,6 @@ array_full_pdf=( * )
 num_of_pdf=$(echo ${#array_pdf[@]})
 total=$(echo ${num_of_pdf})
 
-
 #Prepare pdf names for usage
 iter=0
 for i in "${array_pdf[@]}"
@@ -24,6 +28,13 @@ do
 	array_pdf[$iter]=$name
 	iter=$((iter+1))
 done
+
+#check if pdf files in form_bin
+if [ "$array_pdf" = "*" ]
+then
+	echo Please place pdf files in form_bin directory
+	exit 1
+fi
 
 cd ../form_bin
 
