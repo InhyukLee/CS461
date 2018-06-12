@@ -1,0 +1,164 @@
+\relax 
+\@writefile{toc}{\contentsline {section}{\numberline {1}Introduction to Project}{2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.1}Who is our client}{2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.2}Defininf the problem}{2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3}Why this is important}{2}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.4}Our team}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {2}Requirmentrs Document}{3}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Introduction}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.1}Purpose}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.2}Scope}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.3}Definitions, Acronyms, and Abbreviations}{4}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.4}References}{4}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.1.5}Overview}{5}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Overall Description}{5}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1}Product Perspective}{5}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2}Product Functions}{5}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.3}User Characteristics}{6}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.4}Constraints}{6}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.5}Assumptions and Dependencies}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Specific Requirements}{6}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}External Interface Requirements}{6}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}System Features}{7}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {2.3.2.1}Signature detecting capability}{7}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {2.3.2.2}Missing signature detection}{7}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {2.3.2.3}Multiple signature and multiple missing signature capability}{7}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {2.3.2.4}Car detection within image}{7}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {2.3.2.5}License and Permit detection within document}{8}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {2.3.2.6}Parse license plate, license, and permit text into machine readable format}{8}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {2.3.2.7}Damage recognition}{8}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {2.3.2.8}Make and Model detection}{8}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.3}Performance requirements}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.4}Design Constraints}{9}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.5}Software system attributes}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.4}Appendix}{10}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5}Change of Requirments}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6}Final Gantt Chart}{11}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Design Document}{12}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Overview}{12}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.1}Scope}{12}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.2}Purpose and Background}{12}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.3}Intended Audience}{13}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.1.4}Glossary}{13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Design Viewpoints}{13}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Introduction}{13}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Context Viewpoints}{14}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.2.1}Design Concerns}{14}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.2.2}Design Elements}{14}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}Languages of OpenCV(Composition)}{14}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.3.1}Design Concerns}{14}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.3.2}Design Elements}{14}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.3.3}Data Attributes}{15}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.4}Image Filtering(Algorithm)}{15}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.4.1}Design Concerns}{15}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.4.2}Design Elements}{15}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.4.3}Processing Attribute}{15}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.5}Computer Vision Library(Composition)}{16}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.5.1}Design Concerns}{16}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.5.2}Design Elements}{16}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.5.3}Design Attributes}{16}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.6}Text Recognition Method(Algorithm)}{17}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.6.1}Design Concerns}{17}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.6.2}Design Elements}{17}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.6.3}Design Attributes}{17}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.7}User Interface Type(Logical Viewpoint)}{17}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.7.1}Design Concerns}{17}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.7.2}Design Elements}{17}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.7.3}Design Attributes}{18}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.8}Image Converting (Dependency)}{18}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.8.1}Design Concerns}{18}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.8.2}Design Elements}{18}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.8.3}Dependency attributes}{18}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.9}Runtime environment and Neural Net (Algorithm)}{19}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.9.1}Design Concerns}{19}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.9.2}Design Elements}{19}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {3.2.9.3}Data Attributes}{19}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Conclusion}{20}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Design Changes}{20}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Tech Review}{20}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Language of OpenCV}{20}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.1}Overview}{20}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.2}Criteria}{20}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.3}Options}{20}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.1.3.1}C++}{20}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.1.3.2}Python}{21}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.1.3.3}Java}{21}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.4}Discussion}{21}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.1.5}Conclusion}{22}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Filter Algorithm}{22}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.1}Overview}{22}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.2}Criteria}{22}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.3}Options}{22}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.2.3.1}Gaussian}{22}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.2.3.2}Median}{22}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.2.3.3}Bilateral}{22}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.4}Discussion}{23}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.2.5}Conclusion}{23}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}File Conversion Software}{23}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.1}Overview}{23}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.2}Criteria}{23}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.3}Options}{23}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.3.3.1}ImageMagick}{23}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.3.3.2}Ghostscript}{23}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.3.3.3}MuPDF}{24}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.4}Discussion}{24}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.3.5}Conclusion}{24}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}References}{24}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.5}The algorithm}{24}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.1}Overview}{24}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.2}Criteria}{25}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.3}FeedForward Neural Networks}{25}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.4}Convolutional Neural Networks}{25}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.5}Genetic algorithms}{26}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.6}Discussion}{26}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.7}Conclusion}{26}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.5.8}References}{26}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.6}Container Software}{27}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.1}Overview}{27}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.2}Criteria}{27}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.3}LXC}{27}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.4}LXD}{27}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.5}Docker}{28}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.6}Discussion}{28}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.7}Conclusion}{28}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.6.8}References}{28}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.7}Development Platform}{29}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.7.1}Overview}{29}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.7.2}Criteria}{29}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.7.3}Home-PC}{29}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.7.4}OSU flip server}{29}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.7.5}Other resources / paid services}{29}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.7.6}Discussion}{29}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.7.7}Conclusion}{30}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.8}Deep Learning library}{30}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.8.1}Overview:}{30}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.8.2}Criteria:}{30}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.8.3}Potential Choices:}{30}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.8.3.1}TensorFlow}{30}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.8.3.2}Deep Learning for Java(DL4J)}{31}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.8.3.3}OpenCV}{31}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.8.4}Discussion, compare and contrast:}{31}}
+\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Compare and Contrast}}{32}}
+\newlabel{table:1}{{1}{32}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.8.5}Conclusion:}{32}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.9}Text recognition method for detecting signature box}{32}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.1}Overview:}{32}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.2}Criteria:}{32}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.3}Potential Choices:}{32}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.9.3.1}Optical Character Recognition (OCR)}{32}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.9.3.2}Intelligent Character Recognition (ICR)}{33}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.9.3.3}Intelligent Word Recognition (IWR)}{33}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.4}Discussion, compare and contrast:}{33}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Compare and Contrast}}{33}}
+\newlabel{table:1}{{2}{33}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.9.5}Conclusion:}{33}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.10}User interface}{33}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.10.1}Overview:}{33}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.10.2}Criteria:}{34}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.10.3}Potential Choices:}{34}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.10.3.1}Command Line}{34}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.10.3.2}Menu Driven}{34}}
+\@writefile{toc}{\contentsline {paragraph}{\numberline {4.10.3.3}Form Based}{34}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.10.4}Discussion, compare and contrast:}{34}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {4.10.5}Conclusion:}{35}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.11}References}{35}}

@@ -1,0 +1,5 @@
+Overview:
+The requirements document will breakdown some of the agreed upon stretch goals as well as our primary goal for this project. While it is stressed within the document it will be re-iterated here for clarity: the only main requirement to this project is signature detection. All other components mentioned in this document are agreed upon as stretch goals. Each goal regardless of importance has been assigned certain metrics to assist in determining when they have been completed.
+
+Abstract:
+Our team has been assigned to assist in the development of AI for application to CDK’s existing Data Streams. These streams deal mainly with the classification of documents as well as pictures and information contained within them. This document outlines the various requirements our team has been tasked with fulfilling, as well constraints, time frames, platforms and strategies utilized for their completion. These requirements range from basic functionality pertaining to signature detection, to stretch goals such as license plate reading, car damage detection, and permit and license classification.
