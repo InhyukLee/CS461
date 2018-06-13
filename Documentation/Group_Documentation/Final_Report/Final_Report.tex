@@ -8,8 +8,8 @@
 \usepackage[parfill]{parskip}
 \usepackage{pgfgantt}
 \parindent=0pt
-
 \usepackage{geometry}
+\usepackage{float}
 \geometry{textheight=9.5in, textwidth=7in}
 
 % 1. Fill in these details
@@ -31,11 +31,11 @@
 				}
 			
 \newcommand{\NameSigPair}[1]{\par
-\makebox[2.75in][r]{#1} \hfil 	\makebox[3.25in]{\makebox[2.25in]{\hrulefill} \hfill		\makebox[.75in]{\hrulefill}}
+\makebox[2.75in][r]{\backslash 1} \hfil 	\makebox[3.25in]{\makebox[2.25in]{\hrulefill} \hfill		\makebox[.75in]{\hrulefill}}
 \par\vspace{-12pt} \textit{\tiny\noindent
 \makebox[2.75in]{} \hfil		\makebox[3.25in]{\makebox[2.25in][r]{Signature} \hfill	\makebox[.75in][r]{Date}}}}
 % 3. If the document is not to be signed, uncomment the RENEWcommand below
-%\renewcommand{\NameSigPair}[1]{#1}
+%\renewcommand{\NameSigPair}[1]{\backslash 1}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
@@ -98,8 +98,11 @@ The current model being used to tackle this problem is to have dedicated employe
 
 \subsection{Our team}
 Our team, Group 65, was created to tackle this problem. Within our team is three members: Jacob Geddings, Inhyuk Lee, and Juan Mugica. This team was assembled based on the common interest of wanting to explore what goes into AI development and found this project to be a perfect opportunity to work with these new concepts. While we ultimately named our project ‘SigFind’ we also would use the term to refer to our group instead of the generic number classification. Overall, our group was expected to spend the Fall term working on research and documentation for the project with Winter representing the coding phase and Spring acting as our debugging and finalization of the project for code handoff.
+
 Jacob Geddings would function as team leader for the duration of this project. Most notable contributions can be found in documentation, client communication, and organization of the project. This meant that Fall and Spring was particularly workload heavy for Geddings whereas Winter was a comparatively lighter workload for dedicated tasks. During the coding phase of Winter term, he contributed towards our file conversion module as his dedicated portion of the project. Given that the file conversion was a quick implementation he would spend the remainder of coding working on providing assistance with OCR Tesseract as well as constructing training sets for our Convolutional Network. 
+
 Inhyuk Lee functioned as second in command for the team and, when able, provided a second set of notes on most interactions within the group and with our client. His primary task was to develop the OCR Tesseract component of our project. This meant creating a program that could correctly analyze any arbitrary page and locate potential signature lines. Once that could be detected he was then tasked with cropping those signature lines out to submit to our convolutional network. Lastly, Lee also provided assistance in submitting samples for the training set of our program.
+
 Juan Mugica was our dedicated convolutional network researcher and implementer. Due to the importance of this module it was deemed best to have at least one member be completely focused on this component and not be concerned with the other modules as much. During the Fall term, Juan explored potential AI platforms for our network. From then on his entire focus was towards the correct creation of the network and ensuring proper judgement capacity of the program when interpreting signature lines.
 
 % \\\\\\\\\\\\\\\\\\\\\\\Requirmentrs Document\\\\\\\\\\\\\\\\\\\\\\\
@@ -928,5 +931,1478 @@ Since signature detecting software interface need to be black box module and sim
 
 [7] "System software: User interfaces" Internet: https://en.wikibooks.org/wiki/A-levelComputing/CIE/Computersystems,communicationsandsoftware/Systemsoftware/Userinterfaces, 2017 [Nov. 21, 2017].
 
+\section{Weekly Blog Posts}
+\subsection{Jacob Geddings's Weekly Blog Posts}
+\subsubsection{Fall Term}
+\paragraph{Summary of the term}
+\mbox{}\\
+Plans: With the closing of fall term plans have been made for both winter break and the remainder of the year. For winter break I will be working towards the implementation of a file converter from PDF to JPEG for OpenCV to read. In addition, I will be assisting where applicable for creating an environment in which OpenCV will detect potential signature boxes and create a 'window' around them. Looking beyond winter break our plans are primarily focused on the creation of signature detection for our program, stretch goals are not a major concern at present. Added plans over winter break to clean up our fall term projects and make them more uniform with one another.
+Progress: All documentation required by the class has been completed and meeting with client on an, almost weekly, basis. Our project has its language and AI platform chosen and we've successfully enabled visual display through putty as well as initiate a demo process of OpenCV on our machines.
+Problems: Our makefiles and general format style for documents is still somehow different from each other causing problems when attempting to submit. Lastly, as for OpenCV the documentation is proving a lot harder than we anticipated for constructing any noteworthy programs. 
+
+
+\paragraph{Week 1}
+\mbox{}\\
+Overview:
+
+Week 1 was focused around submitting our preferences for a capstone project. A draft of our resume was also due this week after having a peer review it.
+
+Project Preference Votes :
+
+Preference 1
+
+iPad Barometric Sensors for the ISS
+
+I've always wanted to get involved with NASA given their focus towards new and innovative efforts into space exploration. This project provides the opportunity to get hands on experience with them as well as apply myself towards a device I've never extensively used before and to apply it in a new and interesting way.
+
+Preference 2
+
+CDK Data Stream AI
+
+I'm confident that AI will be at the forefront of new technology moving forward and I want to be a part of it. The idea of creating a system that can be automated to an even greater degree that what we have now is an exciting idea and this would provide me the chance to learn how to be a part of it.
+
+Preference 3
+
+Code3 Visionary: Machine Learning for Public Safety 
+
+My father spent years working in Public Safety in Grants Pass and as a result I understand how complicated such matters can become. This project would allow me to apply my existing understandings of how agencies try to deal with public security while also providing me a chance to learn about AI, a subject I have personal interest in.
+
+Preference 4
+
+Architecture and Simulation in VR using Artificial Intelligence
+
+This project looks to be fusing two very exciting fields of study with the combination of AI and VR. AI has always fascinated me and the chance to also learn how to work with VR would be an exciting opportunity.
+
+Preference 5
+
+AI Software Framework for 3D Robotic Vision
+
+I'm excited at the prospect of learning how to create a system that would help me understand the world surrounding the production of self-driving vehicles as well as methods for programs to interpret real world conditions.
+
+
+\paragraph{Week 2}
+\mbox{}\\
+Team was established this week, I've been assigned to group 65 for Chris Smith and CDK Global for 'CDK Data Stream AI'. I also made contact with my new groupmates Inhyuk Lee and Juan Mugica. Lastly, greetings have been made with client Chris Smith with plans to meet in person in the near future to discuss the project.
+
+\paragraph{Week 3}
+\mbox{}\\
+Teaching Assistant was assigned to our group. Meeting times with our new TA has been set for Tuesdays from 3 to 3:30pm. Priority concern right now is the creation of our group GitHub page that is due this Friday. Lastly, shared my problem statement that was due last week. Some feedback received noted a potential formatting error in my document as well as metrics being too detailed and risking an impossible goal to reach
+
+\paragraph{Week 4}
+\mbox{}\\
+Problem Statement final is due this week on Friday at noon. Weekly web calls appear to be the plan of attack for communicating with Chris Smith, set for 10:30am on Friday.
+
+TA meeting has indicated a need to start searching existing AI and decide on what will best fit our needs prior to next meeting.
+
+As of 10/20 I'm currently favoring the use of OpenCV
+
+
+\paragraph{Week 5}
+\mbox{}\\
+Slow week for progress due to midterms. In addition to that Chris had to cancel our meeting plans the day prior due to a presentation in Austin Hall.
+ 
+We appear to be moving towards OpenCV as our go-to AI platform, should it fail we are keeping DL4j as an option. Project Requirement rough draft is near completion, awaiting input by Lee then we'll submit.
+
+
+\paragraph{Week 6}
+\mbox{}\\
+Difficulty was had in getting group to get together and work on project requirements. Completion was delayed for sending to client until Friday morning prior to meeting. He did go through the document and indicated a revision he wanted. Corrections where made and sent back to him but he did not respond as of yet.
+
+He did indicate he will be travelling for the next two weeks.
+
+Attempts to setup OpenCV have been met with complications, group appears to have it working and will contact them on what I'm doing wrong.
+
+
+\paragraph{Week 7}
+\mbox{}\\
+Technical review document guidelines have been posted, group needs to converse and boil down three core pieces to work on. A README was posted by a group member for setting up OpenCV but I'm getting issues with correctly finding the necessary directories. I've realized that I made an error in these blog posts and incorrectly wrote down the wrong date and wasn't populating them with sufficient information. Most of my work for OneNote has been up until now placed on the group OneNote, asked if this will negatively impact my grade. In addition will need to double post my notes about group dynamic from the General tab over to here.
+
+I've ported over all documents from the group OneNote that had its majority content from me since I failed to be doing that from the start.
+
+This week the focus was on outlining technical document, getting OpenCV running, and correctly completing base tutorials for OpenCV usage. Next week has the goal of preparing OpenCV for sample documents and learning how to blend OpenCV and OCR Tesseract.
+
+Still being difficult to make contact with client, roughly 24 hours prior to meeting he had to cancel, still no word on whether he has confirmed our document.
+
+
+\paragraph{Week 8}
+\mbox{}\\
+Rough draft for technology review was due this week. A failure in communication resulted in our group incorrectly doing the work. We each submitted a single piece with three technologies at 1500 words with the assumption the final copy would be stitching these together. 
+ 
+The correct format was 3 pieces with 3 associated technologies per person with the word count being 1500 for that.
+ 
+We learned that our email to instructors did not survive its journey, new email was made and sent (successfully arrived).
+ 
+Progress continued on image recognition for OpenCV, we are currently attempting to create squares within the image.  
+ 
+Our current goals are to complete the final version of technology review, while we lack 2 more pieces the word count per portion became significantly easier, and to continue trying to understand image recognition.
+
+
+\paragraph{Week 9}
+\mbox{}\\
+Contact with client has been made again, an early meeting on Tuesday morning given the holiday disruptions. Plans will return to normal following this week. Corrections have been made to the tech review and follow the correct guideline given by the assignment.
+ 
+Word count was a bit higher than I would've liked overall but it wasn't terribly large.
+ 
+Client expressed concerns during meeting about our interest in using C++ as our language of choice, we are still considering potential fallback languages but we are adamant on C++ still.
+ 
+Lastly, minimal work was planned given the holidays, we are continuing to look into doing actual computation of some description to a provided image.
+
+
+\paragraph{Week 10}
+\mbox{}\\
+Focus has been placed entirely upon the completion of the design document and progress report. During our TA meeting we discussed how our winter break will go, I will be in charge of determining a simple way to convert our PDF's into images such that OpenCV can handle them. I will also be assisting in the image detection portion that is currently being led by Juan. 
+
+I attended the optional workshop on Thursday and determined that, based on the sample viewed for the design document, that we'll need to mimic what we did with the requirements document. The only major deviation will be that each piece and subsequent technology must be discussed.
+
+Will likely be doing the introductory section of our design as well as my three pieces and technologies.
+
+
+\subsubsection{Winter Term}
+\paragraph{Summary of the term}
+\mbox{}\\
+Overall this term was very productive in actually constructing the project. We ironed out what we wanted out of the fall term technologies we explored and made them a reality. All components are now working on a functional level and we are focusing our efforts post-winter term towards the removal of bugs and improvement of accuracy. 
+ 
+Accuracy with current training set has achieved roughly 85% and we want to explore ways of improving that further.
+ 
+Bugs surrounding potentially noisy PDFs are still being discovered when we hand them off to OCR, all potential faults we've found so far have been successfully resolved however.
+ 
+Note: To ensure I meet the requirements for Winter Progress Grading I've added an explicit Activities, Problems, Solutions section underneath all original summaries. When applicable they will break down the weekly event in greater detail.
+
+
+\paragraph{Week 1}
+\mbox{}\\
+First week was largely focused on our group determining what our new schedules would be and restructuring our meeting times with the client. We ultimately had to settle on moving our meetings to 2:30pm for all of us to reliably meet with our client. First day of lecture also occurred and we established that there will be minimal class meeting times and our project work will be taking top priority on our own.
+
+Activities:
+As noted, scheduling and establishing communication with group members was the priority for this week. While getting in contact wasn't difficult in and of itself, it was difficult trying to determine what times we could actually reach each other with our new schedules. Class held a single lecture this week to inform us that this term would not be having much in the way of physical lecture times. In light of that fact, it was encouraged that we pay close attention to our emails for notifications from instructors as well as determine group hours to work together.
+ 
+Plans:
+Begin in earnest the actual coding of our project as well as establish new meeting times to accommodate our changes in scheduling. 
+ 
+Problems:
+Scheduling problems within the group as a result of our new more spread out schedules left only a few hours of available time that we all shared for any given week.
+ 
+Progress:
+Ultimately a bit obvious but the solution was just to determine what those free hours we all shared were and then set them as our times to communicate regarding our project. 
+
+
+\paragraph{Week 2}
+\mbox{}\\
+After getting our schedules sorted with our client we also had to establish a new meeting time with our TA, new meeting times overall are 1:00-1:20pm and 2:30-3:00pm on Thursday. Progress for the past two weeks on the project where regrettably little. Juan's progress was not ready to be released to the rest of the group as well as Lee and I not being able to set OCR tesseract up on the school servers.
+ 
+Decision was made to create new physical meeting times for work to be done, MWF 3:00-4:00pm we would meet in person to work on the project and ensure code sharing. 
+ 
+Plans:
+New meeting times for working in person within our group became a necessity as we realized the lack of a physical lecture was resulting in inconsistent work. In addition, scheduling with our TA was the last major to-do for meetings that needed to be ironed out.
+ 
+Problems:
+As noted, concern was raised over our lack of direct communication and physical meeting times to ensure timely progress on the project would be made. Difficulty surfaced with the setup of OCR and unexpected delays towards instantiating our neural network surfaced this week as well.
+ 
+Progress:
+It was decided that every Monday, Wednesday, and Friday we would meet (inter-group) from 3:00-4:00pm to exchange updates, work on code, and outline future plans for the remainder of the term. OCR problems continued to plague us but we did isolate that two problems we had regarding it was a wrong library installation and lack of server support for it from the school by default. Lastly, the network was pushed into next week for development.
+
+
+\paragraph{Week 3}
+\mbox{}\\
+Significant progress was made, we successfully instantiated a neural network as well as get OCR tesseract running on a single machine. Plans have been mapped out to combine the two with OCR zeroing in on the signature box area and the network we've created then analyzing it for hand signatures.
+ 
+Additional goal was set to sync all of our machines so that we're all on the same stage in regards to the coding.
+ 
+Plans:
+Major goal was to map the OCR and neural network together such that OCR could read for a signature box and the network could analyze the window. An additional concern was the lack of backups present for our working code. Beyond GitHub we only possessed one machine that had OCR working as intended and as a result we wanted to sync all devices together.
+ 
+Problems:
+While not an immediate problem there was concern as noted for the lack of synced machines within our group. If our one lead machine running OCR failed then we'd have no backup readily available.
+ 
+Progress:
+Network was successfully instantiated and OCR was able to function on a single machine at this stage.
+
+\paragraph{Week 4}
+\mbox{}\\
+We've been encountering difficulty with getting OCR tesseract correctly shared across all machines, the only machine that has it functioning at present is Lee's with which he had to create a dual boot into Ubuntu to actually run it. As it stands we're postponing the sharing of OCR as a result until an easier solution presents itself. The network was successfully shared and is running on multiple machines however. 
+ 
+Currently have the network doing examination and testing on basic handwritten characters to which it is showing relatively high accuracy, intend to expand upon this idea. OCR goal is to use built in functions from leptonica to search for and export the region that includes a signature box.
+ 
+Plans:
+Expand on the idea of using the network paired with a training set of handwritten letters to try and fully read what a signature is saying. Also, with OCR now running we wanted to look into the image processing capabilities of it to start cropping out signature lines.
+ 
+Problems:
+Failure to find an intuitive setup method for installing OCR across all machines meant we opted to postpone the setup. As it stands it requires a dual boot into Ubuntu for OCR to operate and was deemed unreasonable for all machines to do this process. 
+ 
+Progress:
+Initial steps towards image processing a given form has started, ImageMagick will convert the PDF and OCR will start basic image processing to search for the phrase 'signature'.
+
+\paragraph{Week 5}
+\mbox{}\\
+Progress was halted towards setting up OCR on the school server as we prioritized an issue with line segmentation and label construction. OCR's line reading capabilities have hit a snag with regards to the fact that the forms have extensive uses of lines that disrupt reading flow as well as differences in text location (not standard line by line). Also, as it stands we are not entirely sure how to recreate the data labels of the convolutional network so that they fit our needs. Plans have been etched out to begin work towards the midterm progress report as well as the poster that we need to have completed next week.
+ 
+Plans:
+Progress report and poster took precedent this week as far as planning was concerned, setup plans to confirm with client that they are okay with our intended layout for the poster as well.
+ 
+Problems:
+OCR has hit a snag with image processing with the added boxes and lines that are commonly found in forms. These have a tendency to cause erroneous results and confuse the program when trying to determine the correct 'lines' to read from.
+ 
+Progress:
+Attempts made for OCR setup on school server as well as progress underway for progress report and poster.
+
+\paragraph{Week 6}
+\mbox{}\\
+The rush to make it to alpha state was our priority this week. We have resolved issues concerning line segmentation and now needed to focus on binding our three main components together. Current plan is to bind OCR Tesseract and the Convolutional Network together into a single C++ program that simple calls both. This combined 'alpha' program will then be wrapped with ImageMagick in a shell script to convert a provided image. Poster has been completed and submitted.
+ 
+Highest priority as of this point in time is the completion of our individual recordings as well as ensuring that the network can properly accept the signature inputs and judge them. We are not presently concerned with the accuracy of the judgement call due to it being a beta phase concern to fine tune judgement calls.
+ 
+Plans:
+Progress report completion was one of our larger concerns during this week. As for coding, focus was set towards improving hand-off of cropped images from OCR to the network to analyze. Lastly, an alpha state is underway and needs to be completed that will only require a single command line call to run all components of our program.
+ 
+Problems:
+Noted handoff problems by having our network just try and manually sort through the cropped images. Was easy for it to lose its place or inadvertently go out of bounds in its search.
+ 
+Progress:
+OCR recognition was improved to better cope with various sources of noise within a document. Progress report was near completion and all three parts of project appear to work as we intend on their own.
+
+\paragraph{Week 7}
+\mbox{}\\
+Focus was placed on finally getting OCR working across multiple machines through a Ubuntu VM for Windows. Setup appears to have been successful on that front. Effort has also been made towards the merging of our ImageMagick library to have it in-line with our C++ alpha program. We are currently contemplating the best course of action for either taking the System() call route or the Magick++ construction. Presently favoring the use of System() but will need to verify if the security risks are going to be relevant to our project.
+ 
+Prioritizing bug fixing and expanding our networks comprehension capabilities for this week.
+ 
+Plans:
+Bug squashing and improving network comprehension of inputs was set as our goals for the following week. Considering how best to proceed after realizing that Magick++ isn't an exact replica of the command line variant and will be exploring the pros and cons of that fact.
+ 
+Problems:
+Network intelligence is still very low, and we are now at a stage where we need to boost it's judgement calls.
+ 
+Progress:
+OCR setup has been successfully carried out and we now have the ability to setup our project on any Windows machine without a dependency on a dual boot.
+
+\paragraph{Week 8}
+\mbox{}\\
+After advisement and concerns from client were expressed regarding our automation of testing I made several changes to how our script operates. He prefaced that system calls are fine within the C program but wants to stress a modular build. As such, we continued with the command line concept for ImageMagick with the note that we focused on a separate script as opposed to inline C for now. This script also was built such that more automation took place, with automatic retrieval conversion and running of the project as a whole.
+ 
+Conv. Net also has a split between training and testing phases now.
+ 
+Plans:
+Change from the idea of merging our image conversion with OCR, intend to write a script that carries out that operation completely independent from OCR.
+ 
+Problems:
+No problems surfaced this week.
+ 
+Progress:
+Convolutional network is now properly split between testing and training phases to reduce processing time significantly. Initial script from alpha state is being used as framework for newer version of image conversion.
+
+\paragraph{Week 9}
+\mbox{}\\
+Bash script was deemed acceptable by both teammates and was decided for work to be shifted away from ImageMagick and the bash script over to test cases and profiling. Will now be focusing on Valgrind to search for memory leaks after concerns were made by Juan. The network has now been handed off a sizable data set by us and the current target is an 80% accuracy by the end of the week. Current method to increase training size is to rotate our signatures and treat them as entirely new ones, potentially doubling or tripling the quantity of samples it will have. OCR portion has it's accuracy improved through the use of page analysis and we are currently shifting over to using that. Concerns still exist for correctly automating the vertical cropping and general reading of signature lines that have been heavily polluted by the signature itself.
+ 
+Plans:
+Starting to look into the use of ValGrind as a tool to assist in debugging and detecting potential faults within our project. Continued work is also being made on better automating the cropping process for OCR with regards to the types of signature lines it may face.
+ 
+Problems:
+Portions of OCR cropping process are a bit too manual for our liking with rigid parameters in place. In addition, signature line reading is proving iffy if the document has too much noise from the scanning process into a PDF form.
+ 
+Progress:
+Added several hundred values that can serve as a training set for our program as well as general improvements being made towards OCR line detection.
+
+\paragraph{Week 10}
+\mbox{}\\
+We managed to create a running version of our project that correctly interpreted whether a signature is present or not. After noticing a deficiency in recognizing empty signature lines correctly we improved the learning criteria for that area and it is now correctly, with relative accuracy, detecting intended output. Bash script needed revisions to better automate in the presence of multiple PDF's and images. Corrections for this area have been made. OCR had adjustments made to accommodate the potential for choppy or noisy pdf scans with uneven line detection. 
+ 
+Plans:
+Progress report is taking top priority with general goals being set to handle OCR issues with poorly scanned documents.
+ 
+Problems:
+No new problems this week.
+ 
+Progress:
+Accuracy of network has approached 85% and can make relatively accurate guesses on whether a stray mark or a signature is present on the document. Several recordings of our program have now been made detailing and documenting the process it goes through for our client.
+
+\subsubsection{Spring Term}
+\paragraph{Summary of the term}
+\mbox{}\\
+This was ultimately a rather low-stress term in regards to workload compared to the previous two. We are prepared for a spike in work as we wrap up the completed documentation but it isn't a major concern given our project proceeded smoothly. There was very little to actually report on as well, the term was mostly just debugging and preparing for expo. Once expo was completed focus was shifted to other classes for a couple weeks and is now brought back to this class as we wrap up the remaining components of the course.
+ 
+Project has met the originally set out goal with our client and he does have access to it via our GitHub.
+ 
+All known bugs have been squashed prior to freeze date and carried a 100% accuracy reading on all test forms we submitted to it.
+
+
+\paragraph{Week 1}
+\mbox{}\\
+Plans
+The usual organizing of meeting times was the primary goal of the first week for our group, this included determining meeting times with the TA as well as within group and with our client. 
+ 
+Progress
+We were able to set up meeting times with our TA as well as our in-group meeting times for the week. The tentative schedule with our TA will occur weekly on Tuesdays and our group meetings will occur M/W/F from 3-4pm on MW and 11-12 on F.
+ 
+Problems
+Difficulty getting in contact with client to determine a fixed meeting time, we ultimately just assumed that the previously set time from last term was still in effect which proved accurate. Will see if this time causes problems down the line for our group. Another known concern was with Juan's schedule, it appeared he was not confident on what his schedule would look like until next week.
+
+\paragraph{Week 2}
+\mbox{}\\
+Plans
+The primary task for this week was finalizing the debugging and testing process for our project. I personally started writing up more testing sets for the network to be fed, target goal of 200-300 more 'signatures' to be presented into the network by next week.
+ 
+Progress
+We are happy with the feature set it carries and are confident that this successfully meets client expectations. We confirmed that the meeting time within group would function for everyone but would need revision down the road. Also, did not feel it was necessary to request a time change for our client meeting.
+ 
+Problems
+During testing we discovered another bug when doing the line detection component within OCR, it is unclear as to what is causing the problem but it is resulting in inaccurate readings of submitted forms.
+
+\paragraph{Week 3}
+\mbox{}\\
+Plans
+At this stage all weight is placed on the completion of the project by removing all bugs we can find. All consideration for stretch goals have been dropped and no additional testing was deemed necessary.
+ 
+Progress
+Final testing set to be used was given to the group. Juan completed an additional component to the neural network that allowed a more refined look at the signature lines to assist in judgement calls after the OCR module sends the image block. 
+ 
+Problems
+Concern was raised about our document formats that we tested on, client expressed concerns that our efforts to test for edge cases meant we hadn't tested the general expected format for quite some time. After the meeting we immediately re-tested the normal documents and did not find any problems but will run large data sets of the expected documents in the background as we debug.
+
+\paragraph{Week 4}
+\mbox{}\\
+Plans
+Page segmentation was another source of a bug that needed to be remedied. This would accompany our previously mentioned bug concerns that needed to be resolved. Lastly, final poster draft needed to be submitted.
+ 
+Progress
+Poster was cleared for printing by Kevin and was submitted on time for the last time. The page segmentation bug is presumably corrected but will see if it resurfaces down the line.
+ 
+Problems
+Our group has different versions of the project on each of our respective machines and needs to be made uniform before going much farther in testing. The original install instructions need final adjustments.
+
+\paragraph{Week 5}
+\mbox{}\\
+Plans
+With everyone on same page for project version we needed to ensure that all new changes and additions are correctly melded together and posted on our repository in a completed form. Once finished, the progress report will become the priority for the remainder of the week.
+ 
+Progress
+The repository update was a non-issue and was completed this week. All focus was then placed on the progress report we needed to complete.
+ 
+Problems
+After merging all new features and changes we discovered a new set of bugs. The main issue was false-positives with blank signature lines and premature cropping of signature lines from within the OCR component.
+
+\paragraph{Week 6}
+\mbox{}\\
+Plans
+Planning for expo needed to be done, consideration on what we will say as well as ensuring each member is sufficiently versed in the entire project is a concern. The bugs discovered from the previous week also needed to be ironed out given the code freeze was imminent. 
+ 
+Progress
+All bugs we had discovered where ultimately resolved before the code freeze was put in place. Early discussion about what we needed to know for the expo went on within the group and a big focus was made towards ensuring comprehension of the OCR piece.
+ 
+Problems
+There was a warning provided regarding unspecified groups lacking sufficient comments on their code. As a precautionary we wanted to double check and resolve all comments made on our project. It was close to the finish line but we did create some comments that did not get initially placed within the project code. 
+
+\paragraph{Week 7}
+\mbox{}\\
+Plans
+Expo was the only thing on the table for this week. Plans to rehearse what we needed to know about the project as well as plans for various potential mechanical failures had to be discussed.
+ 
+Progress
+Every member discussed what their respective piece of the project did and all members are confident they can speak on behalf of the entire team during the expo.
+ 
+Problems
+No problems, even during expo everything went smoothly.
+
+\paragraph{Week 8}
+\mbox{}\\
+Plans
+We decided to make this a dead week for the group, only obligation was to inform our client that the weekly meetings are no longer necessary.
+ 
+Progress
+Last scheduled meeting with client was held, will be moving towards an as-needed basis of communication with client. Confirmed that our client has access to the project repository as well.
+ 
+Problems
+No problems for this week either. 
+
+\paragraph{Week 9}
+\mbox{}\\
+Plans
+Early planning is being made for final documentation this week but no intention to start extensive work on it until next week.
+ 
+Progress
+Our group closed its inter-group meetings and is now moving to an as-needed texting communication given the lack of work required for this course in comparison to our other classes.
+ 
+Problems
+Again, no problems have occurred. We have received no contact from client and can assume everything is fine.
+
+\paragraph{Week 10}
+\mbox{}\\
+Plans
+Focus has been placed on the video recording as well as in-depth mapping of the final documentation.
+ 
+Progress
+Layout for presentation has been set and, while late, recording should be completed on time.
+ 
+Problems
+Our group has not made contact with Juan for over a week now and will need to re-establish communication to ensure that he is up to date on what is expected of him.
+
+\subsection{Juan Mugica's Weekly Blog Posts}
+\subsubsection{Fall Term}
+\paragraph{Week 1}
+\mbox{}\\
+Looked over potential projects, reviewed specifications, possibilities: 
+
+-CDK AI Stream 
+
+-3D Vision AI 
+
+-Solar Car software application 
+
+\paragraph{Week 2}
+\mbox{}\\
+Started familiarizing with LaTex 
+
+Downloaded MikTex and TexMaker   
+
+First meeting with group members Jacob Geddings and Inhyuk Lee 
+
+\paragraph{Week 3}
+\mbox{}\\
+Began set up of communication frameworks with group members 
+
+Met with TA, discussed course materials and requirements 
+
+Met with Christ Smith of CDK systems 
+
+Learned about the company, his specific role in it, and the nature of our project 
+
+Worked on problem statement 
+
+\paragraph{Week 4}
+\mbox{}\\
+Finished and turned in problem statement 
+
+Set up Github environment 
+
+Started discussing different languages and frameworks that might be utilized to carry out the project 
+
+Talked about project specifications more thoroughly 
+
+Started research on visual recognition AI 
+
+Discussed standards regarding our specific software recognition task 
+
+Obtained USB drive from Christ Smith containing pictures of documents to be used for our project
+
+\paragraph{Week 5}
+\mbox{}\\
+Third meeting with Chris Smith cancelled, details on what our priorities should be regarding the different things discussed (original goals, stretch goals, etc.) to follow. 
+
+Began looking at Requirement document layouts, format, and content. 
+
+\paragraph{Week 6}
+\mbox{}\\
+Finished and turned in rough draft for requirements document 
+
+Created group LaTex layout and makefile 
+
+Integrated new cover page and ensured all pictures correctly display 
+
+Began researching Linux Implementation of OpenCV and OpenCV qualities 
+
+\paragraph{Week 7}
+\mbox{}\\
+Finished OpenCV linux implementation and submitted how-to guide to group github 
+
+Began searching for documentation on Neural Network algorithms and paradigms 
+
+Finalized LaTex Implementation of project requirements, added Gantt Chart and colored text 
+
+\paragraph{Week 8}
+\mbox{}\\
+Created Sliding window algorithm on OpenCV 
+
+Uploaded zip files of the various pictures given to us by Chris Smith 
+
+Began looking at technology review project requirements layout and format 
+
+Submitted project requirements rough draft 
+
+Attempted to contact Christ while away, no response 
+
+\paragraph{Week 9}
+\mbox{}\\
+Meeting with Chris Smith discussing the various documents turned in and the contents of the technology review document. 
+
+Submitted final draft of technology review document 
+
+Finished sliding window algorithm 
+
+\paragraph{Week 10}
+\mbox{}\\
+Implemented design document as a Tex file 
+
+Finished design document 
+
+Finished presentation and progress report document 
+
+\subsubsection{Winter Term}
+\paragraph{Week 1}
+\mbox{}\\
+Plans: 
+Familiarize myself with the architecture of a convolutional neural network. Begin research into implementation. 
+ 
+Progress:  
+Found literature pertaining to convolutional neural networks to share across the group. 
+ 
+Problems: 
+No problem on this week
+\paragraph{Week 2}
+\mbox{}\\
+Plans: 
+Implement convolutional neural network 
+ 
+Progress: 
+Convolutional neural network examples found and implemented. 
+ 
+Problems: 
+Lack of C++ documentation on various aspect of neural networks made it difficult to begin compiling and testing code. 
+
+\paragraph{Week 3}
+\mbox{}\\
+Plans: 
+Train convolutional neural network and gather output in order to assess efficiency and functionality 
+ 
+Progress: 
+Convolutional neural network is 98% accurate and fully instantiated on the OSU server. 
+ 
+Problems: 
+Neural network architecture is designed to understand handwritten digit/letter data as opposed to any specific picture. Input mapped to a specific ubyte file type that is not complacent with our project requirements. 
+
+\paragraph{Week 4}
+\mbox{}\\
+Plans: 
+Split training and testing. 
+ 
+Progress: 
+Correctly split the training module from the testing module, since they were originally one piece.  
+ 
+Problems: 
+Even though training was correctly split, the program does not contain loading or saving modules for trained architectures, meaning once the program is closed the trained architecture is rendered useless.  
+
+\paragraph{Week 5}
+\mbox{}\\
+Plans:  
+Begin working on progress report and poster. Create saving and loading neural network architecture modules.  
+ 
+Progress: 
+Finalized ideas and outlines for progress report as well as poster. Saving modules working correctly. 
+ 
+Problems: 
+Due to C++ implicit memory handling, loading the structure of the different data parts of the net is proving more difficult than expected.
+
+\paragraph{Week 6}
+\mbox{}\\
+Plans: 
+Continue work on loading architectures. Reprogram our neural network to understand an be trained with PNG data as opposed to the existing ubyte data format. 
+ 
+Progress:  
+Image data is now able to be fed into our neural net in order to be trained and tested. Alpha version was completed putting the different components together. 
+ 
+Problems: 
+Size discrepancies between the original data set and our data set mean the size of our input has is much smaller than optimal. Loading close to complete but still producing memory allocation errors.  
+
+\paragraph{Week 7}
+\mbox{}\\
+Plans: 
+Improve network understanding, finalize network loading. 
+ 
+Progress: 
+Network can now be successfully loaded from a previous session. 
+ 
+Problems: 
+Network understanding is still rather low since it cannot continue from a previous point. 
+
+\paragraph{Week 8}
+\mbox{}\\
+Plans: 
+Continue training net. Change net architecture to accept bigger sized inputs 
+ 
+Progress: 
+Previous versions of neural networks are now fully functional after closing the program. Accuracy numbers increasing. 
+ 
+Problems: 
+The neural network accepts images of size 28x28 which is less than sub-optimal given our size of input. 
+
+\paragraph{Week 9}
+\mbox{}\\
+Plans: 
+Fully train neural net with newly sized input. 
+ 
+Progress: 
+Neural network is now able to take 60x60 sized images which contains the same amount of pixels as our signature box size with is 20x120. 
+ 
+Problems: 
+Due to procedurally generated layer sizes dependent on image size, training can take over 5 hours to begin.  
+
+\paragraph{Week 10}
+\mbox{}\\
+Plans: 
+Hold one final robust training session of 100,000 iterations to gain an understanding of the where potential limitations may lie.  
+ 
+Progress: 
+Neural net was adjusted so training does not take unreasonable amounts of time. Accuracy ratings against data set rise to a new high of 91% 
+ 
+Problems: 
+No problems arose this week. 
+
+\subsubsection{Spring Term}
+\paragraph{Week 1}
+\mbox{}\\
+-Add input to permit user to add signature line as a trainer for future results 
+
+-Verify accuracy without the extra training set we've been using
+
+\paragraph{Week 2}
+\mbox{}\\
+Network training verification plus varying document testing
+
+\paragraph{Week 3}
+\mbox{}\\
+Expo sign up plus extra signature creation for testing
+
+Bug pinpointing and fixing
+
+\paragraph{Week 4}
+\mbox{}\\
+Finalize poster 
+
+Begin working on marking positive signatures green and negative signatures red
+
+\paragraph{Week 5}
+\mbox{}\\
+Work on spring midterm finalization, presentation plus personal writing part
+
+\paragraph{Week 6}
+\mbox{}\\
+included a general comment section at the top of the OpenCV file describing what the file is as a whole and double check for function and in-line comments one last time. 
+
+\paragraph{Week 7}
+\mbox{}\\
+Bug fixing and testing, finalize signature positive negative markings
+
+\paragraph{Week 8}
+\mbox{}\\
+Created module to save documents containing signatures lines on separate folder marking them as signed or unsigned depending on number of spots plus contained signatures. 
+
+\paragraph{Week 9}
+\mbox{}\\
+Document saving module testing, implementation and final bug fixing
+
+Document saving module documentation
+
+\paragraph{Week 10}
+\mbox{}\\
+Work on final report
+
+\subsection{Inhyuk Lee's Weekly Blog Posts}
+\subsubsection{Fall Term}
+\paragraph{Summary of the term}
+\mbox{}\\
+Summary of the term: On this term, our group majorly worked on setting the goals and plan of the project. We worked on problem statement, project requirement document, technical review, design document, and progress report.
+
+\paragraph{Week 1}
+\mbox{}\\
+Plans: On week 1, I need to select five interest senior projects and two dislikes senior projects and submit the list on the website. Also, Personal Bio assignment need to be done by 9/26.
+
+Problems: There was no problem on this week.
+
+Progress: Personal Bio assignment is finished on 9/26, and list of interest senior projects is submitted before 9/29.
+
+Summary: On this week, personal bio assignment and list of interest senior projects were submitted. There was no problem on handling these tasks.
+
+\paragraph{Week 2}
+\mbox{}\\
+Plan: On week 2, group was set, so our group need to send an email to our project client. Also, problem statement assignment must be started.
+
+Problems: Our group had difficulties with contacting each other
+
+Progress: 
+
+On 10/3, Jacob (group member) and I shared our contact information.
+
+On 10/4, our group contacted with our client.
+
+On 10/5, our group scheduled meeting time with our client.
+
+On 10/6, our group had meeting at 10:00am at the valley library.
+
+Summary: I am assigned to CDK data stream AI Project with Jacob Geddings and Juan Mugica. Our group contacted with our client and set meeting time. On Friday, Jacob, Juan, and I had meeting, and we talked about the expectation of our project.
+
+\paragraph{Week 3}
+\mbox{}\\
+Plan: Our main goal of our project is to have meeting with our TA and client. Also, problem statement document need to be submitted and group github repository must be shared with out TA and instructors.
+
+Problems: 
+
+1.	I had difficulties on making problem statement in LaTex form.
+
+2.	One of our group member did not showed up on our first meeting with TA.
+
+3.	The place for group meeting with client was not private enough.
+
+Progress: 
+
+10/9 Problem statement assignment has submitted in pdf form.
+
+10/10 Our group had meeting with our TA.
+
+10/10 Our group created our github repo and group one note
+
+10/13 Our group had first meeting with our client
+
+Summary:
+
+On week 3, we had our meeting with our TA and client. Also, we created our group github repo and one note, and shared with our TA and instructors. In addition, I have submitted first draft of my problem statement assignment.
+
+\paragraph{Week 4}
+\mbox{}\\
+Plan: There are two main goal for this week. First, our group should report our first client meeting to our TA and get advice from him. Second, we have to write our problem statement document and submit it due Friday.
+
+Problem: Our group need to research on image recognizer program to gain basic knowledge of it.
+
+Progress: On 10/17 our group explained about detail of our project and got advice from TA.
+
+On 10/18 Jacob made problem statement draft and Juan and I revised it.
+
+On 10/19 our group researched on image recognizer API individually.
+
+On 10/20 We had meeting with client and submitted our final problem statement draft.
+
+Summary: This week, our group explained details of our project to our TA and got advice from him.
+
+Also, we individually researched on image recognizer API, and had discussion on it. On Friday, we submitted our final problem statement draft and had meeting with our client.
+
+\paragraph{Week 5}
+\mbox{}\\
+Plan: Our plan for this week is writing rough draft of our requirement document.
+
+Problem: Our meeting with our client has been canceled.
+
+We had difficulties on scheduling our rough project schedule.
+
+Progress: On 10/27, we finished our document and submitted them on both one note and github.
+
+Summary: On this week we wrote requirement document. We had little difficulties on deciding project schedule because we did not have sense how long each goal of project is going to take. We managed to make rough schedule and writing for feedback. We finished formatting our document in latex and submitted on 10/27. Also, our meeting with client has been canceled due to the client's schedule.
+
+\paragraph{Week 6}
+\mbox{}\\
+Plan: Our main goal is to finish final requirements document.
+
+Problem: Our first draft did not follow the structure that instructor required.
+
+Progress: On 10/31, we started restructuring our document.
+
+On 11/1, we finished most of the restructuring process.
+
+On 11/2, our group wrote more details requirement section.
+
+On 11/3, we had meeting with Chris (our client), and talked about requirement document. After that, finished our final version of document.
+
+Summary: On this week, our group worked on requirements document. We had difficulties in restructuring our document, but we managed to do it.
+
+\paragraph{Week 7}
+\mbox{}\\
+Plan: Our plan for this week is to fix our requirement document and start research on technology review.
+
+Problem: We had problem with communicating with our client.
+
+We need to figure it out three problems for technology review.
+
+Progress: On 10/11, I figured it out how to install pgfgantt package.
+
+On 10/12, our group come up with three problems for technology review.
+
+On 10/11~10/12, our group did research on Handwritten recognition algorithm.
+
+Summary: On this week, our main goal is fixing requirement document and start researching on technology review. We came up with three possible problems related to our project which are selecting proper image learning API, handwritten recognition algorithm, and language.
+
+\paragraph{Week 8}
+\mbox{}\\
+Plan: Final draft of technical review document need to be written. Also, need to contact with client.
+
+Problem: We had difficulties on contacting with our client since our client went to business trip.
+
+Our group misunderstand technical review requirement, so each of our group had to come up with two different problem and six tech.
+
+Goal: On 11/17, We managed to contact with client.
+
+On 11/19, I come up with one more problem and three techniques.
+
+Summary: Our group had misunderstood technical review requirement, so I come up with one more problem and three techniques. Also, we managed to contact with our client. Our client sends requirement document confirmation email to both instructors.
+
+\paragraph{Week 9}
+\mbox{}\\
+Plan: finish technology review
+
+Problem: had difficulties selecting problem and possible solutions
+
+Goal: 11/20 finished second part of technology review
+
+11/21 finished technology review
+
+11/21 meeting with client
+
+Summary: On this week, I have finished my technology review and email to instructor.
+
+We also had meeting with our client. Our class and TA meeting has been canceled.
+
+\paragraph{Week 10}
+\mbox{}\\
+Plan: Finish Design document (by 12/1) and progress report (by 12/3).
+
+Problem: We had difficulties understanding requirement of the design documents
+
+Progress: On12/1 we finished design document.
+
+Summary: On this week, our group mainly focused on finishing design document and progress report.
+
+We also had meeting with TA and client and talked about plan for winter break.
+
+\subsubsection{Winter Term}
+\paragraph{Summary of the term}
+\mbox{}\\
+Summary of the term: On this term, our group majorly focused on implementing our software. By the end of the term, we coded our signature detecting program that reaches all the minimum requirements. Our group divide work into three which are image conversion part, signature line location part, and signature detection part, and each group member took one role. I worked on implementing software that can locate the signature line.
+
+\paragraph{Week 1}
+\mbox{}\\
+Plan: Schedule for meeting with TA and Chris.
+
+Progress: We scheduled the meeting time.
+
+Problem: There was no problem on this week.
+
+Summary: On this week our group setup the meeting time with TA and Chris.
+
+\paragraph{Week 2}
+\mbox{}\\
+Week 2
+
+Plan:
+
+1. Study OCR background and try to make sample code.
+
+2. set the weekly meeting time.
+
+Progress: Our group were able to set group meeting time.
+
+I studied tesseract OCR and tried to install them in my machine. 
+
+Problem: I have difficulties setting up ubuntu OS on my laptop. 
+
+Summary: On this week, our group shared the details of progress that we made to each other, TA, and Chris. Juan worked on researching coevolutionary neural network, Jacob almost finished with converting PDF to png, and I worked on studying OCR. We also set up the weekly meeting time for this term.
+
+\paragraph{Week 3}
+\mbox{}\\
+Plan: Study on OCR and make sample code that can extract text from image.
+ 
+Progress: I was able to set up ubuntu and tesseract OCR on my laptop.
+ 
+Problem: There was problem with installing OCR tesseract. There was an compile issue on newest version. Also, I had difficulties setting up ubuntu OS. I figure out that my laptop model has issue with installing ubuntu.
+
+Summary: On this week, I spend most of the time installing OCR tesseract and make OCR sample code. I had difficulties setting up the coding environment due to the compile issue with new OCR tesseract version and different system config setup, but I managed to solve the problem. Juan worked on convolutional neural network. He built his own neural network and started to feed some data. We also had meeting with TA and Chris. As usual, we reported our progress to both TA and Chris.
+
+\paragraph{Week 4}
+\mbox{}\\
+Plan: Write code that can locate the certain word in document.
+
+Progress: I was able to write code that can divide document into text line.
+ 
+Problem: There was a problem with converting image to text. Some texts are too small so that OCR can't recognize the characters.
+
+Summary: On this week, I was trying to find the way to locate the certain word in the document. So far, I was able to divide the document into text line, convert it to text, and save it as an image. We also reported our progress to our TA and client.
+
+\paragraph{Week 5}
+\mbox{}\\
+Plan: Do research on page analysis to extract the text more accurately.
+ 
+Progress: I was able to write code that can segment the documents, and search for the certain word to locate the signature box.
+ 
+Problem: There are some limitations on our signature box locating program. If the OCR can't recognize search word such as "Signature," it won't locate the signature box. Also, if the signature is written over search word, it will have difficulties on locating it.
+
+Summary: On this week, I researched about page segmentation and made fist alpha version of locating the signature box. As always, we had meeting with TA and Chris to report the progress that we made. During the meeting, we also talked about the progress report and poster design due next week.
+
+\paragraph{Week 6}
+\mbox{}\\
+Plan: Our group needs to write progress report, design poster, and record demo video.
+ 
+Progress: We were able to finish all the plans. In addition to that I was able to set up opencv and tesseract OCR on windows 10.
+
+Our group were able to add all of our codes to make our alpha version.
+
+Jacob and I made about 300 handwritten signature samples for training.
+ 
+Problem: There was no problem on this week.
+
+Summary: On this week, our group focused on making poster draft, progress report, and combine OCR and convolutional neural network together. During the weekends, I was able to set up the opencv and tesseract ocr on windows 10.
+
+\paragraph{Week 7}
+\mbox{}\\
+Plan: Our group needs to setup ImageMagick, OpenCV, and Tesseract OCT on every member's machine.
+
+Line detection needs to be study.
+ 
+Progress: I made an instruction for installing ImageMagick, OpenCV, and Tesseract OCT in Linux Subsystem on Window.
+
+I was able write the code that can detect lines from the image.
+ 
+Problem: I need to know how to extract coordinates of the extracted lines from the image.
+
+Summary: On this week, Jacob and I finally set up the all the required software in each Windows 10 local machine.
+
+Also, we had meeting with TA and Chris. On meeting with our TA, we told our TA that we decided to avoid setting up required software in OSU server because we did not want our software to run slow due to the school internet quality on expo. Also, we asked the way to run the bash script. On meeting with Chris, we give demo on our first alpha version. Besides that, I was working on line finding on both leptonica and openCV.
+
+\paragraph{Week 8}
+\mbox{}\\
+Plan: Improve the signature locating program to cut the signature box based on the sign line.
+
+Also, it needs to save the signature box as \texttt{filename\_page\_number\_sig\_number.png}.
+
+Handwritten signatures must be generated to train our convolutional neural network.
+ 
+Progress: Signature locating program can now detect horizontal lines, and it can cut the signature box based on the sign line. Also, it now saves file name as \texttt{filename\_page\_number\_sig\_number.png}.
+
+I was able write the code that can detect lines from the image.
+
+Jacob and I made 600 handwritten signature samples.
+ 
+Problem: Signature locating program must send the location of the generated signature box to convolutional neural network.
+
+Summary: This week, our group worked on improving each parts of the program. I worked on line finding to generate signature box with less noises, and Juan worked on segmenting the conv net to training part and execution part. Also, Jacob worked on bash script that can run multiple files and convert files from pdf to png. On this week, our meeting with Chris has been canceled, but instead, he wants us to give demo to his stakeholder. Since, our conv net is not fully trained yet, we focused on generating sample signatures. On this week, Jacob and I made more than 600 samples.
+
+\paragraph{Week 9}
+\mbox{}\\
+Plan: Convolutional neural net must be trained.
+
+Updated version of our codes must be put it together.
+
+Demo for our program must be recorded and send it to Chris by next Thursday.
+
+Three problems on signature locating program must be fixed (more details on OCR progress subpage).
+ 
+Progress: We were able to train our convolutional neural network.
+
+Signature locating program had problem with reading scanned document, but I fixed it.
+ 
+Problem: Our convolutional neural network must be trained more to distinguish between signature and non-signature. There are still two more problems with signature locating program.
+
+Summary: On this week, we focused on training our conv net and debugging our software. We were able to train about 900 signature samples; however, we did not train enough non-signature samples. We found some problems on SigLoc program. We need to fix program to set proper height on different document. Also, it had problem with processing scanned document.
+
+On TA meeting, our TA pointed out some problems on our progress report document.
+
+On meeting with Chris, we give demo to him on our trained version of software. Chris required us to record short demo video for his stakeholders.
+
+\paragraph{Week 10}
+\mbox{}\\
+Plan: Fix some problem with line detection on scanned documents.
+
+Convolutional neural network must be trained on non-signature samples.
+ 
+Progress: Fixed bugs on line detection on scanned documents. It now detects lines from scanned documents.
+
+Convolutional neural network is now trained enough, and it now distinguish between signature and non-signature.
+ 
+Problem: On some scanned document, line detection won't detect full length of sing line.
+
+Summary: On this week, our group focused on training the conv new and fixing bugs on line detection, so we can give demo to Chris. On Wednesday, we finished putting our updated parts together, and tested signed and unsigned scanned documents. We were able to record the demo and send it to Chris. On Friday, we talked about the plan for progress report, and future plan for our project.
+
+\subsubsection{Spring Term}
+\paragraph{Summary of the term}
+\mbox{}\\
+Summary of the term: On this term, our group focused on debugging our program. Also, we prepared for the expo to demonstrate our project to public.
+
+\paragraph{Week 1}
+\mbox{}\\
+Plan: Setting up meeting time with group members.
+
+Goal: Our group set up weekly meeting time and meeting time with TA.
+
+Problem: We need to set up meeting time with our client.
+
+Summary: On this week, our group mainly focused on scheduling our meeting time.
+
+\paragraph{Week 2}
+\mbox{}\\
+Plan: Debugging our program and testing.
+
+Goal: We set weekly meeting time and worked on generating testing sets.
+
+Problem: Line detection must be debugged.
+
+Summary: On this week, we set up the weekly meeting time. Also, I worked on fixing bug on line detecting function of our program.
+
+\paragraph{Week 3}
+\mbox{}\\
+Plan: Our group member focused on debugging our code
+
+Goal: Jacob made signatures and different document form for testing. Juan made signature detection program. I fixed line detection bug.
+
+Problem: Our group need to test hole program on different document format.
+
+Summary: This week, I still caught up with fixing line detection function. It had difficulties detecting straight line.
+
+\paragraph{Week 4}
+\mbox{}\\
+Plan: We found bug on page segmentation, so our main goal is to fix that bug. Also, we have to submit our final poster draft.
+
+Goal: Our group were able to submit the poster and fix the bug.
+
+Problem: Our group needs to add all the updated parts and do more testing.
+
+Summary: On this week, our group managed to submit the poster. Also, I fixed bug on page segmentation function.
+
+\paragraph{Week 5}
+\mbox{}\\
+Plan: On this week, we need to update all the new version of program and combine into alpha version. Also, we need to work on progress report.
+
+Goal: Our group were able to update our alpha version and work on progress report.
+
+Problem: Few bugs were found during the weekly meeting. We need to train our convolutional neural net on horizontal line as non-signature. Also, we found bug that when signature takes small portion on signature line.
+
+Summary: Our group updated all the debugged part on our alpha version. Then, we tested entire program. During the test, we found few bugs on both signature line location program and signature detecting program.
+
+\paragraph{Week 6}
+\mbox{}\\
+Plan: Our main goal of this week is to finish our debugging and updating before the code freeze.
+
+Goal: I was able to fix the bug that constantly caused by line detection. Also, I was able to modify the code so that the program can now detect the two different form of sign line. One is the sign line that has line next to the text part, and the other is the one that has line above to the text part. Also, I finished commenting the code on our alpha version. Juan updated convolutional neural network, so it can now save the result into directory called \texttt{contains\_signature}. Jacob updated bash script.
+
+Problem: Our SigFind program still have some dugs. However, it satisfies our minimum requirements.
+
+Summary: On this week, our group focused on fixing all the bugs before the code freeze. I was managed to fix bug on line detection, and I add new function that can detect different types of signature line format. Before the code freeze, our group managed to fix the major bugs.
+
+\paragraph{Week 7}
+\mbox{}\\
+Plan: This week, our group focused on preparing the expo. We planned to review our software and record the demo video for the expo.
+
+Goal: On weekly meeting, our group reviewed all individual part (image conversion part, OCR part, and convolutional neural net part). We made a short script for our group onenote. Also, I record the two-demo video for the expo.
+
+Problem: There was no problem on this week since it was all reviewing our work.
+
+Summary: On this week, our group prepared for the expo. We recorded the two-demo video and go over entire program. We successfully give presentation on our expo.
+
+\paragraph{Week 8 and Week 9}
+\mbox{}\\
+There was no capstone activity during these weeks since it was almost over.
+
+\paragraph{Week 10}
+\mbox{}\\
+Plan: Our group focused on making final report video and final report
+ 
+Goal: Our group spited video into three sections. Which are following.
+
+Block 1: What we learned from this project, initial misconceptions that we had and what we did to overcome them. 
+
+Block 2: What our completed project looks like, showcase how it does run and what went into that
+
+Block 3: What limitations exist with our project and in what ways it can be expanded upon.
+
+Jacob took first section, I took second section, and Juan took third section. We successfully record each part and submitted on Canvas.
+
+For the final report, our group worked on updating changes we made and adding project documentation.
+
+Problem: There was no problem on these week.
+
+Summary: During these week, our group worked on recording the final report video and writing final report.
+
+\section{Final Poster}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{poster}
+\end{figure}
+
+\section{Project Documentation}
+\subsection{How does your project work?}
+Picture for a second a scenario that happens all too often in businesses all around the globe. In an obscure business department somewhere there sits an employee whose sole job is sifting through legal documents. When sifting through these, the main goal is to ensure that they have been processed correctly, which often comes down to whether they are signed or not. Usually legal documentation will be very long only containing a small subset of pertinent documents that are either signed or must be signed. The only solution nowadays is for someone to personally scroll through all of these documents in order to find out which ones should be looked at. But what if there was a program that could find signatures or lines that are supposed to be signed on any document no matter the format? This is what SigFind does and here’s how it does it. First it scans the document using OCR Tesseract which turns images of characters into characters readable by a computer. Once this is done it allows us to look for signature placehodlers such as “sign here” or “signature”. Once we have pinpointed where possible signatures could be found, we generate a box around signature lines or spaces. This signature is then passed into a Convolutional Neural Network, a neural network specifically designed to classify pictures. This specific neural network has been trained to understand many different signature patterns by being shown real human signatures hundreds of thousands of times. If the network deems that the box indeed contains a signature, it will highlight the area green, if it does not, it will highlight red. If any of the documents scanned has a signature line or a signature, it will be saved into a completely separate directory and renamed to include how many signatures are contained and how many unsigned lines there are. Now this absurdly mundane task is completely automated and our frustrated worker can find a better job. 
+
+\subsection{Installation}
+To setup ImageMagick, OpenCV, and Tesseract OCT, we need to set up Linux Subsystem on Windows.
+
+All you need to do is installing ubuntu app on windows store.
+
+This is the link that shows the instruction how to set up Linux subsystem.
+
+https://docs.microsoft.com/en-us/windows/wsl/install-win10
+
+\subsubsection{OpenCV (3.3.1 version) installation:}
+
+Type the following steps on the command line.
+
+sudo apt-get install build-essential
+
+sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+
+sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-22-dev
+
+cd ~/$<$my\_working \_directory$>$
+
+Go to https://opencv.org/releases.html and download source code
+
+cd ~/opencv
+
+mkdir release
+
+cd release
+
+cmake -D CMAKE\_BUILD\_TYPE\$=RELEASE -D CMAKE\_INSTALL\_PREFIX\$=/usr/local ..
+
+make -j8
+
+sudo make install
+
+For compiling convenience, do following steps.
+
+After following the instruction, you just need to compile with `pkg-config opencv --cflags --libs` option in g++
+
+sudo vim /etc/ld.so.conf.d/opencv.conf
+
+	\# note: that is a lowercase 'L'
+
+\# type this into the file
+
+/usr/local/lib
+
+\# exit out of file and enter:
+
+sudo ldconfig
+
+sudo vim /etc/bash.bashrc
+
+\# in the newly opened file:
+
+\# type this at the bottom of the file
+
+PKG\_CONFIG\_PATH=\$PKG\_CONFIG\_PATH:/usr/local/lib/pkgconfig
+
+export PKG\_CONFIG\_PATH
+
+sudo apt-get install execstack
+
+sudo /usr/sbin/execstack -c /usr/local/lib/libopencv\_*
+
+
+\subsubsection{Leptonica and Tesseract OCR installation:}
+
+Currently, newest version of tesseract OCR has compile error, so we need to install 3.0.5 version. 3.0.5 version is the most newest stable version.
+
+Leptonica
+
+\# remove tesseract binaries and languages
+
+sudo apt-get remove tesseract-ocr*
+ 
+\# remove leptonica
+
+sudo apt-get remove libleptonica-dev
+ 
+\# make sure other dependencies are removed too
+
+sudo apt-get autoclean
+
+sudo apt-get autoremove --purge
+ 
+\# install required libraries
+
+sudo apt-get install autoconf automake libtool
+
+sudo apt-get install autoconf-archive
+
+sudo apt-get install pkg-config
+
+sudo apt-get install libpng12-dev
+
+sudo apt-get install libjpeg8-dev
+
+sudo apt-get install libtiff5-dev
+
+sudo apt-get install zlib1g-dev
+
+sudo apt-get install libicu-dev
+
+sudo apt-get install libpango1.0-dev
+
+sudo apt-get install libcairo2-dev
+
+sudo apt-get install libtool
+
+
+
+\# Install leptonica-1.75.2
+
+Go to http://www.leptonica.org/download.html and download source file
+
+cd leptonica
+
+autoreconf -i 
+
+./autobuild
+
+./configure
+
+sudo make
+
+sudo make install
+
+tesseract-OCR (3.0.5v)
+
+Download source from this link: https://lucacerone.net/2017/install-tesseract-3-0-5-in-ubuntu-16-04/
+
+Copy the source file from your windows to Linux subsystem.
+
+cp /mnt/$<$drive$>$/User/your user name/location of the source file ~/location that you wants to install.
+
+Note: you can access windows repositories from Linux subsystem from /mnt/
+
+Unzip the file
+
+cd tesseract
+
+./autogen.sh
+
+./configure --enable-debug
+
+LDFLAGS="-l/usr/local/lib" CFLAGS="-i/usr/local/include" make
+
+sudo make install
+
+sudo make install -langs
+
+sudo ldconfig
+
+To extract text from image file, you need to install tessdata (trained set of data).
+
+Download tessdata from this link: https://lucacerone.net/2017/install-tesseract-3-0-5-in-ubuntu-16-04/
+
+This tessdata includes many languages, if you need only English, you can copy only English data to tessdata repository.
+
+Copy the tessdata and copy it to the /usr/share/tesseract-ocr/tessdata or similar to this.
+
+(if that does not work try /usr/local/share/tessdata)
+
+^^ sudo cp 
+
+\subsubsection{ImageMagick:}
+
+sudo apt-get install ghostscript
+
+sudo apt-get install libgs-dev
+
+sudo apt-get install gs-esp
+
+sudo apt-get --purge remove imagemagick
+
+Get the source of ImageMagick, untar it, cd ImageMagick-xx
+
+./configure --with-gslib=yes [and what else you need]
+
+Confirm in the output near the bottom gslib yes yes and not gslib yes no
+
+make
+
+make install
+
+\subsubsection{Graphical Applications:}
+
+https://seanthegeek.net/234/graphical-linux-applications-bash-ubuntu-windows/
+
+In order to run Linux GUI applications on Bash On Ubuntu on Windows, you must:
+ 
+Install a X server for Windows
+
+Configure bash to tell GUIs to use the local X server
+
+Install VcXsrv
+
+In order to run graphical Linux applications, you will need an X server.
+ 
+VcXsrv is the only fully open source and up-do-date native X server for windows.
+ 
+Download and run the latest installer
+
+Run XLaunch
+
+Press Next three times and press finish button.
+
+A X icon will appear in your system tray.
+ 
+Configure bash to use the local X server
+
+In bash run:
+
+echo "export DISPLAY=localhost:0.0" $>$$>$ ~/.bashrc
+
+To have the configuration changes take effect, restart bash, or run:
+
+. ~/.bashrc
+
+Test a graphical application
+
+Install x11-apps
+
+sudo apt-get install x11-apps
+
+Run xeyes
+
+A new window will open, containing a pair of eyes that will follow your mouse movements.
+
+\subsubsection{Compiling example:}
+
+g++ sample.cpp -o sample `pkg-config opencv --cflags --libs` -llept -ltesseract
+
+\subsection{How to run the program}
+You just need to place all the pdf documents in form\_bin directory and type bash header\_bash on command line.
+
+\section{Technical Resources}
+\subsection{CONVOLUTIONAL NETWORK RESOURCES}
+Below are the four most pertinent learning tools used for the creation of our network and understanding how it works. The first source breaks down the architecture associated with a convolutional network. The second and third sources are videos to help dissect the mathematical nature behind these networks. Lastly, the final source showcases how the layers of a network function and how the underlying math is applied to a given image when processing it.
+
+“Convolutional Neural Network” ufldl.standford.edu. [Online]. Available: http://ufldl.stanford.edu/tutorial/supervised/ConvolutionalNeuralNetwork/. [Accessed Jan. 3, 2018].
+
+S. Raval, “Convolutional Neural Networks – The Math of Intelligence (Week 4)” youtube.com, Jul. 12, 2017. [Online]. Available: https://www.youtube.com/watch?v=FTr3n7uBIuE. [Accessed Jan. 2, 2018].
+
+L. Serrano, “A friendly introduction to Convolutional Neural Networks and Image Recognition” youtube.com, Mar 20, 2017. [Online]. Available: https://www.youtube.com/watch?v=2-Ol7ZB0MmU. Accessed [Jan. 3, 2018].
+
+A. Deshpande, “A Beginner’s Guide To Understand Convolutional Neural Networks” github.io, Jul. 20, 2016. [Online]. Available: https://adeshpande3.github.io/adeshpande3.github.io/A-Beginner%27s-Guide-To-Understanding-Convolutional-Neural-Networks/. [Accessed Jan. 3, 2018].
+
+\subsection{OCR TESSERACT}
+Below are the three most helpful sources we discovered when trying to conceptualize how OCR Tesseract would work for us. The first source goes into detail on just what Optical Character Recognition is and how computers can be used for this end. The next source covers a basic tutorial on how to make OpenCV work with handwritten classifications of values. Lastly, we have an OCR Tesseract API library that works in conjunction with the OpenCV library. 
+
+C. Woodford, “Optical character recognition (OCR)”, explainthatstuff.com, Jan. 2, 2018. [Online]. Available: https://www.explainthatstuff.com/how-ocr-works.html. [Accessed Feb. 20, 2018].
+
+S. Mallick, “Handwritten Digits Classification : An OpenCV ( C++ / Python ) Tutorial” leanopencv.com, Jan. 30, 2017. [Online]. Available: https://www.learnopencv.com/handwritten-digits-classification-an-opencv-c-python-tutorial/. [Accessed Feb. 22, 2018].
+
+“OCRTesseract Class Reference” opencv.org. [Online]. Available: https://docs.opencv.org/3.4.0/d7/ddc/classcv\_1\_1text\_1\_1OCRTesseract.html. [Accessed Feb. 18, 2018].
+
+\section{Conclusions and Reflections}
+\subsection{Jacob Geddings}
+\subsubsection{What technical information did you learn?}
+This project was entirely new to me in scope and subject matter. While I did have experience with the languages we decided to go with, that was where my experiences ended. As a result, some of the new technical information that I had to pick up on was how image processing AI operates. Learning about convolutional networks as well as the kernel, layering, and filtering within them was very different from anything I’ve had to study before. Beyond just the network itself the use of OCR Tesseract required new knowledge in page analysis as well as the function calls necessary to merge these two libraries together so that we could make use of their independent strengths.
+
+\subsubsection{What non-technical information did you learn?}
+As for non-technical knowledge there was a lot of research that went into understanding what makes all of the major open-sourced artificial intelligence good. When looking at our options I had to learn just what would make OpenCV our best choice when considering how best to interpret images. Another non-technical bit of information that I had to learn was using all of these new API libraries for ImageMagick, OCR Tesseract, and OpenCV. While they themselves would likely be considered technical the usage of them was anything but. Not only was the process of finding the documentation for these libraries a challenging experience but also deciding on what version we would use and on what platform.
+
+\subsubsection{What have you learned about project work?}
+Where a lot of my work went into was the general non-coding work associated with working with a client, teammates, and without the usual deadlines. In this environment I learned a great deal about the development cycle for creating projects such as these. In particular, the amount of paperwork that goes into them before even a single line of code is written down is incredible. What is amusing, or not so amusing, about this fact is that even though we spend months planning our project we almost immediately found small nuances we hadn’t accounted for or got wrong in our initial impressions of how this project would go despite the careful planning.
+
+\subsubsection{What have you learned about project management?}
+From a managing perspective this was a great opportunity for me to gain experience with leading a CS related team towards the completion of a project. The challenges associated with ensuring timelines are upkept and deadlines are being met was not something I really appreciated before this course. Assigning new meeting times, documenting what was said during meetings, and figuring out what the important takeaways of those meetings were proved to be a lot more demanding and enjoyable than I had initially figured them to be. One of the more stressful bits about this leadership position was the requirement to communicate with our client, as the lead communicator I had to get comfortable with talking to an individual as a ‘client’ as well as our grader.
+
+\subsubsection{What have you learned about working in teams?}
+As for the teamwork itself it wasn’t particularly new in nature. While my role within it was significantly different from previous courses the idea of working alongside other students is not. Some interesting developments we had included learning to cope with the schedule changes that’d occur every term when planning our meeting times. Another part was deciding on how to break up the work, without the usual graded assignment that has this sort of planning baked into it, we had to go about determining workload on our own. Lastly, handling when a group member becomes unresponsive to communication was something we learned to plan ahead for rather than allow it to seize up operations on the project.
+
+\subsubsection{If you could do it all over, what would you do differently?}
+If we could go back and do this entire project over there would be several changes I’d want to make. Firstly, when communicating with the client we failed to really gain metrics on the required component of the project and instead focused on the stretch goals for far too long. We also didn’t evenly divide the work that was associated per member moving into the Winter term, now knowing how much work the various components ultimately became it would have been more efficient to break those up from the start in a more even manner rather than having members hopping around on work. I’d also consider the use of a different language in the end, while we had clearly outlined why we wanted to go with C++, namely it’s performance capabilities, we would eventually realize that performance wasn’t vital and we are mostly just proving a concept. For concept proofing it would have been significantly easier to just develop in either Java or Python.
+
+
+\subsection{Juan Mugica}
+\subsubsection{What technical information did you learn?}
+At the beginning of this project, I had basically no technical understanding of the tools and methods that we would implement for our solution. My specific part of the project was to implement a Convolutional Neural Network to understand and classify handwritten signatures, something which had fascinated me for a while, but of which I had no technical understanding. The first task that I had to tackle was to understand the inner workings of Convolutional Neural Networks, more specifically, what did the input look like, how was it addressed throughout the network, and what did the output look like. In a rather summed up manner, here’s what I learned.
+
+A Convolutional Neural Network starts with a picture input, that is treated as a matrix. To any computing device, an image is a collection of red, green, and blue values, that is every pixel is assessed on the intensity of each of these colors, e.g. a blue pixel would have value of the form (0,0,255). These values range from 0-255 and when looked at as numbers, create a grid of values that can be treated as a matrix whose dimension is the width-1 and whose number of rows are the height. The next integral part of a convolutional network are the feature kernels or feature matrices. These matrices will eventually determine how close our input is to the desired classification, but more on that later. These feature kernels will always be much smaller than the picture matrix and are multiplied across this one. After being multiplied, its members are added up giving us a feature proximity value from the area in which they were multiplied. Once this feature matrix has been scanned throughout the picture, we end up with a smaller matrix consisting of the added-up elements of our previous scan. This is called a convolution.  The next layer is called a ReLu layer, which stands for rectified linear units. These layers are given a threshold minimum, which if a number is under, it will be rectified to 0. This is a strategy utilized to get the most out of matrix multiplication, ensuring that parts of the picture that are not relevant to our target classification hold the least level of importance possible. The next layer is a Max Pooling layer. This layer aims to decrease the load over the network by looking at square subsets of our matrix, and picking the highest value, once again these are the key values we will use to later classify. These steps are repeated as many times as one desires ending in an array of values passed on to a Fully Connected layer. A Fully Connected Layer takes on the conventional neural network architecture. It is a set of layers containing nodes which are fully connected to the next layer, that is every node is connected to every succeeding node. These nodes apply an activation function, meaning they either carry on input, or do not. Fully Connected layers can have binary or classificatory outputs depending on the number of things we would like our network to understand. 
+
+To train these networks an image input is passed on and ran through the network. The parameters within these (the feature kernels, as well the weights within the fully connected network), are at first fully randomized. The first output will be pretty random except for it gives us a cost, which is the difference between an expected output and our actual output. In essence, all Neural Networks are minimizing a cost functions, whose parameters are the aforementioned kernels and fully connected network weights. After a pass, an optimization is performed which tells the network whether the route taken by the input was erroneous or correct. This optimization modifies the weights within the network as well as the kernel matrix values, all dependent on which triggered the response, or in the features kernels where the response was triggered. Eventually, our feature kernels will start to look like parts of our picture, which when multiplied against our input will yield high values. 
+
+Moreover I had to learn how to implement and work with OpenCV, a computer vision library which enables pixel manipulation, image representation, saving, etc. Beginning to work with it was a daunting task given a widely ranging number of implementations, languages, and documentations. Towards the end of the project, it proved to be an extremely powerful tool for any computer vision program imaginable. 
+
+\subsubsection{What non-technical information did you learn?}
+The most important thing that I learned throughout this course is the value of putting in consistent amounts of work, over long periods of time. As a bit of a procrastinator, I was rather used to seeing the fruit of my work come together in 9-12 hours but seeing the sheer amount of parts created for this project, all working together, to provide a working solution to our problem was a feat that made me realize I had been doing it wrong all along. Not that I ever thought it was the most efficient way, but I digress. 
+
+\subsubsection{What have you learned about project work?}
+Communication is by far the most important element of any project. When a task takes putting many parts together, it is crucial to efficiently delegate tasks and efficiently communicate progress. It is not always easy to tell what will take a long time and what will not, which is why it is essential that progress be communicated, and resources relocated if necessary. Moreover, learning to take and give constructive criticism. When a specific goal is at hand, one should seek to put all personal problems away and communicate in the same manner. Being condescending, rude, mean, does not foster progress, and neither does being defensive, elusive, or evasive. 
+
+\subsubsection{What have you learned about project management?}
+As contrary as it may seem, I learned that project management should be handled by the least number of people possible, albeit competent. There should be a trusted leader who is able to recognize and hand out tasks efficiently. This process can get extremely tricky if everyone is trying to call the shots and nobody trusts each other. 
+
+\subsubsection{What have you learned about working in teams?}
+Once again, the most important part is communication. It’s ok to be late, it’s ok if certain parts do not work correctly, but it is not okay to not let your group members know. Nobody wants to seem like they are not doing their job, and one should always be doing their job. But life can get difficult, schedules can become unreasonable and all of these things should be reported and understood. At the end of the day, you are a team, and whether it be for the best or the worst, you must carry your team when they need it, and be ready to be carried when goals seem unachievable. 
+
+\subsubsection{If you could do it all over, what would you do differently?}
+I’m not gonna lie, I have appreciated essentially every single part of this course, whether it be bad or good, I think there were lessons to be learned in the bad and feel very proud of the good. Being very objective here, I would say that the most important thing is to not relax just because there is a lot of time, and not because you won’t reach the deadline, but rather because your project could have been that much better. 
+
+\subsection{Inhyuk Lee}
+\subsubsection{What technical information did you learn?}
+I have learned many things from this project. Since none of our group member had back ground knowledge on image processing or artificial intelligence, we had to start from learning it. I have learned how optical character recognition works and how convolutional neural network works. In coding wise, now I know how to use Tesseract OCR API to convert image into machine readable text and how to use basic functions of OpenCV to perform image processing. 
+
+\subsubsection{What non-technical information did you learn?}
+None of our group members had back ground knowledge, and we had no advisor to teach us the information. We had to research everything from the scratch. It was very difficult; however, it was valuable experience. I learned how to do get the information that I want and learned how to learn new things. 
+
+\subsubsection{What have you learned about project work?}
+From this project, I learned two things about project work. I learned how to communicate in group and leaned how to divide work equally to work efficiently. I felt that these skills were very important through out the year, and I believe our group did very well on communicating with each other’s and dividing works fairly. For communicating, we had three weekly meeting. If one of the group member miss the meeting, other group members let him know what they did during the meeting or reschedule the meeting time. For work division, we splitted the work into similar portion. Usually we worked individually, and we sum up the work when all the work is done.
+
+\subsubsection{What have you learned about project management?}
+For me, I learned how time management is critical and difficult in group project. Since all of our group member had different schedule, it was difficult to schedule the meeting time and divide the work at first, so we ask each group members schedule when we have assignments due or need meeting. If we could not have meeting, we rescheduled the meeting time or opened up the Webex meeting. Also, if one of the group member is too busy to work on project, other group member covered up his work.
+
+\subsubsection{What have you learned about working in teams?}
+As I mentioned above, I learned how to communicate with other group members, divide work fairly, and set schedule that satisfy all the group members. I felt these skills are very important to work successfully as a group, and we did great on it. We had three meeting every week, and on the meeting, we shared each group member’s progress. We also split the work as fair as possible and set schedule that all group member can be satisfied.
+
+\subsubsection{If you could do it all over, what would you do differently?}
+If I can do it all over, I would like to change the way how we split our work. Our group split the work into three parts which are image conversion part, signature location part, and signature detection part. It makes sense, and it worked well. However, since we split work in this way, all group members do not know details on other member’s part. We do roughly know how it works since we shared our progress on every week, but we do not know enough to help each other. Also, since image converting part was simple compare to other parts, Jacob mostly worked on non-coding stuffs. If we had divided the work differently, he would have learned more on artificial intelligence and image processing. In my case, I know how our convolution neural network works, but do not know how to hard code it.
+
+\section{Appendix 1: Essential Code Listings}
+\begin{figure}
+  \caption{forwardPass code 1}
+  \centering
+  \includegraphics[width=\textwidth]{forwardPass1}
+\end{figure}
+\begin{figure}
+  \caption{forwardPass code 2}
+  \centering
+  \includegraphics[width=\textwidth]{forwardPass2}
+\end{figure}
+\begin{figure}
+  \caption{loadNetwork code 1}
+  \centering
+  \includegraphics[width=\textwidth]{loadNetwork1}
+\end{figure}
+\begin{figure}
+  \caption{loadNetwork code 2}
+  \centering
+  \includegraphics[width=\textwidth]{loadNetwork2}
+\end{figure}
+\begin{figure}
+  \caption{loadNetwork code 3}
+  \centering
+  \includegraphics[width=\textwidth]{loadNetwork3}
+\end{figure}
+\begin{figure}
+  \caption{resultProdict code 1}
+  \centering
+  \includegraphics[width=\textwidth]{resultProdict}
+\end{figure}
+\begin{figure}
+  \caption{resultProdict code 2}
+  \centering
+  \includegraphics[width=\textwidth]{resultProdict2}
+\end{figure}
+\begin{figure}
+  \caption{saveNetwork code 1}
+  \centering
+  \includegraphics[width=\textwidth]{saveNetwork1}
+\end{figure}
+\begin{figure}
+  \caption{saveNetwork code 2}
+  \centering
+  \includegraphics[width=\textwidth]{saveNetwork2}
+\end{figure}
+\begin{figure}
+  \caption{saveWeight\&LoadWeight code}
+  \centering
+  \includegraphics[width=\textwidth]{saveWeight&LoadWeight}
+\end{figure}
+\begin{figure}
+  \caption{scanImage code 1}
+  \centering
+  \includegraphics[width=\textwidth]{scanImage1}
+\end{figure}
+\begin{figure}
+  \caption{scanImage code 2}
+  \centering
+  \includegraphics[width=\textwidth]{scanImage2}
+\end{figure}
+\begin{figure}
+  \caption{trainNetwork code }
+  \centering
+  \includegraphics[width=\textwidth]{trainNetwork}
+\end{figure}
 
 \end{document}

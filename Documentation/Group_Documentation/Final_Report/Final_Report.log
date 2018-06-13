@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=latex 2017.9.1)  12 JUN 2018 15:26
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=latex 2016.3.16)  12 JUN 2018 21:53
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -554,6 +554,14 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen181
 \Gm@dimlist=\toks28
 )
+(/usr/share/texlive/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count141
+\float@exts=\toks29
+\float@box=\box39
+\@float@everytoks=\toks30
+\@floatcapt=\box40
+)
 Package csquotes Info: Checking for multilingual support...
 Package csquotes Info: ... none found.
 
@@ -644,11 +652,11 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <6.6749> on input line 2.
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <4.7678> on input line 2.
- [1] [2])
+ [1] [2] [3] [4])
 \tf@toc=\write4
 \openout4 = `Final_Report.toc'.
 
- [3]
+ [5]
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <9.53561> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 90.
 Missing character: There is no Ô in font pplr7t!
@@ -666,31 +674,11 @@ Missing character: There is no ò in font pplr7t!
 Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ô in font pplr7t!
- [4
+ [6
 
 ]
 LaTeX Font Info:    Font shape `OT1/phv/m/it' in size <9.53561> not available
-(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 108.
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ô in font pplr7t!
- [5]
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ô in font pplr7t!
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ú in font pplr7t!
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ù in font pplr7t!
- [6]
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ô in font pplr7t!
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ô in font pplr7t!
+(Font)              Font shape `OT1/phv/m/sl' tried instead on input line 111.
 Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ô in font pplr7t!
@@ -698,19 +686,40 @@ Missing character: There is no ô in font pplr7t!
 Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ô in font pplr7t!
- [8] [9]
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ú in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ù in font pplr7t!
+ [8]
 Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+ [9]
 Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ô in font pplr7t!
  [10] [11]
-Overfull \hbox (47.78929pt too wide) in paragraph at lines 297--298
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+ [12]
+[13]
+Overfull \hbox (47.78929pt too wide) in paragraph at lines 300--301
 [][] 
  []
 
-[12] [13] [14]
+[14] [15] [16]
 Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ì in font pplr7t!
@@ -718,101 +727,93 @@ Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ù in font pplr7t!
 
-Overfull \hbox (21.45985pt too wide) in paragraph at lines 488--489
+Overfull \hbox (21.45985pt too wide) in paragraph at lines 491--492
 []\OT1/ppl/m/n/9.53561 [11] "OCR  Op-ti-cal Char-ac-ter Recog-ni-tion In-ter-ne
 t: http://www.recogniform.net/eng/ocr-optical-character-recognition.html,
  []
 
 
-Overfull \hbox (285.22276pt too wide) in paragraph at lines 490--491
+Overfull \hbox (285.22276pt too wide) in paragraph at lines 493--494
 []\OT1/ppl/m/n/9.53561 [12] "Sys-tem soft-ware: User in-ter-faces" In-ter-net: 
 https://en.wikibooks.org/wiki/A-levelComputing/CIE/Computersystems,communicatio
 nsandsoftware/Systemsoftware/Userinterfaces,
  []
 
-[15]
-Underfull \hbox (badness 10000) in paragraph at lines 508--510
-
- []
-
-
+[17]
 Underfull \hbox (badness 10000) in paragraph at lines 511--513
 
  []
 
-[16]
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ò in font pplr7t!
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ô in font pplr7t!
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ò in font pplr7t!
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ô in font pplr7t!
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ô in font pplr7t!
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ò in font pplr7t!
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ô in font pplr7t!
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ò in font pplr7t!
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ô in font pplr7t!
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ò in font pplr7t!
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ô in font pplr7t!
- [17]
-Underfull \hbox (badness 10000) in paragraph at lines 538--540
 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 541--544
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 546--548
+Underfull \hbox (badness 10000) in paragraph at lines 514--516
 
  []
 
 [18]
-Underfull \hbox (badness 10000) in paragraph at lines 554--556
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ò in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ò in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ò in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ò in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ò in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+ [19]
+Underfull \hbox (badness 10000) in paragraph at lines 541--543
 
  []
 
 
+Underfull \hbox (badness 10000) in paragraph at lines 544--547
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 549--551
+
+ []
+
+[20]
 Underfull \hbox (badness 10000) in paragraph at lines 557--559
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 569--571
+Underfull \hbox (badness 10000) in paragraph at lines 560--562
 
  []
 
-[19]
+
 Underfull \hbox (badness 10000) in paragraph at lines 572--574
 
  []
 
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ô in font pplr7t!
-
+[21]
 Underfull \hbox (badness 10000) in paragraph at lines 575--577
 
  []
@@ -820,34 +821,42 @@ Underfull \hbox (badness 10000) in paragraph at lines 575--577
 Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ô in font pplr7t!
-[20]
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ô in font pplr7t!
 
-Underfull \hbox (badness 10000) in paragraph at lines 596--598
+Underfull \hbox (badness 10000) in paragraph at lines 578--580
 
  []
 
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+[22]
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
 
 Underfull \hbox (badness 10000) in paragraph at lines 599--601
 
  []
 
-Missing character: There is no ‚ in font pplr7t!
-Missing character: There is no Ä in font pplr7t!
-Missing character: There is no ô in font pplr7t!
 
 Underfull \hbox (badness 10000) in paragraph at lines 602--604
 
  []
 
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
 
-Underfull \hbox (badness 10000) in paragraph at lines 606--608
+Underfull \hbox (badness 10000) in paragraph at lines 605--607
 
  []
 
-[21] [22]
+
+Underfull \hbox (badness 10000) in paragraph at lines 609--611
+
+ []
+
+[23] [24]
 Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ô in font pplr7t!
@@ -857,7 +866,7 @@ Missing character: There is no ô in font pplr7t!
 Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ô in font pplr7t!
- [23]
+ [25]
 Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ú in font pplr7t!
@@ -888,7 +897,7 @@ Missing character: There is no ô in font pplr7t!
 Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ô in font pplr7t!
- [24]
+ [26]
 Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ô in font pplr7t!
@@ -904,51 +913,260 @@ Missing character: There is no ô in font pplr7t!
 Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ô in font pplr7t!
- [25] [26] [27] [28]
-Overfull \hbox (177.94798pt too wide) in paragraph at lines 734--735
+ [27] [28] [29] [30]
+Overfull \hbox (177.94798pt too wide) in paragraph at lines 737--738
 []\OT1/ppl/m/n/9.53561 [4] "Adit Desh-pande: A Beg-giner's Guide to Un-der-stan
 d-ing Con-vo-lu-tional Neu-ral Net-works" In-ter-net: https://adeshpande3.githu
 b.io/adeshpande3.github.io/A-
  []
 
-[29] [30] [31] [32] [33] [34] [35] [36]
-Overfull \hbox (24.63583pt too wide) in paragraph at lines 923--924
+[31] [32] [33] [34] [35] [36] [37] [38]
+Overfull \hbox (24.63583pt too wide) in paragraph at lines 926--927
 []\OT1/ppl/m/n/9.53561 [4] "OCR - Op-ti-cal Char-ac-ter Recog-ni-tion" In-ter-n
 et: http://www.recogniform.net/eng/ocr-optical-character-recognition.html,
  []
 
 
-Overfull \hbox (76.05226pt too wide) in paragraph at lines 925--926
+Overfull \hbox (76.05226pt too wide) in paragraph at lines 928--929
 []\OT1/ppl/m/n/9.53561 [5] "The Dif-fer-ence Be-tween OCR and ICR and Why It Ma
 t-ters for Or-ga-ni-za-tions Us-ing DMS" In-ter-net: https://www.efilecabinet.c
 om/the-
  []
 
 
-Overfull \hbox (18.47806pt too wide) in paragraph at lines 927--928
+Overfull \hbox (18.47806pt too wide) in paragraph at lines 930--931
 []\OT1/ppl/m/n/9.53561 [6] "In-tel-li-gent Word Recog-ni-tion" In-ter-net: http
 ://captricity.com/intelligent-word-recognition/, 2016 [Nov. 21, 2017]. 
  []
 
 
-Overfull \hbox (280.45496pt too wide) in paragraph at lines 929--930
+Overfull \hbox (280.45496pt too wide) in paragraph at lines 932--933
 []\OT1/ppl/m/n/9.53561 [7] "Sys-tem soft-ware: User in-ter-faces" In-ter-net: h
 ttps://en.wikibooks.org/wiki/A-levelComputing/CIE/Computersystems,communication
 sandsoftware/Systemsoftware/Userinterfaces,
  []
 
-[37] (./Final_Report.aux)
+[39] [40] [41] [42] [43] [44] [45] [46] [47] [48] [49] [50] [51] [52] [53]
+[54] [55] [56] [57] [58] [59]
+LaTeX Font Info:    Try loading font information for OT1+pcr on input line 1859
+.
+
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/ot1pcr.fd
+File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
+) [60]
+Overfull \hbox (6.53044pt too wide) in paragraph at lines 1903--1904
+[]\OT1/ppl/m/n/9.53561 Convolutional neu-ral net-work is now trained enough, an
+d it now dis-tin-guish be-tween sig-na-ture and non-signature. 
+ []
+
+[61] [62] [63]
+File: poster.eps Graphic file (type eps)
+ <poster.eps> [64]
+Overfull \vbox (17.9184pt too high) has occurred while \output is active []
+
+
+[65]
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ú in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ù in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ú in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ù in font pplr7t!
+
+Overfull \hbox (12.63023pt too wide) in paragraph at lines 2035--2036
+[]\OT1/ppl/m/n/9.53561 sudo apt-get in-stall python-dev python-numpy libtbb2 li
+btbb-dev libjpeg-dev libpng-dev libtiff-dev libjasper-dev libdc1394-
+ []
+
+[66] [67] [68] [69] [70]
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ú in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ù in font pplr7t!
+
+Overfull \hbox (137.49828pt too wide) in paragraph at lines 2259--2260
+[]\OT1/ppl/m/n/9.53561 Convolutional Neu-ral Net-work ufldl.standford.edu. [On-
+line]. Avail-able: http://ufldl.stanford.edu/tutorial/supervised/ConvolutionalN
+euralNetwork/.
+ []
+
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ú in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ì in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ù in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ú in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ù in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ú in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ù in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ú in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ù in font pplr7t!
+
+Overfull \hbox (107.9684pt too wide) in paragraph at lines 2270--2271
+[]\OT1/ppl/m/n/9.53561 C. Wood-ford, Op-ti-cal char-ac-ter recog-ni-tion (OCR),
+ ex-plainthat-stuff.com, Jan. 2, 2018. [On-line]. Avail-able: https://www.expla
+inthatstuff.com/how-
+ []
+
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ú in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ù in font pplr7t!
+
+Overfull \hbox (11.09541pt too wide) in paragraph at lines 2272--2273
+\OT1/ppl/m/n/9.53561 line]. Avail-able: https://www.learnopencv.com/handwritten
+-digits-classification-an-opencv-c-python-tutorial/. [Ac-cessed
+ []
+
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ú in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ù in font pplr7t!
+
+Overfull \hbox (94.22748pt too wide) in paragraph at lines 2274--2275
+[]\OT1/ppl/m/n/9.53561 OCRTesseract Class Ref-er-ence opencv.org. [On-line]. Av
+ail-able: https://docs.opencv.org/3.4.0/d7/ddc/classcv[]1[]1text[]1[]1OCRTesser
+act.html.
+ []
+
+[71]
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ò in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+ [72]
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+ [73] [74]
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+ [75]
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+Missing character: There is no ‚ in font pplr7t!
+Missing character: There is no Ä in font pplr7t!
+Missing character: There is no ô in font pplr7t!
+ [76]
+File: forwardPass1.eps Graphic file (type eps)
+ <forwardPass1.eps>
+File: forwardPass2.eps Graphic file (type eps)
+ <forwardPass2.eps>
+File: loadNetwork1.eps Graphic file (type eps)
+
+<loadNetwork1.eps>
+File: loadNetwork2.eps Graphic file (type eps)
+ <loadNetwork2.eps>
+File: loadNetwork3.eps Graphic file (type eps)
+ <loadNetwork3.eps>
+File: resultProdict.eps Graphic file (type eps)
+ <resultProdict.eps>
+File: resultProdict2.eps Graphic file (type eps)
+
+<resultProdict2.eps>
+File: saveNetwork1.eps Graphic file (type eps)
+ <saveNetwork1.eps>
+File: saveNetwork2.eps Graphic file (type eps)
+ <saveNetwork2.eps>
+File: saveWeight&LoadWeight.eps Graphic file (type eps)
+
+<saveWeight&LoadWeight.eps>
+File: scanImage1.eps Graphic file (type eps)
+ <scanImage1.eps>
+File: scanImage2.eps Graphic file (type eps)
+ <scanImage2.eps>
+File: trainNetwork.eps Graphic file (type eps)
+
+<trainNetwork.eps> [77] [78] [79] [80] [81] [82] [83] [84] [85] [86] [87]
+[88] [89] (./Final_Report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 13616 strings out of 495064
- 268699 string characters out of 3182225
- 378133 words of memory out of 3000000
- 16563 multiletter control sequences out of 15000+200000
- 29426 words of font info for 72 fonts, out of 3000000 for 9000
+ 13741 strings out of 495064
+ 270453 string characters out of 3182224
+ 379487 words of memory out of 3000000
+ 16665 multiletter control sequences out of 15000+200000
+ 29642 words of font info for 73 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 63i,9n,66p,1356b,817s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 63i,9n,66p,2361b,819s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Final_Report.dvi (38 pages, 259316 bytes).
+Output written on Final_Report.dvi (90 pages, 390860 bytes).
