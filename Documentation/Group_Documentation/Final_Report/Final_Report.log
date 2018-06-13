@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=latex 2016.3.16)  12 JUN 2018 21:53
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=latex 2016.3.16)  12 JUN 2018 22:05
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -995,7 +995,7 @@ Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ù in font pplr7t!
 
-Overfull \hbox (137.49828pt too wide) in paragraph at lines 2259--2260
+Overfull \hbox (137.49828pt too wide) in paragraph at lines 2260--2261
 []\OT1/ppl/m/n/9.53561 Convolutional Neu-ral Net-work ufldl.standford.edu. [On-
 line]. Avail-able: http://ufldl.stanford.edu/tutorial/supervised/ConvolutionalN
 euralNetwork/.
@@ -1032,7 +1032,7 @@ Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ù in font pplr7t!
 
-Overfull \hbox (107.9684pt too wide) in paragraph at lines 2270--2271
+Overfull \hbox (107.9684pt too wide) in paragraph at lines 2272--2273
 []\OT1/ppl/m/n/9.53561 C. Wood-ford, Op-ti-cal char-ac-ter recog-ni-tion (OCR),
  ex-plainthat-stuff.com, Jan. 2, 2018. [On-line]. Avail-able: https://www.expla
 inthatstuff.com/how-
@@ -1045,7 +1045,7 @@ Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ù in font pplr7t!
 
-Overfull \hbox (11.09541pt too wide) in paragraph at lines 2272--2273
+Overfull \hbox (11.09541pt too wide) in paragraph at lines 2274--2275
 \OT1/ppl/m/n/9.53561 line]. Avail-able: https://www.learnopencv.com/handwritten
 -digits-classification-an-opencv-c-python-tutorial/. [Ac-cessed
  []
@@ -1057,7 +1057,7 @@ Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ù in font pplr7t!
 
-Overfull \hbox (94.22748pt too wide) in paragraph at lines 2274--2275
+Overfull \hbox (94.22748pt too wide) in paragraph at lines 2276--2277
 []\OT1/ppl/m/n/9.53561 OCRTesseract Class Ref-er-ence opencv.org. [On-line]. Av
 ail-able: https://docs.opencv.org/3.4.0/d7/ddc/classcv[]1[]1text[]1[]1OCRTesser
 act.html.
@@ -1124,7 +1124,6 @@ Missing character: There is no ô in font pplr7t!
 Missing character: There is no ‚ in font pplr7t!
 Missing character: There is no Ä in font pplr7t!
 Missing character: There is no ô in font pplr7t!
- [76]
 File: forwardPass1.eps Graphic file (type eps)
  <forwardPass1.eps>
 File: forwardPass2.eps Graphic file (type eps)
@@ -1154,8 +1153,8 @@ File: scanImage2.eps Graphic file (type eps)
  <scanImage2.eps>
 File: trainNetwork.eps Graphic file (type eps)
 
-<trainNetwork.eps> [77] [78] [79] [80] [81] [82] [83] [84] [85] [86] [87]
-[88] [89] (./Final_Report.aux)
+<trainNetwork.eps> [76] [77] [78] [79] [80] [81] [82] [83] [84] [85] [86]
+[87] [88] (./Final_Report.aux)
 
 LaTeX Warning: There were multiply-defined labels.
 
@@ -1167,6 +1166,6 @@ Here is how much of TeX's memory you used:
  16665 multiletter control sequences out of 15000+200000
  29642 words of font info for 73 fonts, out of 3000000 for 9000
  14 hyphenation exceptions out of 8191
- 63i,9n,66p,2361b,819s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 63i,9n,66p,2342b,819s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on Final_Report.dvi (90 pages, 390860 bytes).
+Output written on Final_Report.dvi (89 pages, 389716 bytes).
